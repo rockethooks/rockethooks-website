@@ -1,0 +1,44 @@
+# RocketHooks
+
+> RocketHooks is an API transformation platform that converts REST API endpoints into real-time event streams through intelligent polling, change detection, and multi-channel notifications.
+
+## Overview
+
+RocketHooks transforms any REST API into real-time webhooks and notifications without requiring infrastructure changes. It monitors API endpoints for changes, detects field-level differences using JSONPath, and delivers events through webhooks, Slack, SMS, email, and custom integrations.
+
+## Key Capabilities
+
+- REST API to real-time event transformation
+- Intelligent polling with configurable intervals
+- JSONPath-based field-level change detection
+- Multi-channel delivery (webhooks, Slack, SMS, email)
+- Universal API authentication (OAuth, API keys, custom headers)
+- Zero infrastructure changes required
+
+## Key Pages
+
+- Homepage: https://www.rockethooks.com/
+- Pricing: https://www.rockethooks.com/pricing/
+- Use Cases: https://www.rockethooks.com/use-cases/
+- Blog: https://www.rockethooks.com/blog/
+- Documentation: https://docs.rockethooks.com/
+
+## Use Cases
+
+- CRM monitoring (Salesforce, HubSpot deal/contact changes)
+- E-commerce inventory and order tracking
+- DevOps deployment and CI/CD pipeline notifications
+- ERP data synchronization and alerts
+- Database change detection and replication
+
+## Technical Details
+
+- Built on AWS Lambda, DynamoDB, and EventBridge
+- GraphQL API via AWS AppSync with real-time subscriptions
+- Clerk authentication with KMS encryption
+- SOC 2 compliant infrastructure
+
+## Contact
+
+- Website: https://www.rockethooks.com/
+- Support: support@rockethooks.com

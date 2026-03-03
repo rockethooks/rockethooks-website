@@ -1,0 +1,41 @@
+# Cloudflare Pages headers configuration
+# https://developers.cloudflare.com/pages/configuration/headers/
+
+# Security headers applied to all pages
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+  X-XSS-Protection: 1; mode=block
+
+# Cache immutable static assets (hashed filenames from build)
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Cache HTML pages for 1 hour, allow stale-while-revalidate
+/*.html
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+# Root page caching
+/
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+# Cache sitemap and robots.txt for 24 hours
+/sitemap*.xml
+  Cache-Control: public, max-age=86400
+
+/robots.txt
+  Cache-Control: public, max-age=86400
+
+# Cache RSS feed for 1 hour
+/rss.xml
+  Cache-Control: public, max-age=3600
+
+# Cache llms.txt for 24 hours
+/llms.txt
+  Cache-Control: public, max-age=86400
+
+# Prevent indexing of preview deployments (*.pages.dev)
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
