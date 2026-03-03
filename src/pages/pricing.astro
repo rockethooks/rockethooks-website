@@ -1,0 +1,280 @@
+---
+import LandingLayout from '@layouts/LandingLayout.astro';
+import SectionHeading from '@components/shared/SectionHeading.astro';
+import PricingTier from '@components/landing/PricingTier.astro';
+import FinalCTA from '@components/shared/FinalCTA.astro';
+import WebApplicationSchema from '@components/seo/WebApplicationSchema.astro';
+import OfferSchema from '@components/seo/OfferSchema.astro';
+import FAQSchema from '@components/seo/FAQSchema.astro';
+import BreadcrumbSchema from '@components/seo/BreadcrumbSchema.astro';
+import { Icon } from 'astro-icon/components';
+import { pricingTiers } from '@data/pricing';
+import { faqs } from '@data/faqs';
+
+const pricingFaqs = faqs.filter((faq) => faq.category === 'pricing');
+
+const additionalPricingFaqs = [
+  {
+    question: 'Do you offer annual billing?',
+    answer:
+      'Yes. Annual billing is available for Pro plans at a 20% discount -- effectively $23.20/month billed annually. Contact sales for Enterprise annual pricing.',
+  },
+  {
+    question: 'Is there a free trial for the Pro plan?',
+    answer:
+      'Yes. Every new account starts with a 14-day Pro trial with full access to all Pro features. No credit card required. At the end of the trial, you can upgrade to Pro or continue on the Free plan.',
+  },
+  {
+    question: 'What payment methods do you accept?',
+    answer:
+      'We accept all major credit cards (Visa, Mastercard, American Express) and process payments securely through Stripe. Enterprise customers can pay by invoice with NET-30 terms.',
+  },
+  {
+    question: 'Can I get a refund?',
+    answer:
+      'We offer a 30-day money-back guarantee on all paid plans. If you are not satisfied, contact support within 30 days of your purchase for a full refund -- no questions asked.',
+  },
+  {
+    question: 'Do you offer discounts for startups or non-profits?',
+    answer:
+      'Yes. We offer 50% off Pro plans for verified startups (under 2 years, under $5M funding) and registered non-profit organizations. Contact us with proof of eligibility to apply.',
+  },
+  {
+    question: 'What counts as a webhook delivery?',
+    answer:
+      'A webhook delivery is counted each time RocketHooks sends a notification to one of your configured channels (webhook URL, Slack, SMS, or email). A single API change triggering 3 channels counts as 3 deliveries.',
+  },
+  {
+    question: 'What happens to my data if I downgrade?',
+    answer:
+      'Your monitors and configurations are preserved when you downgrade. Monitors exceeding the lower plan limit are paused (not deleted) and can be reactivated when you upgrade again. Historical data is retained for 90 days.',
+  },
+];
+
+const allPricingFaqs = [
+  ...pricingFaqs,
+  ...additionalPricingFaqs.map((faq) => ({
+    ...faq,
+    category: 'pricing' as const,
+  })),
+];
+
+interface ComparisonFeature {
+  name: string;
+  free: string | boolean;
+  pro: string | boolean;
+  enterprise: string | boolean;
+}
+
+const comparisonFeatures: ComparisonFeature[] = [
+  { name: 'API monitors', free: '5', pro: '50', enterprise: 'Unlimited' },
+  { name: 'Webhook deliveries/month', free: '1,000', pro: '50,000', enterprise: 'Custom' },
+  { name: 'Minimum polling interval', free: '5 minutes', pro: '30 seconds', enterprise: '10 seconds' },
+  { name: 'JSONPath expressions per API', free: '3', pro: '10', enterprise: 'Unlimited' },
+  { name: 'Notification channels per change', free: '1', pro: '5', enterprise: 'Unlimited' },
+  { name: 'Multi-channel fanout', free: false, pro: true, enterprise: true },
+  { name: 'Visual response diff viewer', free: false, pro: true, enterprise: true },
+  { name: 'Custom webhook headers', free: true, pro: true, enterprise: true },
+  { name: 'Retry with exponential backoff', free: true, pro: true, enterprise: true },
+  { name: 'Dead letter queue', free: true, pro: true, enterprise: true },
+  { name: 'Two-tier circuit breaker', free: false, pro: false, enterprise: true },
+  { name: 'SLA guarantee (99.9% uptime)', free: false, pro: false, enterprise: true },
+  { name: 'On-premises deployment', free: false, pro: false, enterprise: true },
+  { name: 'Support', free: 'Community', pro: 'Email', enterprise: 'Dedicated' },
+];
+---
+
+<LandingLayout
+  title="Pricing"
+  description="Simple, transparent pricing for RocketHooks. Start free with 5 API monitors. Scale to Pro for production workloads or Enterprise for unlimited capacity."
+  canonical="/pricing"
+>
+  <Fragment slot="head">
+    <WebApplicationSchema />
+    <OfferSchema
+      name="RocketHooks Free"
+      description="5 API monitors, 1,000 deliveries/month, 5-minute polling. Free forever."
+      price="0"
+    />
+    <OfferSchema
+      name="RocketHooks Pro"
+      description="50 API monitors, 50,000 deliveries/month, 30-second polling, multi-channel fanout."
+      price="29"
+    />
+    <OfferSchema
+      name="RocketHooks Enterprise"
+      description="Unlimited monitors, custom delivery limits, 10-second polling, SLA, on-premises option."
+      price="0"
+      url="/contact?subject=enterprise"
+    />
+    <FAQSchema items={allPricingFaqs.map((faq) => ({ question: faq.question, answer: faq.answer }))} />
+    <BreadcrumbSchema items={[{ name: 'Pricing' }]} />
+  </Fragment>
+
+  <!-- Breadcrumb navigation -->
+  <nav aria-label="Breadcrumb" class="bg-white pt-6">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <ol class="flex items-center gap-2 text-sm text-neutral-500">
+        <li><a href="/" class="hover:text-neutral-700 transition-colors">Home</a></li>
+        <li aria-hidden="true">/</li>
+        <li aria-current="page" class="font-medium text-neutral-900">Pricing</li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- Pricing header + tiers -->
+  <section class="bg-white py-16 sm:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        overline="Pricing"
+        title="Simple, transparent pricing"
+        subtitle="Start free. Scale as your integration needs grow. No hidden fees, no surprise charges."
+      />
+
+      <div class="mx-auto grid max-w-5xl gap-6 lg:grid-cols-3">
+        {pricingTiers.map((tier) => (
+          <PricingTier tier={tier} />
+        ))}
+      </div>
+
+      <p class="mx-auto mt-8 max-w-2xl text-center text-sm text-neutral-500">
+        All plans include HTTPS encryption, JWT-signed payloads, exponential backoff retries, and dead letter queue. No credit card required for Free plan.
+      </p>
+    </div>
+  </section>
+
+  <!-- Feature comparison matrix -->
+  <section class="bg-neutral-50 py-16 sm:py-24">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        overline="Compare plans"
+        title="Feature comparison"
+        subtitle="See exactly what you get with each plan. Every feature, every limit, side by side."
+      />
+
+      <!-- Desktop table -->
+      <div class="hidden sm:block overflow-x-auto rounded-lg border border-neutral-200 bg-white shadow-xs">
+        <table class="w-full text-left text-sm">
+          <thead>
+            <tr class="border-b border-neutral-200 bg-neutral-50">
+              <th class="px-6 py-4 font-semibold text-neutral-900" scope="col">Feature</th>
+              <th class="px-6 py-4 text-center font-semibold text-neutral-900" scope="col">Free</th>
+              <th class="px-6 py-4 text-center font-semibold text-brand-600" scope="col">Pro</th>
+              <th class="px-6 py-4 text-center font-semibold text-neutral-900" scope="col">Enterprise</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-neutral-100">
+            {comparisonFeatures.map((feature) => (
+              <tr>
+                <td class="px-6 py-3.5 text-neutral-700">{feature.name}</td>
+                <td class="px-6 py-3.5 text-center text-neutral-600">
+                  {typeof feature.free === 'boolean' ? (
+                    feature.free ? (
+                      <Icon name="lucide:check" size={18} class="inline-block text-brand-600" aria-label="Included" />
+                    ) : (
+                      <Icon name="lucide:minus" size={18} class="inline-block text-neutral-300" aria-label="Not included" />
+                    )
+                  ) : (
+                    feature.free
+                  )}
+                </td>
+                <td class="px-6 py-3.5 text-center text-neutral-600 bg-brand-50/30">
+                  {typeof feature.pro === 'boolean' ? (
+                    feature.pro ? (
+                      <Icon name="lucide:check" size={18} class="inline-block text-brand-600" aria-label="Included" />
+                    ) : (
+                      <Icon name="lucide:minus" size={18} class="inline-block text-neutral-300" aria-label="Not included" />
+                    )
+                  ) : (
+                    feature.pro
+                  )}
+                </td>
+                <td class="px-6 py-3.5 text-center text-neutral-600">
+                  {typeof feature.enterprise === 'boolean' ? (
+                    feature.enterprise ? (
+                      <Icon name="lucide:check" size={18} class="inline-block text-brand-600" aria-label="Included" />
+                    ) : (
+                      <Icon name="lucide:minus" size={18} class="inline-block text-neutral-300" aria-label="Not included" />
+                    )
+                  ) : (
+                    feature.enterprise
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile comparison cards -->
+      <div class="sm:hidden space-y-6">
+        {pricingTiers.map((tier) => (
+          <div class:list={[
+            'rounded-lg border p-5',
+            tier.highlighted ? 'border-brand-600 ring-1 ring-brand-600' : 'border-neutral-200 bg-white',
+          ]}>
+            <h3 class="text-lg font-semibold text-neutral-900">{tier.name}</h3>
+            <div class="mt-1 flex items-baseline gap-1">
+              <span class="text-2xl font-semibold text-neutral-900">{tier.price}</span>
+              {tier.priceNote && <span class="text-sm text-neutral-500">{tier.priceNote}</span>}
+            </div>
+            <dl class="mt-4 space-y-2.5">
+              {comparisonFeatures.map((feature) => {
+                const tierKey = tier.name.toLowerCase() as 'free' | 'pro' | 'enterprise';
+                const value = feature[tierKey];
+                return (
+                  <div class="flex items-center justify-between text-sm">
+                    <dt class="text-neutral-600">{feature.name}</dt>
+                    <dd class="font-medium text-neutral-900">
+                      {typeof value === 'boolean' ? (
+                        value ? (
+                          <Icon name="lucide:check" size={16} class="text-brand-600" aria-label="Included" />
+                        ) : (
+                          <Icon name="lucide:minus" size={16} class="text-neutral-300" aria-label="Not included" />
+                        )
+                      ) : (
+                        value
+                      )}
+                    </dd>
+                  </div>
+                );
+              })}
+            </dl>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ section -->
+  <section class="bg-white py-16 sm:py-24">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        overline="FAQ"
+        title="Pricing questions, answered"
+        subtitle="Everything you need to know about RocketHooks pricing and billing."
+      />
+
+      <dl class="space-y-4">
+        {allPricingFaqs.map((faq) => (
+          <details class="group rounded-lg border border-neutral-200 bg-neutral-50">
+            <summary class="flex cursor-pointer items-center justify-between px-5 py-4 text-left text-sm font-semibold text-neutral-900 [&::-webkit-details-marker]:hidden">
+              {faq.question}
+              <span class="ml-4 shrink-0 text-neutral-400 transition-transform group-open:rotate-45">
+                +
+              </span>
+            </summary>
+            <dd class="border-t border-neutral-100 px-5 py-4 text-sm leading-relaxed text-neutral-600">
+              {faq.answer}
+            </dd>
+          </details>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <FinalCTA
+    headline="Start monitoring APIs in minutes"
+    subtitle="Join developers who trust RocketHooks to turn any REST API into real-time events. Free plan available -- no credit card required."
+  />
+</LandingLayout>
