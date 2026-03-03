@@ -10,7 +10,8 @@
       "@utils/*": ["src/utils/*"],
       "@content/*": ["src/content/*"],
       "@styles/*": ["src/styles/*"],
-      "@assets/*": ["src/assets/*"]
+      "@assets/*": ["src/assets/*"],
+      "@data/*": ["src/data/*"]
     }
   }
 }

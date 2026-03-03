@@ -1,0 +1,33 @@
+---
+import { Schema } from 'astro-seo-schema';
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://www.rockethooks.com';
+---
+
+<Schema
+  item={{
+    '@context': 'https://schema.org' as const,
+    '@type': 'SoftwareApplication',
+    name: 'RocketHooks',
+    applicationCategory: 'DeveloperApplication',
+    operatingSystem: 'Web',
+    url: siteUrl,
+    description:
+      'Transform REST API endpoints into real-time event streams with intelligent polling, change detection, and multi-channel notifications.',
+    offers: {
+      '@type': 'AggregateOffer' as const,
+      lowPrice: '0',
+      highPrice: '29',
+      priceCurrency: 'USD',
+      offerCount: 3,
+    },
+    featureList: [
+      'REST API to real-time webhook transformation',
+      'JSONPath field-level change detection',
+      'Multi-channel fanout (webhooks, Slack, SMS, email)',
+      'Universal API authentication support',
+      'Two-tier circuit breaker protection',
+      'Visual response diff viewer',
+    ],
+  }}
+/>

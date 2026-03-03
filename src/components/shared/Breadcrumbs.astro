@@ -1,0 +1,38 @@
+---
+import { Icon } from 'astro-icon/components';
+import { getBreadcrumbs } from '@utils/content';
+import BreadcrumbSchema from '@components/seo/BreadcrumbSchema.astro';
+
+interface Props {
+  pathname?: string;
+}
+
+const pathname = Astro.props.pathname ?? Astro.url.pathname;
+const items = getBreadcrumbs(pathname);
+---
+
+<BreadcrumbSchema items={items.slice(1).map((item) => ({ name: item.label, href: item.href }))} />
+
+<nav aria-label="Breadcrumb" class="mb-6">
+  <ol class="flex flex-wrap items-center gap-1.5 text-sm text-neutral-500">
+    {items.map((item, index) => (
+      <li class="flex items-center gap-1.5">
+        {index > 0 && (
+          <Icon name="lucide:chevron-right" size={14} class="text-neutral-400" />
+        )}
+        {index === items.length - 1 ? (
+          <span class="font-medium text-neutral-900" aria-current="page">
+            {item.label}
+          </span>
+        ) : (
+          <a
+            href={item.href}
+            class="transition-colors hover:text-neutral-900"
+          >
+            {item.label}
+          </a>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>

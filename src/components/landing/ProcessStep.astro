@@ -1,0 +1,28 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  number: number;
+  icon: string;
+  title: string;
+  description: string;
+}
+
+const { number, icon, title, description } = Astro.props;
+---
+
+<div class="flex gap-4">
+  <div class="flex flex-col items-center">
+    <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-600 text-sm font-semibold text-white">
+      {number}
+    </div>
+    <div class="mt-2 h-full w-px bg-neutral-200" aria-hidden="true" />
+  </div>
+  <div class="pb-10">
+    <div class="mb-2 inline-flex items-center gap-2 text-brand-600">
+      <Icon name={icon} size={18} />
+    </div>
+    <h3 class="text-lg font-semibold text-neutral-900">{title}</h3>
+    <p class="mt-1 text-sm leading-relaxed text-neutral-600">{description}</p>
+  </div>
+</div>
