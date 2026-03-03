@@ -1,0 +1,10 @@
+[
+  {
+    "id": "rockethooks-team",
+    "name": "RocketHooks Team",
+    "title": "Engineering Team",
+    "bio": "The team behind RocketHooks, building the API transformation platform that turns REST endpoints into real-time event streams.",
+    "linkedin": "https://www.linkedin.com/company/rockethooks",
+    "github": "https://github.com/rockethooks"
+  }
+]
