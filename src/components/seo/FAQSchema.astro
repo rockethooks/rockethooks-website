@@ -1,0 +1,33 @@
+---
+import { Schema } from 'astro-seo-schema';
+
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  items: FAQItem[];
+}
+
+const { items } = Astro.props;
+---
+
+{
+  items.length > 0 && (
+    <Schema
+      item={{
+        '@context': 'https://schema.org' as const,
+        '@type': 'FAQPage',
+        mainEntity: items.map((item) => ({
+          '@type': 'Question' as const,
+          name: item.question,
+          acceptedAnswer: {
+            '@type': 'Answer' as const,
+            text: item.answer,
+          },
+        })),
+      }}
+    />
+  )
+}

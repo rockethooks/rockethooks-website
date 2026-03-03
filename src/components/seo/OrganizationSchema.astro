@@ -1,0 +1,27 @@
+---
+import { Schema } from 'astro-seo-schema';
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://www.rockethooks.com';
+---
+
+<Schema
+  item={{
+    '@context': 'https://schema.org' as const,
+    '@type': 'Organization',
+    name: 'RocketHooks',
+    url: siteUrl,
+    logo: `${siteUrl}/logo.svg`,
+    description:
+      'API transformation platform that converts REST API endpoints into real-time event streams via intelligent polling, change detection, and multi-channel notifications.',
+    sameAs: [
+      'https://github.com/rockethooks',
+      'https://www.linkedin.com/company/rockethooks',
+      'https://twitter.com/rockethooks',
+    ],
+    contactPoint: {
+      '@type': 'ContactPoint' as const,
+      contactType: 'customer support',
+      url: `${siteUrl}/contact`,
+    },
+  }}
+/>

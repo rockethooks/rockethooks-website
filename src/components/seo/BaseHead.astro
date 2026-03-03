@@ -1,0 +1,75 @@
+---
+import { SEO } from 'astro-seo';
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  image?: { src: string; alt: string };
+  type?: 'website' | 'article';
+  publishDate?: Date;
+  updatedDate?: Date;
+  noindex?: boolean;
+}
+
+const SITE_NAME = 'RocketHooks';
+const DEFAULT_DESCRIPTION =
+  'Transform REST API endpoints into real-time event streams with intelligent polling, change detection, and multi-channel notifications.';
+const DEFAULT_IMAGE = { src: '/og-default.png', alt: 'RocketHooks - API Transformation Platform' };
+
+const {
+  title,
+  description = DEFAULT_DESCRIPTION,
+  canonical,
+  image = DEFAULT_IMAGE,
+  type = 'website',
+  publishDate,
+  updatedDate,
+  noindex = false,
+} = Astro.props;
+
+const formattedTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://www.rockethooks.com';
+const imageUrl = image.src.startsWith('http') ? image.src : `${siteUrl}${image.src}`;
+---
+
+<SEO
+  title={formattedTitle}
+  description={description}
+  canonical={canonical}
+  noindex={noindex}
+  openGraph={{
+    basic: {
+      title: formattedTitle,
+      type: type === 'article' ? 'article' : 'website',
+      image: imageUrl,
+    },
+    optional: {
+      description,
+      siteName: SITE_NAME,
+      locale: 'en_US',
+    },
+    image: {
+      alt: image.alt,
+      width: 1200,
+      height: 630,
+    },
+    ...(type === 'article' && publishDate
+      ? {
+          article: {
+            publishedTime: publishDate.toISOString(),
+            ...(updatedDate ? { modifiedTime: updatedDate.toISOString() } : {}),
+          },
+        }
+      : {}),
+  }}
+  twitter={{
+    card: 'summary_large_image',
+    site: '@rockethooks',
+    title: formattedTitle,
+    description,
+    image: imageUrl,
+    imageAlt: image.alt,
+  }}
+  surpressWarnings={true}
+/>

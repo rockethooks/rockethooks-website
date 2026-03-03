@@ -1,0 +1,35 @@
+---
+import { Schema } from 'astro-seo-schema';
+
+interface Props {
+  name: string;
+  jobTitle?: string;
+  description?: string;
+  image?: string;
+  url?: string;
+  linkedin?: string;
+  github?: string;
+  twitter?: string;
+}
+
+const { name, jobTitle, description, image, url, linkedin, github, twitter } = Astro.props;
+
+const sameAs = [linkedin, github, twitter].filter((link): link is string => Boolean(link));
+---
+
+<Schema
+  item={{
+    '@context': 'https://schema.org' as const,
+    '@type': 'Person',
+    name,
+    ...(jobTitle ? { jobTitle } : {}),
+    ...(description ? { description } : {}),
+    ...(image ? { image } : {}),
+    ...(url ? { url } : {}),
+    ...(sameAs.length > 0 ? { sameAs } : {}),
+    worksFor: {
+      '@type': 'Organization' as const,
+      name: 'RocketHooks',
+    },
+  }}
+/>
