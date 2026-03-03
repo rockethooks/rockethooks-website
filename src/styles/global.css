@@ -1,0 +1,178 @@
+@import "tailwindcss";
+
+@theme {
+  /* ============================================
+     BRAND COLORS - Minimal Pro (Deep Blue)
+     ============================================ */
+
+  /* Primary Scale (Deep Blue #1e40af base) */
+  --color-brand-50: oklch(0.97 0.015 265);
+  --color-brand-100: oklch(0.94 0.025 265);
+  --color-brand-200: oklch(0.88 0.04 265);
+  --color-brand-300: oklch(0.78 0.08 265);
+  --color-brand-400: oklch(0.65 0.12 265);
+  --color-brand-500: oklch(0.52 0.16 265);  /* #1e40af */
+  --color-brand-600: oklch(0.44 0.15 265);
+  --color-brand-700: oklch(0.36 0.13 265);
+  --color-brand-800: oklch(0.28 0.10 265);
+  --color-brand-900: oklch(0.20 0.08 265);
+  --color-brand-950: oklch(0.14 0.06 265);
+
+  /* Accent Scale (Slate #475569 base) */
+  --color-accent-50: oklch(0.98 0.005 265);
+  --color-accent-100: oklch(0.96 0.005 265);
+  --color-accent-200: oklch(0.92 0.008 265);
+  --color-accent-300: oklch(0.84 0.012 265);
+  --color-accent-400: oklch(0.66 0.020 265);
+  --color-accent-500: oklch(0.51 0.020 265);  /* #475569 */
+  --color-accent-600: oklch(0.43 0.018 265);
+  --color-accent-700: oklch(0.36 0.015 265);
+  --color-accent-800: oklch(0.28 0.012 265);
+  --color-accent-900: oklch(0.21 0.010 265);
+  --color-accent-950: oklch(0.14 0.008 265);
+
+  /* ============================================
+     NEUTRAL COLORS - Slate Scale
+     ============================================ */
+  --color-neutral-50: #f8fafc;
+  --color-neutral-100: #f1f5f9;
+  --color-neutral-200: #e2e8f0;
+  --color-neutral-300: #cbd5e1;
+  --color-neutral-400: #94a3b8;
+  --color-neutral-500: #64748b;
+  --color-neutral-600: #475569;
+  --color-neutral-700: #334155;
+  --color-neutral-800: #1e293b;
+  --color-neutral-900: #0f172a;
+  --color-neutral-950: #020617;
+
+  /* ============================================
+     SEMANTIC COLORS
+     ============================================ */
+  --color-success: #22c55e;
+  --color-success-light: #dcfce7;
+  --color-success-dark: #166534;
+
+  --color-warning: #f59e0b;
+  --color-warning-light: #fef9c3;
+  --color-warning-dark: #854d0e;
+
+  --color-error: #dc2626;
+  --color-error-light: #fee2e2;
+  --color-error-dark: #991b1b;
+
+  --color-info: var(--color-brand-500);
+  --color-info-light: var(--color-brand-50);
+  --color-info-dark: var(--color-brand-900);
+
+  /* ============================================
+     TYPOGRAPHY
+     ============================================ */
+  --font-heading: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+
+  /* ============================================
+     SPACING & SIZING
+     ============================================ */
+  /* Base unit: 4px (Tailwind default preserved) */
+
+  /* ============================================
+     BORDER RADIUS - Minimal Pro (Subtle Curves)
+     ============================================ */
+  --radius-sm: 2px;
+  --radius-DEFAULT: 6px;    /* Base radius */
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-xl: 14px;
+  --radius-2xl: 18px;
+  --radius-full: 9999px;
+
+  /* ============================================
+     SHADOWS - Minimal Pro (Subtle Elevation)
+     ============================================ */
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-DEFAULT: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+  /* ============================================
+     ANIMATIONS
+     ============================================ */
+  --animate-fade-in: fade-in 0.3s ease-out;
+  --animate-slide-up: slide-up 0.4s ease-out;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-neutral-900);
+  background-color: white;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;  /* Semibold - Minimal Pro style */
+  line-height: 1.2;
+}
+
+code, pre {
+  font-family: var(--font-mono);
+}
+
+/* ============================================
+   ACCESSIBILITY - Focus & Skip Links
+   ============================================ */
+
+:focus-visible {
+  outline: 2px solid var(--color-brand-500);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.5rem 1rem;
+  background: var(--color-brand-600);
+  color: white;
+  z-index: 100;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 0.2s;
+}
+
+.skip-link:focus {
+  top: 0;
+}
