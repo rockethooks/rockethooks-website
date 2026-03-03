@@ -1,0 +1,84 @@
+---
+import '@styles/global.css';
+import BaseHead from '@components/seo/BaseHead.astro';
+import { ClientRouter } from 'astro:transitions';
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  image?: { src: string; alt: string };
+  type?: 'website' | 'article';
+  publishDate?: Date;
+  updatedDate?: Date;
+  noindex?: boolean;
+}
+
+const props = Astro.props;
+
+const isProd = import.meta.env.PUBLIC_ENV === 'production';
+const ga4Id = import.meta.env.PUBLIC_GA4_MEASUREMENT_ID;
+const cfBeaconToken = import.meta.env.PUBLIC_CLOUDFLARE_BEACON_TOKEN;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <meta name="generator" content={Astro.generator} />
+
+    <BaseHead
+      title={props.title}
+      description={props.description}
+      canonical={props.canonical}
+      image={props.image}
+      type={props.type}
+      publishDate={props.publishDate}
+      updatedDate={props.updatedDate}
+      noindex={props.noindex}
+    />
+
+    <ClientRouter />
+
+    <slot name="head" />
+  </head>
+  <body class="min-h-screen flex flex-col bg-white text-neutral-900 antialiased">
+    <a href="#main-content" class="skip-link">
+      Skip to main content
+    </a>
+
+    <slot name="header" />
+
+    <main id="main-content" class="flex-1">
+      <slot />
+    </main>
+
+    <slot name="footer" />
+
+    {isProd && ga4Id && (
+      <script
+        is:inline
+        async
+        src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`}
+      />
+      <script is:inline define:vars={{ ga4Id }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', ga4Id);
+      </script>
+    )}
+
+    {isProd && cfBeaconToken && (
+      <script
+        is:inline
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon={`{"token":"${cfBeaconToken}"}`}
+      />
+    )}
+  </body>
+</html>
