@@ -8,6 +8,7 @@ import expressiveCode from 'astro-expressive-code';
 import icon from 'astro-icon';
 import robotsTxt from 'astro-robots-txt';
 import remarkToc from 'remark-toc';
+import { remarkReadingTime } from './src/utils/reading-time';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeSlug from 'rehype-slug';
 import rehypeExternalLinks from 'rehype-external-links';
@@ -80,7 +81,10 @@ export default defineConfig({
       [rehypeAutolinkHeadings, { behavior: 'wrap' }],
       [rehypeExternalLinks, { target: '_blank', rel: ['noopener', 'noreferrer'] }],
     ],
-    remarkPlugins: [[remarkToc, { heading: 'table[ -]of[ -]contents?|toc', tight: true }]],
+    remarkPlugins: [
+      remarkReadingTime,
+      [remarkToc, { heading: 'table[ -]of[ -]contents?|toc', tight: true }],
+    ],
   },
 
   vite: {
