@@ -1,0 +1,131 @@
+---
+import LandingLayout from '@layouts/LandingLayout.astro';
+import Breadcrumbs from '@components/shared/Breadcrumbs.astro';
+import SectionHeading from '@components/shared/SectionHeading.astro';
+import FeatureCard from '@components/landing/FeatureCard.astro';
+import FinalCTA from '@components/shared/FinalCTA.astro';
+import ItemListSchema from '@components/seo/ItemListSchema.astro';
+import FAQSchema from '@components/seo/FAQSchema.astro';
+import { features, featureCategories } from '@data/features';
+import { faqs } from '@data/faqs';
+import type { Feature } from '@data/types';
+
+const featuresFaqs = faqs.filter((faq) => faq.category === 'features');
+
+const categories = Object.keys(featureCategories) as Feature['category'][];
+const groupedFeatures = categories.map((category) => ({
+  key: category,
+  label: featureCategories[category],
+  items: features.filter((f) => f.category === category),
+}));
+---
+
+<LandingLayout
+  title="Features - RocketHooks"
+  description="Explore all RocketHooks features: REST-to-real-time API transformation, JSONPath change detection, multi-channel notifications, enterprise security, and reliable webhook delivery."
+>
+  <Fragment slot="head">
+    <ItemListSchema
+      name="RocketHooks Features"
+      description="Complete list of RocketHooks API transformation platform features including change detection, multi-channel notifications, and enterprise security."
+      items={features.map((f) => ({
+        name: f.title,
+        description: f.description,
+      }))}
+    />
+    <FAQSchema items={featuresFaqs.map((faq) => ({ question: faq.question, answer: faq.answer }))} />
+  </Fragment>
+
+  <!-- Page Header -->
+  <section class="bg-white pb-8 pt-12 sm:pt-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs />
+
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="mb-3 text-sm font-semibold uppercase tracking-wider text-brand-600">
+          Platform Features
+        </p>
+        <h1 class="text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl">
+          Everything you need to transform APIs into event streams
+        </h1>
+        <p class="mt-6 text-lg leading-relaxed text-neutral-600">
+          RocketHooks transforms any REST API endpoint into real-time event streams with intelligent polling, JSONPath change detection, and multi-channel delivery. No infrastructure changes required -- connect any API and start receiving events in minutes.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature Categories -->
+  {groupedFeatures.map((group) => (
+    <section class:list={[
+      'py-16 sm:py-20',
+      group.key === 'transformation' || group.key === 'notifications' ? 'bg-neutral-50' : 'bg-white',
+    ]}>
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <SectionHeading
+          overline={group.label}
+          title={
+            group.key === 'transformation'
+              ? 'Convert any REST API into real-time events'
+              : group.key === 'monitoring'
+                ? 'Detect exactly the changes that matter'
+                : group.key === 'notifications'
+                  ? 'Deliver alerts through every channel'
+                  : 'Enterprise-grade protection at every layer'
+          }
+          subtitle={
+            group.key === 'transformation'
+              ? 'Intelligent polling and multi-channel fanout turn static endpoints into live data streams without modifying your existing systems.'
+              : group.key === 'monitoring'
+                ? 'JSONPath expressions let you monitor specific nested fields. Trigger notifications only when the data you care about actually changes.'
+                : group.key === 'notifications'
+                  ? 'Route change events to webhooks, Slack, SMS, or email. Multi-channel fanout ensures the right people get the right alerts instantly.'
+                  : 'KMS encryption, JWT webhook signatures, universal auth support, and two-tier circuit breakers protect your data and prevent cascade failures.'
+          }
+        />
+
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {group.items.map((feature) => (
+            <FeatureCard
+              icon={feature.icon}
+              title={feature.title}
+              description={feature.description}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <!-- FAQ Section -->
+  <section class="bg-neutral-50 py-16 sm:py-24">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        overline="FAQ"
+        title="Feature questions answered"
+        subtitle="Common questions about RocketHooks capabilities and how they work."
+      />
+
+      <dl class="space-y-4">
+        {featuresFaqs.map((faq) => (
+          <details class="group rounded-lg border border-neutral-200 bg-white">
+            <summary class="flex cursor-pointer items-center justify-between px-5 py-4 text-left text-sm font-semibold text-neutral-900 [&::-webkit-details-marker]:hidden">
+              {faq.question}
+              <span class="ml-4 shrink-0 text-neutral-400 transition-transform group-open:rotate-45">
+                +
+              </span>
+            </summary>
+            <dd class="border-t border-neutral-100 px-5 py-4 text-sm leading-relaxed text-neutral-600">
+              {faq.answer}
+            </dd>
+          </details>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <FinalCTA
+    headline="Ready to put these features to work?"
+    subtitle="Start transforming your REST APIs into real-time event streams. Free plan includes 5 monitors and 1,000 deliveries per month."
+  />
+</LandingLayout>

@@ -1,0 +1,293 @@
+---
+import LandingLayout from '@layouts/LandingLayout.astro';
+import Breadcrumbs from '@components/shared/Breadcrumbs.astro';
+import SectionHeading from '@components/shared/SectionHeading.astro';
+import FinalCTA from '@components/shared/FinalCTA.astro';
+import BreadcrumbSchema from '@components/seo/BreadcrumbSchema.astro';
+import { Icon } from 'astro-icon/components';
+import { processSteps } from '@data/process-steps';
+---
+
+<LandingLayout
+  title="How It Works - RocketHooks"
+  description="Learn how RocketHooks transforms REST APIs into real-time event streams in 5 steps: sign up, connect your API, define JSONPath watchers, configure notifications, and go live."
+>
+  <Fragment slot="head">
+    <BreadcrumbSchema items={[{ name: 'How It Works', href: '/how-it-works' }]} />
+  </Fragment>
+
+  <!-- Page Header -->
+  <section class="bg-white pb-8 pt-12 sm:pt-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs />
+
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="mb-3 text-sm font-semibold uppercase tracking-wider text-brand-600">
+          How It Works
+        </p>
+        <h1 class="text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl">
+          From REST API to real-time events in 5 steps
+        </h1>
+        <p class="mt-6 text-lg leading-relaxed text-neutral-600">
+          RocketHooks connects to any REST API as a consumer, polls for changes on your schedule, and delivers real-time notifications through webhooks, Slack, SMS, or email. No code changes to your existing systems -- set up takes under 5 minutes.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5-Step Detailed Process -->
+  <section class="bg-white py-16 sm:py-24">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        overline="Step by Step"
+        title="Your path from static API to live events"
+        subtitle="Each step builds on the last. Most users complete the entire setup in under 5 minutes."
+      />
+
+      <!-- Step 1 -->
+      <div class="mb-16">
+        <div class="flex gap-4">
+          <div class="flex flex-col items-center">
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand-600 text-base font-semibold text-white">
+              1
+            </div>
+            <div class="mt-2 h-full w-px bg-neutral-200" aria-hidden="true"></div>
+          </div>
+          <div class="pb-8">
+            <div class="mb-2 inline-flex items-center gap-2 text-brand-600">
+              <Icon name="lucide:user-plus" size={20} />
+            </div>
+            <h3 class="text-xl font-semibold text-neutral-900">{processSteps[0].title}</h3>
+            <p class="mt-3 leading-relaxed text-neutral-600">
+              Create your RocketHooks account with one-click OAuth using GitHub or Google. No credit card is required, and your account is ready instantly. The Free plan includes 5 API monitors and 1,000 webhook deliveries per month, giving you everything you need to evaluate the platform with real workloads. Your dashboard loads immediately after authentication, with a guided setup wizard that walks you through connecting your first API endpoint. Organization-level isolation ensures your data stays separate from other tenants from the very first login.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="mb-16">
+        <div class="flex gap-4">
+          <div class="flex flex-col items-center">
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand-600 text-base font-semibold text-white">
+              2
+            </div>
+            <div class="mt-2 h-full w-px bg-neutral-200" aria-hidden="true"></div>
+          </div>
+          <div class="pb-8">
+            <div class="mb-2 inline-flex items-center gap-2 text-brand-600">
+              <Icon name="lucide:link" size={20} />
+            </div>
+            <h3 class="text-xl font-semibold text-neutral-900">{processSteps[1].title}</h3>
+            <p class="mt-3 leading-relaxed text-neutral-600">
+              Add any REST API endpoint by providing its URL and authentication credentials. RocketHooks supports API keys, Bearer tokens, OAuth 2.0 with automatic token refresh, Basic authentication, and custom headers -- covering virtually every API authentication method in use today. You configure the polling interval (from 30 seconds on Pro to 10 seconds on Enterprise) and RocketHooks handles the rest. The platform validates your connection immediately, confirming it can reach your endpoint and parse the JSON response before you proceed to the next step.
+            </p>
+            <div class="mt-6 overflow-hidden rounded-md border border-neutral-200">
+              <div class="flex items-center gap-2 border-b border-neutral-200 bg-neutral-50 px-4 py-2 text-xs font-medium text-neutral-500">
+                <Icon name="lucide:code-2" size={14} />
+                API Configuration Example
+              </div>
+              <pre class="overflow-x-auto bg-neutral-900 p-4 text-sm leading-relaxed text-neutral-100"><code>{`{
+  "endpoint": "https://api.example.com/v2/orders",
+  "method": "GET",
+  "auth": {
+    "type": "bearer",
+    "token": "sk_live_..."
+  },
+  "polling": {
+    "interval": "60s",
+    "timeout": "10s"
+  },
+  "headers": {
+    "Accept": "application/json"
+  }
+}`}</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="mb-16">
+        <div class="flex gap-4">
+          <div class="flex flex-col items-center">
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand-600 text-base font-semibold text-white">
+              3
+            </div>
+            <div class="mt-2 h-full w-px bg-neutral-200" aria-hidden="true"></div>
+          </div>
+          <div class="pb-8">
+            <div class="mb-2 inline-flex items-center gap-2 text-brand-600">
+              <Icon name="lucide:scan-search" size={20} />
+            </div>
+            <h3 class="text-xl font-semibold text-neutral-900">{processSteps[2].title}</h3>
+            <p class="mt-3 leading-relaxed text-neutral-600">
+              Use JSONPath expressions to monitor specific fields within API responses, so you only receive notifications when the exact data you care about changes. For example, monitor <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-sm font-medium text-neutral-800">$.orders[*].status</code> to track order status transitions, or <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-sm font-medium text-neutral-800">$.inventory.quantity</code> to detect stock level drops. The visual JSONPath builder helps you target the right fields without memorizing the syntax. You can also watch entire responses if you need full change detection rather than field-level monitoring.
+            </p>
+            <div class="mt-6 overflow-hidden rounded-md border border-neutral-200">
+              <div class="flex items-center gap-2 border-b border-neutral-200 bg-neutral-50 px-4 py-2 text-xs font-medium text-neutral-500">
+                <Icon name="lucide:code-2" size={14} />
+                JSONPath Watch Expressions
+              </div>
+              <pre class="overflow-x-auto bg-neutral-900 p-4 text-sm leading-relaxed text-neutral-100"><code>{`{
+  "watches": [
+    {
+      "name": "Order Status Changes",
+      "path": "$.orders[*].status",
+      "trigger": "on_change"
+    },
+    {
+      "name": "New High-Value Orders",
+      "path": "$.orders[?(@.total > 500)]",
+      "trigger": "on_new"
+    },
+    {
+      "name": "Inventory Alert",
+      "path": "$.products[?(@.stock < 10)].sku",
+      "trigger": "on_match"
+    }
+  ]
+}`}</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="mb-16">
+        <div class="flex gap-4">
+          <div class="flex flex-col items-center">
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand-600 text-base font-semibold text-white">
+              4
+            </div>
+            <div class="mt-2 h-full w-px bg-neutral-200" aria-hidden="true"></div>
+          </div>
+          <div class="pb-8">
+            <div class="mb-2 inline-flex items-center gap-2 text-brand-600">
+              <Icon name="lucide:bell-ring" size={20} />
+            </div>
+            <h3 class="text-xl font-semibold text-neutral-900">{processSteps[3].title}</h3>
+            <p class="mt-3 leading-relaxed text-neutral-600">
+              Route detected changes to one or more notification channels simultaneously. Configure webhooks for system-to-system integration, Slack for team awareness, SMS for urgent alerts, and email for stakeholder summaries. Multi-channel fanout means a single API change can trigger all configured channels at once, ensuring the right people receive alerts through their preferred medium. Each channel supports rich formatting -- Slack messages include structured blocks, emails contain HTML templates, and webhook payloads carry the full change diff with before-and-after values for every modified field.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="mb-8">
+        <div class="flex gap-4">
+          <div class="flex flex-col items-center">
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand-600 text-base font-semibold text-white">
+              5
+            </div>
+          </div>
+          <div>
+            <div class="mb-2 inline-flex items-center gap-2 text-brand-600">
+              <Icon name="lucide:rocket" size={20} />
+            </div>
+            <h3 class="text-xl font-semibold text-neutral-900">{processSteps[4].title}</h3>
+            <p class="mt-3 leading-relaxed text-neutral-600">
+              Enable monitoring and RocketHooks takes over. The platform handles intelligent polling with automatic rate limit detection, change comparison using your JSONPath expressions, exponential backoff retries for failed deliveries, and dead letter queues for events that cannot be delivered after multiple attempts. The real-time health dashboard shows polling status, delivery rates, and system health across all your API integrations. Two-tier circuit breakers at both the API and endpoint level prevent cascade failures and reduce unnecessary compute costs by 60 to 80 percent when upstream services experience issues.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Architecture Overview -->
+  <section class="bg-neutral-50 py-16 sm:py-24">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        overline="Architecture"
+        title="How the transformation pipeline works"
+        subtitle="A serverless architecture that scales automatically with your workload."
+      />
+
+      <!-- Architecture Diagram -->
+      <div class="overflow-hidden rounded-xl border border-neutral-200 bg-white p-6 sm:p-10">
+        <div class="flex flex-col items-center gap-6 sm:flex-row sm:gap-0">
+          <!-- Input -->
+          <div class="flex w-full flex-col items-center rounded-lg border border-blue-200 bg-blue-50 px-4 py-5 text-center sm:w-1/5">
+            <div class="mb-2 inline-flex items-center justify-center rounded-md bg-blue-100 p-2 text-blue-600">
+              <Icon name="lucide:globe" size={22} />
+            </div>
+            <p class="text-sm font-semibold text-blue-900">Your APIs</p>
+            <p class="mt-1 text-xs text-blue-600">REST endpoints</p>
+          </div>
+
+          <!-- Arrow -->
+          <div class="flex items-center justify-center sm:flex-1">
+            <Icon name="lucide:arrow-right" size={20} class="hidden text-neutral-400 sm:block" />
+            <Icon name="lucide:arrow-down" size={20} class="text-neutral-400 sm:hidden" />
+          </div>
+
+          <!-- Polling -->
+          <div class="flex w-full flex-col items-center rounded-lg border border-brand-200 bg-brand-50 px-4 py-5 text-center sm:w-1/5">
+            <div class="mb-2 inline-flex items-center justify-center rounded-md bg-brand-100 p-2 text-brand-600">
+              <Icon name="lucide:timer" size={22} />
+            </div>
+            <p class="text-sm font-semibold text-brand-900">Polling Engine</p>
+            <p class="mt-1 text-xs text-brand-600">Scheduled checks</p>
+          </div>
+
+          <!-- Arrow -->
+          <div class="flex items-center justify-center sm:flex-1">
+            <Icon name="lucide:arrow-right" size={20} class="hidden text-neutral-400 sm:block" />
+            <Icon name="lucide:arrow-down" size={20} class="text-neutral-400 sm:hidden" />
+          </div>
+
+          <!-- Change Detection -->
+          <div class="flex w-full flex-col items-center rounded-lg border border-amber-200 bg-amber-50 px-4 py-5 text-center sm:w-1/5">
+            <div class="mb-2 inline-flex items-center justify-center rounded-md bg-amber-100 p-2 text-amber-600">
+              <Icon name="lucide:scan-search" size={22} />
+            </div>
+            <p class="text-sm font-semibold text-amber-900">Change Detection</p>
+            <p class="mt-1 text-xs text-amber-600">JSONPath diff</p>
+          </div>
+
+          <!-- Arrow -->
+          <div class="flex items-center justify-center sm:flex-1">
+            <Icon name="lucide:arrow-right" size={20} class="hidden text-neutral-400 sm:block" />
+            <Icon name="lucide:arrow-down" size={20} class="text-neutral-400 sm:hidden" />
+          </div>
+
+          <!-- Output -->
+          <div class="flex w-full flex-col items-center rounded-lg border border-green-200 bg-green-50 px-4 py-5 text-center sm:w-1/5">
+            <div class="mb-2 inline-flex items-center justify-center rounded-md bg-green-100 p-2 text-green-600">
+              <Icon name="lucide:send" size={22} />
+            </div>
+            <p class="text-sm font-semibold text-green-900">Delivery</p>
+            <p class="mt-1 text-xs text-green-600">Webhooks, Slack, SMS, Email</p>
+          </div>
+        </div>
+
+        <!-- Infrastructure Labels -->
+        <div class="mt-8 grid grid-cols-2 gap-4 border-t border-neutral-100 pt-6 sm:grid-cols-4">
+          <div class="text-center">
+            <p class="text-xs font-semibold text-neutral-500">Compute</p>
+            <p class="mt-0.5 text-sm text-neutral-700">AWS Lambda</p>
+          </div>
+          <div class="text-center">
+            <p class="text-xs font-semibold text-neutral-500">Storage</p>
+            <p class="mt-0.5 text-sm text-neutral-700">DynamoDB</p>
+          </div>
+          <div class="text-center">
+            <p class="text-xs font-semibold text-neutral-500">Events</p>
+            <p class="mt-0.5 text-sm text-neutral-700">EventBridge</p>
+          </div>
+          <div class="text-center">
+            <p class="text-xs font-semibold text-neutral-500">Security</p>
+            <p class="mt-0.5 text-sm text-neutral-700">KMS + JWT</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <FinalCTA
+    headline="Start transforming your APIs today"
+    subtitle="From REST endpoint to real-time events in under 5 minutes. No credit card required to get started."
+  />
+</LandingLayout>
