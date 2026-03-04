@@ -1,0 +1,22 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import SectionHeading from '@components/shared/SectionHeading.astro';
+import ArticleCard from './ArticleCard.astro';
+
+interface Props {
+  articles: CollectionEntry<'blog'>[];
+}
+
+const { articles } = Astro.props;
+---
+
+{articles.length > 0 && (
+  <section aria-label="Related articles">
+    <SectionHeading title="Related Articles" centered={false} />
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+      {articles.map((article) => (
+        <ArticleCard post={article} />
+      ))}
+    </div>
+  </section>
+)}

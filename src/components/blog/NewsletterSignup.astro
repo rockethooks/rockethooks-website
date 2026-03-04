@@ -1,0 +1,38 @@
+---
+// Inline newsletter CTA for blog posts -- distinct from footer newsletter
+---
+
+<aside class="rounded-lg border border-brand-100 bg-brand-50 p-6 sm:p-8" aria-label="Newsletter signup">
+  <h3 class="text-lg font-semibold text-neutral-900">
+    Get API transformation insights delivered weekly
+  </h3>
+  <p class="mt-2 text-sm leading-relaxed text-neutral-600">
+    Join developers who stay ahead with practical guides on polling strategies, change detection patterns, and real-time event architecture.
+  </p>
+
+  <form action="#" method="POST" class="mt-5">
+    <div class="flex flex-col gap-3 sm:flex-row">
+      <label for="article-newsletter-email" class="sr-only">
+        Email address
+      </label>
+      <input
+        type="email"
+        id="article-newsletter-email"
+        name="email"
+        placeholder="you@example.com"
+        required
+        autocomplete="email"
+        class="min-w-0 flex-1 rounded-md border border-neutral-300 bg-white px-3.5 py-2.5 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 focus:outline-none"
+      />
+      <button
+        type="submit"
+        class="rounded-md bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white shadow-xs transition-colors hover:bg-brand-700"
+      >
+        Subscribe
+      </button>
+    </div>
+    <p class="mt-2 text-xs text-neutral-500">
+      Free, practical content only. No spam. Unsubscribe anytime.
+    </p>
+  </form>
+</aside>
