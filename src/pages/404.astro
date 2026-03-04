@@ -1,0 +1,66 @@
+---
+import LandingLayout from '@layouts/LandingLayout.astro';
+import CTAButton from '@components/shared/CTAButton.astro';
+import { Icon } from 'astro-icon/components';
+---
+
+<LandingLayout
+  title="Page Not Found"
+  description="The page you are looking for does not exist or has been moved."
+  noindex={true}
+>
+  <section class="flex min-h-[60vh] items-center py-16 sm:py-24">
+    <div class="mx-auto max-w-2xl px-4 text-center sm:px-6 lg:px-8">
+      <p class="text-sm font-semibold uppercase tracking-wider text-brand-600">
+        404 Error
+      </p>
+      <h1 class="mt-4 text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl">
+        Page Not Found
+      </h1>
+      <p class="mt-4 text-lg leading-relaxed text-neutral-600">
+        The page you are looking for does not exist or has been moved.
+        Let us help you find what you need.
+      </p>
+
+      <div class="mt-8">
+        <CTAButton href="/" size="lg">
+          Back to Homepage
+        </CTAButton>
+      </div>
+
+      <!-- Suggested Links -->
+      <div class="mt-12 border-t border-neutral-200 pt-10">
+        <h2 class="text-sm font-semibold text-neutral-900">Popular Pages</h2>
+        <ul class="mt-6 grid gap-4 sm:grid-cols-3">
+          <li>
+            <a
+              href="/features"
+              class="group flex flex-col items-center gap-2 rounded-lg border border-neutral-200 bg-white p-5 transition-colors hover:border-brand-200 hover:bg-brand-50"
+            >
+              <Icon name="lucide:zap" size={24} class="text-neutral-400 transition-colors group-hover:text-brand-600" />
+              <span class="text-sm font-medium text-neutral-700 transition-colors group-hover:text-brand-700">Features</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="/pricing"
+              class="group flex flex-col items-center gap-2 rounded-lg border border-neutral-200 bg-white p-5 transition-colors hover:border-brand-200 hover:bg-brand-50"
+            >
+              <Icon name="lucide:credit-card" size={24} class="text-neutral-400 transition-colors group-hover:text-brand-600" />
+              <span class="text-sm font-medium text-neutral-700 transition-colors group-hover:text-brand-700">Pricing</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="/blog"
+              class="group flex flex-col items-center gap-2 rounded-lg border border-neutral-200 bg-white p-5 transition-colors hover:border-brand-200 hover:bg-brand-50"
+            >
+              <Icon name="lucide:book-open" size={24} class="text-neutral-400 transition-colors group-hover:text-brand-600" />
+              <span class="text-sm font-medium text-neutral-700 transition-colors group-hover:text-brand-700">Blog</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</LandingLayout>

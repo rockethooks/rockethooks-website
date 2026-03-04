@@ -1,0 +1,170 @@
+---
+import LandingLayout from '@layouts/LandingLayout.astro';
+import Breadcrumbs from '@components/shared/Breadcrumbs.astro';
+import SectionHeading from '@components/shared/SectionHeading.astro';
+import FinalCTA from '@components/shared/FinalCTA.astro';
+import { Icon } from 'astro-icon/components';
+---
+
+<LandingLayout
+  title="About RocketHooks"
+  description="RocketHooks transforms REST API endpoints into real-time event streams. Learn why we built an API transformation platform that eliminates polling complexity."
+>
+  <!-- Hero Section -->
+  <section class="bg-neutral-50 py-16 sm:py-20">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs />
+      <h1 class="text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl">
+        Why We Built RocketHooks
+      </h1>
+      <p class="mt-6 text-xl leading-relaxed text-neutral-600">
+        Every developer has written the same polling loop. Check an API. Compare the response.
+        Trigger an action if something changed. Repeat. We built RocketHooks so you never have
+        to write that loop again.
+      </p>
+    </div>
+  </section>
+
+  <!-- The Problem -->
+  <section class="py-16 sm:py-20">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        overline="The Problem"
+        title="Polling Is a Solved Problem That Nobody Solved"
+        subtitle="Developers spend thousands of hours building and maintaining custom polling infrastructure. The pattern is identical every time -- only the API changes."
+        centered={false}
+      />
+      <div class="grid gap-6 sm:grid-cols-2">
+        <div class="rounded-lg border border-neutral-200 bg-white p-6">
+          <div class="flex items-center gap-3">
+            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-error-light">
+              <Icon name="lucide:clock" size={20} class="text-error" />
+            </div>
+            <h3 class="font-semibold text-neutral-900">Wasted Engineering Time</h3>
+          </div>
+          <p class="mt-3 text-sm leading-relaxed text-neutral-600">
+            Teams build the same retry logic, rate limiting, and error handling for every API integration. It is undifferentiated work that slows down product delivery.
+          </p>
+        </div>
+        <div class="rounded-lg border border-neutral-200 bg-white p-6">
+          <div class="flex items-center gap-3">
+            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-warning-light">
+              <Icon name="lucide:alert-triangle" size={20} class="text-warning" />
+            </div>
+            <h3 class="font-semibold text-neutral-900">Fragile Infrastructure</h3>
+          </div>
+          <p class="mt-3 text-sm leading-relaxed text-neutral-600">
+            Custom polling scripts break silently. Rate limits get hit. Auth tokens expire. Changes go undetected for hours -- or days -- before anyone notices.
+          </p>
+        </div>
+        <div class="rounded-lg border border-neutral-200 bg-white p-6">
+          <div class="flex items-center gap-3">
+            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-warning-light">
+              <Icon name="lucide:layers" size={20} class="text-warning" />
+            </div>
+            <h3 class="font-semibold text-neutral-900">Integration Sprawl</h3>
+          </div>
+          <p class="mt-3 text-sm leading-relaxed text-neutral-600">
+            Each API gets its own polling setup, its own monitoring, its own alerting. The operational burden grows linearly with every new integration.
+          </p>
+        </div>
+        <div class="rounded-lg border border-neutral-200 bg-white p-6">
+          <div class="flex items-center gap-3">
+            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-error-light">
+              <Icon name="lucide:dollar-sign" size={20} class="text-error" />
+            </div>
+            <h3 class="font-semibold text-neutral-900">Hidden Costs</h3>
+          </div>
+          <p class="mt-3 text-sm leading-relaxed text-neutral-600">
+            Unnecessary compute, excessive API calls, on-call rotations for polling failures -- the true cost of DIY polling is far higher than it appears.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Approach -->
+  <section class="bg-neutral-50 py-16 sm:py-20">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        overline="Our Approach"
+        title="Zero-Code API Transformation"
+        subtitle="RocketHooks sits between your APIs and your systems. Point it at any REST endpoint and it handles the rest -- polling, change detection, and notification delivery."
+        centered={false}
+      />
+      <div class="space-y-8">
+        <div class="flex gap-4">
+          <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-100 text-brand-700">
+            <Icon name="lucide:plug" size={20} />
+          </div>
+          <div>
+            <h3 class="font-semibold text-neutral-900">Connect Any REST API</h3>
+            <p class="mt-1 text-sm leading-relaxed text-neutral-600">
+              No SDKs. No code changes to existing systems. If it has a REST endpoint, RocketHooks can monitor it. OAuth, API keys, custom headers -- all supported out of the box.
+            </p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-100 text-brand-700">
+            <Icon name="lucide:scan-search" size={20} />
+          </div>
+          <div>
+            <h3 class="font-semibold text-neutral-900">Intelligent Change Detection</h3>
+            <p class="mt-1 text-sm leading-relaxed text-neutral-600">
+              Field-level monitoring with JSONPath expressions. Know exactly what changed, when, and by how much. No more comparing entire response payloads manually.
+            </p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-100 text-brand-700">
+            <Icon name="lucide:send" size={20} />
+          </div>
+          <div>
+            <h3 class="font-semibold text-neutral-900">Multi-Channel Delivery</h3>
+            <p class="mt-1 text-sm leading-relaxed text-neutral-600">
+              Webhooks are just one output. Get notified via Slack, email, SMS, or custom integrations. Route different changes to different channels based on your rules.
+            </p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-100 text-brand-700">
+            <Icon name="lucide:shield-check" size={20} />
+          </div>
+          <div>
+            <h3 class="font-semibold text-neutral-900">Enterprise-Grade Reliability</h3>
+            <p class="mt-1 text-sm leading-relaxed text-neutral-600">
+              Built on AWS serverless infrastructure with automatic retries, circuit breakers, and dead letter queues. Your events are delivered, even when downstream systems are down.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission -->
+  <section class="py-16 sm:py-20">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        overline="Our Mission"
+        title="Make Every API Real-Time"
+        centered={false}
+      />
+      <div class="prose prose-neutral max-w-none">
+        <p class="text-lg leading-relaxed text-neutral-600">
+          We believe developers should spend their time building products, not plumbing. The gap between
+          "this API has data" and "my system reacts to changes" should be measured in minutes, not sprints.
+        </p>
+        <p class="text-lg leading-relaxed text-neutral-600">
+          RocketHooks is an API transformation platform built by developers, for developers.
+          We handle the undifferentiated heavy lifting of polling, change detection, and event delivery
+          so you can focus on what makes your product unique.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <FinalCTA
+    headline="Ready to stop writing polling loops?"
+    subtitle="Transform any REST API into real-time events in minutes. Free to start, no credit card required."
+  />
+</LandingLayout>

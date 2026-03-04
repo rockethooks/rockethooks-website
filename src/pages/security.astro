@@ -1,0 +1,280 @@
+---
+import LandingLayout from '@layouts/LandingLayout.astro';
+import Breadcrumbs from '@components/shared/Breadcrumbs.astro';
+import SectionHeading from '@components/shared/SectionHeading.astro';
+import FinalCTA from '@components/shared/FinalCTA.astro';
+import { Icon } from 'astro-icon/components';
+---
+
+<LandingLayout
+  title="Security"
+  description="RocketHooks security commitment: enterprise-grade infrastructure, encryption at rest and in transit, SOC 2 compliance, and resilient architecture built on AWS."
+>
+  <!-- Hero -->
+  <section class="bg-neutral-50 py-16 sm:py-20">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs />
+      <h1 class="text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl">
+        Security at RocketHooks
+      </h1>
+      <p class="mt-6 text-xl leading-relaxed text-neutral-600">
+        Your API credentials, webhook payloads, and event data deserve enterprise-grade protection.
+        Security is built into every layer of the RocketHooks platform -- not bolted on as an afterthought.
+      </p>
+    </div>
+  </section>
+
+  <!-- Infrastructure Security -->
+  <section class="py-16 sm:py-20">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        overline="Infrastructure"
+        title="Built on AWS Serverless"
+        subtitle="RocketHooks runs on a fully serverless architecture, eliminating entire categories of infrastructure vulnerabilities."
+        centered={false}
+      />
+      <div class="grid gap-6 sm:grid-cols-2">
+        <div class="flex gap-4">
+          <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-100">
+            <Icon name="lucide:cloud" size={20} class="text-brand-700" />
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-neutral-900">AWS Lambda & DynamoDB</h3>
+            <p class="mt-1 text-sm leading-relaxed text-neutral-600">
+              No servers to patch, no SSH access to secure. AWS manages the underlying infrastructure and applies security patches automatically.
+            </p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-100">
+            <Icon name="lucide:network" size={20} class="text-brand-700" />
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-neutral-900">Network Isolation</h3>
+            <p class="mt-1 text-sm leading-relaxed text-neutral-600">
+              Services communicate through private VPC endpoints. No internal traffic traverses the public internet.
+            </p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-100">
+            <Icon name="lucide:server" size={20} class="text-brand-700" />
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-neutral-900">Multi-Region Capability</h3>
+            <p class="mt-1 text-sm leading-relaxed text-neutral-600">
+              Infrastructure deployed across multiple AWS availability zones for redundancy and disaster recovery.
+            </p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-100">
+            <Icon name="lucide:file-code" size={20} class="text-brand-700" />
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-neutral-900">Infrastructure as Code</h3>
+            <p class="mt-1 text-sm leading-relaxed text-neutral-600">
+              All infrastructure is version-controlled and deployed through automated pipelines. No manual configuration drift.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Data Protection -->
+  <section class="bg-neutral-50 py-16 sm:py-20">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        overline="Data Protection"
+        title="Encryption Everywhere"
+        subtitle="All data is encrypted at rest and in transit. API credentials are protected with dedicated encryption keys through AWS KMS."
+        centered={false}
+      />
+      <div class="space-y-6">
+        <div class="rounded-lg border border-neutral-200 bg-white p-6">
+          <div class="flex items-center gap-3">
+            <Icon name="lucide:lock" size={20} class="text-brand-600" />
+            <h3 class="font-semibold text-neutral-900">Encryption at Rest</h3>
+          </div>
+          <p class="mt-2 text-sm leading-relaxed text-neutral-600">
+            All data stored in DynamoDB is encrypted using AES-256 encryption. API credentials and tokens
+            are encrypted with dedicated AWS KMS customer-managed keys, providing an additional layer of access control.
+          </p>
+        </div>
+        <div class="rounded-lg border border-neutral-200 bg-white p-6">
+          <div class="flex items-center gap-3">
+            <Icon name="lucide:shield" size={20} class="text-brand-600" />
+            <h3 class="font-semibold text-neutral-900">Encryption in Transit</h3>
+          </div>
+          <p class="mt-2 text-sm leading-relaxed text-neutral-600">
+            All API communication is conducted over TLS 1.2+. Webhook deliveries use HTTPS exclusively.
+            Internal service-to-service communication is encrypted via AWS PrivateLink.
+          </p>
+        </div>
+        <div class="rounded-lg border border-neutral-200 bg-white p-6">
+          <div class="flex items-center gap-3">
+            <Icon name="lucide:key" size={20} class="text-brand-600" />
+            <h3 class="font-semibold text-neutral-900">Credential Management</h3>
+          </div>
+          <p class="mt-2 text-sm leading-relaxed text-neutral-600">
+            Your API keys and OAuth tokens are never stored in plain text. They are encrypted before
+            storage and decrypted only at runtime in ephemeral Lambda execution environments.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Authentication & Authorization -->
+  <section class="py-16 sm:py-20">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        overline="Authentication"
+        title="Identity & Access Control"
+        subtitle="Powered by Clerk, our authentication layer provides enterprise-grade identity management with minimal friction."
+        centered={false}
+      />
+      <div class="grid gap-6 sm:grid-cols-2">
+        <div class="rounded-lg border border-neutral-200 bg-white p-6">
+          <h3 class="font-semibold text-neutral-900">Multi-Factor Authentication</h3>
+          <p class="mt-2 text-sm leading-relaxed text-neutral-600">
+            MFA support for all accounts. Enforce MFA at the organization level for additional security.
+          </p>
+        </div>
+        <div class="rounded-lg border border-neutral-200 bg-white p-6">
+          <h3 class="font-semibold text-neutral-900">Session Management</h3>
+          <p class="mt-2 text-sm leading-relaxed text-neutral-600">
+            Secure, short-lived session tokens with automatic rotation. Active session monitoring and revocation.
+          </p>
+        </div>
+        <div class="rounded-lg border border-neutral-200 bg-white p-6">
+          <h3 class="font-semibold text-neutral-900">Role-Based Access Control</h3>
+          <p class="mt-2 text-sm leading-relaxed text-neutral-600">
+            Granular permissions for team members. Control who can view, create, edit, or delete hooks and configurations.
+          </p>
+        </div>
+        <div class="rounded-lg border border-neutral-200 bg-white p-6">
+          <h3 class="font-semibold text-neutral-900">SSO Ready</h3>
+          <p class="mt-2 text-sm leading-relaxed text-neutral-600">
+            Enterprise single sign-on support via SAML and OIDC. Integrate with your existing identity provider.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resilience -->
+  <section class="bg-neutral-50 py-16 sm:py-20">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        overline="Resilience"
+        title="Built to Stay Running"
+        subtitle="Automatic retries, circuit breakers, and dead letter queues ensure your events are never lost."
+        centered={false}
+      />
+      <div class="space-y-6">
+        <div class="flex gap-4">
+          <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-100">
+            <Icon name="lucide:repeat" size={20} class="text-brand-700" />
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-neutral-900">Automatic Retry with Backoff</h3>
+            <p class="mt-1 text-sm leading-relaxed text-neutral-600">
+              Failed deliveries are retried with exponential backoff. Transient failures are handled automatically without manual intervention.
+            </p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-100">
+            <Icon name="lucide:toggle-right" size={20} class="text-brand-700" />
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-neutral-900">Circuit Breakers</h3>
+            <p class="mt-1 text-sm leading-relaxed text-neutral-600">
+              If a downstream endpoint is consistently failing, circuit breakers prevent cascading failures and protect both your systems and ours.
+            </p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-100">
+            <Icon name="lucide:archive" size={20} class="text-brand-700" />
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-neutral-900">Dead Letter Queues</h3>
+            <p class="mt-1 text-sm leading-relaxed text-neutral-600">
+              Events that cannot be delivered after all retries are preserved in dead letter queues for manual inspection and replay.
+            </p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-100">
+            <Icon name="lucide:activity" size={20} class="text-brand-700" />
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-neutral-900">Real-Time Monitoring</h3>
+            <p class="mt-1 text-sm leading-relaxed text-neutral-600">
+              System health, delivery metrics, and error rates are monitored 24/7 with automated alerting on anomalies.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Compliance -->
+  <section class="py-16 sm:py-20">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        overline="Compliance"
+        title="Standards & Certifications"
+        subtitle="We follow industry best practices and are working toward formal certifications."
+        centered={false}
+      />
+      <div class="grid gap-6 sm:grid-cols-3">
+        <div class="rounded-lg border border-neutral-200 bg-white p-6 text-center">
+          <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-brand-100">
+            <Icon name="lucide:badge-check" size={24} class="text-brand-700" />
+          </div>
+          <h3 class="mt-4 font-semibold text-neutral-900">SOC 2 Type II</h3>
+          <p class="mt-2 text-sm text-neutral-600">In progress</p>
+        </div>
+        <div class="rounded-lg border border-neutral-200 bg-white p-6 text-center">
+          <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-brand-100">
+            <Icon name="lucide:shield-check" size={24} class="text-brand-700" />
+          </div>
+          <h3 class="mt-4 font-semibold text-neutral-900">GDPR</h3>
+          <p class="mt-2 text-sm text-neutral-600">Compliant</p>
+        </div>
+        <div class="rounded-lg border border-neutral-200 bg-white p-6 text-center">
+          <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-brand-100">
+            <Icon name="lucide:file-lock" size={24} class="text-brand-700" />
+          </div>
+          <h3 class="mt-4 font-semibold text-neutral-900">Data Residency</h3>
+          <p class="mt-2 text-sm text-neutral-600">US & EU regions</p>
+        </div>
+      </div>
+
+      <div class="mt-10 rounded-lg border border-neutral-200 bg-neutral-50 p-6">
+        <h3 class="font-semibold text-neutral-900">Responsible Disclosure</h3>
+        <p class="mt-2 text-sm leading-relaxed text-neutral-600">
+          Found a security vulnerability? We appreciate responsible disclosure. Contact our security team at
+          <a
+            href="mailto:security@rockethooks.com"
+            class="text-brand-600 transition-colors hover:text-brand-700"
+          >
+            security@rockethooks.com
+          </a>
+          and we will respond within 24 hours.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <FinalCTA
+    headline="Security questions?"
+    subtitle="Our team is happy to discuss security requirements, compliance needs, or custom enterprise configurations."
+    ctaLabel="Contact Us"
+    ctaHref="/contact"
+  />
+</LandingLayout>
