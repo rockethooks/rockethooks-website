@@ -1,10 +1,28 @@
 [
   {
+    "id": "adnene-manai",
+    "name": "Adnene Manai",
+    "title": "Founder & CEO",
+    "bio": "Founder and CEO of RocketHooks. Over a decade of experience building distributed systems, serverless architectures, and developer tools. Previously led engineering teams at high-growth startups. Passionate about eliminating undifferentiated infrastructure work so developers can focus on their products.",
+    "avatar": "/images/authors/adnene-manai.jpg",
+    "linkedin": "https://www.linkedin.com/in/adnenemanai",
+    "github": "https://github.com/adnene"
+  },
+  {
     "id": "rockethooks-team",
     "name": "RocketHooks Team",
     "title": "Engineering Team",
-    "bio": "The team behind RocketHooks, building the API transformation platform that turns REST endpoints into real-time event streams.",
+    "bio": "The team behind RocketHooks, building the API transformation platform that turns REST endpoints into real-time event streams. Experts in serverless architecture, event-driven systems, and developer experience.",
     "linkedin": "https://www.linkedin.com/company/rockethooks",
     "github": "https://github.com/rockethooks"
+  },
+  {
+    "id": "sarah-chen",
+    "name": "Sarah Chen",
+    "title": "Head of Developer Relations",
+    "bio": "Developer advocate with deep expertise in API design, integration patterns, and webhook infrastructure. Writes about practical strategies for real-time data pipelines and event-driven architecture. Contributor to OpenAPI and AsyncAPI specifications.",
+    "avatar": "/images/authors/sarah-chen.jpg",
+    "linkedin": "https://www.linkedin.com/in/sarahchen-devrel",
+    "github": "https://github.com/sarahchen"
   }
 ]

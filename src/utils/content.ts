@@ -1,9 +1,18 @@
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection, getEntry, type CollectionEntry } from 'astro:content';
 
 /** Breadcrumb item for structured navigation */
 interface BreadcrumbItem {
   label: string;
   href: string;
+}
+
+/** Paginated result with metadata */
+interface PaginatedResult<T> {
+  items: T[];
+  page: number;
+  perPage: number;
+  totalPages: number;
+  totalItems: number;
 }
 
 /**
@@ -79,6 +88,57 @@ export function getBreadcrumbs(pathname: string): BreadcrumbItem[] {
   }
 
   return items;
+}
+
+/**
+ * Filters published blog posts by category.
+ *
+ * @param category - Blog category to filter by (educational, problem-aware, comparison)
+ * @returns Array of published posts matching the category
+ */
+export async function getPostsByCategory(
+  category: string
+): Promise<CollectionEntry<'blog'>[]> {
+  const published = await getPublishedPosts();
+  return published.filter((post) => post.data.category === category);
+}
+
+/**
+ * Returns a paginated slice of published blog posts with metadata.
+ *
+ * @param page - Page number (1-based)
+ * @param perPage - Number of posts per page (default: 10)
+ * @returns Paginated result containing items and pagination metadata
+ */
+export async function getPaginatedPosts(
+  page: number,
+  perPage = 10
+): Promise<PaginatedResult<CollectionEntry<'blog'>>> {
+  const published = await getPublishedPosts();
+  const totalItems = published.length;
+  const totalPages = Math.max(1, Math.ceil(totalItems / perPage));
+  const safePage = Math.max(1, Math.min(page, totalPages));
+  const start = (safePage - 1) * perPage;
+
+  return {
+    items: published.slice(start, start + perPage),
+    page: safePage,
+    perPage,
+    totalPages,
+    totalItems,
+  };
+}
+
+/**
+ * Fetches an author entry from the authors data collection by ID.
+ *
+ * @param id - Author ID matching an entry in authors.json
+ * @returns The author entry, or undefined if not found
+ */
+export async function getAuthorById(
+  id: string
+): Promise<CollectionEntry<'authors'> | undefined> {
+  return getEntry('authors', id);
 }
 
 /**

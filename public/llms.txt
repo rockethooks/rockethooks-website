@@ -21,6 +21,9 @@ RocketHooks transforms any REST API into real-time webhooks and notifications wi
 - Pricing: https://www.rockethooks.com/pricing/
 - Use Cases: https://www.rockethooks.com/use-cases/
 - Blog: https://www.rockethooks.com/blog/
+- Integrations: https://www.rockethooks.com/integrations/
+- Changelog: https://www.rockethooks.com/changelog/
+- Compare: https://www.rockethooks.com/compare/
 - Documentation: https://docs.rockethooks.com/
 
 ## Use Cases
