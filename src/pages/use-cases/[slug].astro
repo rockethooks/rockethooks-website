@@ -1,0 +1,99 @@
+---
+import { getCollection, render } from 'astro:content';
+import LandingLayout from '@layouts/LandingLayout.astro';
+import Breadcrumbs from '@components/shared/Breadcrumbs.astro';
+import ArticleSchema from '@components/seo/ArticleSchema.astro';
+import CTAButton from '@components/shared/CTAButton.astro';
+
+export async function getStaticPaths() {
+  const useCases = await getCollection('use-cases');
+  return useCases.map((uc) => ({
+    params: { slug: uc.id },
+    props: { entry: uc },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const industryLabels: Record<string, string> = {
+  crm: 'CRM',
+  ecommerce: 'E-commerce',
+  devops: 'DevOps',
+  erp: 'Enterprise',
+  general: 'SaaS',
+};
+
+const industryColors: Record<string, string> = {
+  crm: 'bg-blue-50 text-blue-700 border-blue-200',
+  ecommerce: 'bg-green-50 text-green-700 border-green-200',
+  devops: 'bg-purple-50 text-purple-700 border-purple-200',
+  erp: 'bg-amber-50 text-amber-700 border-amber-200',
+  general: 'bg-neutral-50 text-neutral-700 border-neutral-200',
+};
+
+const label = industryLabels[entry.data.industry] ?? entry.data.industry;
+const colorClasses = industryColors[entry.data.industry] ?? industryColors.general;
+---
+
+<LandingLayout
+  title={`${entry.data.title} - RocketHooks`}
+  description={entry.data.description}
+>
+  <Fragment slot="head">
+    <ArticleSchema
+      title={entry.data.title}
+      description={entry.data.description}
+      publishDate={new Date('2026-03-01')}
+      authorName="RocketHooks Team"
+      url={`/use-cases/${entry.id}`}
+      keywords={[entry.data.industry, 'api monitoring', 'real-time events', 'webhooks']}
+    />
+  </Fragment>
+
+  <!-- Article Header -->
+  <section class="bg-white pb-8 pt-12 sm:pt-16">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs />
+
+      <span class:list={['mb-4 inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold', colorClasses]}>
+        {label}
+      </span>
+
+      <h1 class="text-3xl font-semibold tracking-tight text-neutral-900 sm:text-4xl">
+        {entry.data.title}
+      </h1>
+
+      <p class="mt-4 text-lg leading-relaxed text-neutral-600">
+        {entry.data.description}
+      </p>
+    </div>
+  </section>
+
+  <!-- Article Content -->
+  <section class="bg-white pb-16">
+    <article class="prose prose-neutral mx-auto max-w-3xl px-4 prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-brand-600 prose-a:no-underline hover:prose-a:underline prose-code:rounded prose-code:bg-neutral-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:text-sm prose-code:font-normal prose-code:before:content-none prose-code:after:content-none sm:px-6 lg:px-8">
+      <Content />
+    </article>
+  </section>
+
+  <!-- Back to hub + CTA -->
+  <section class="border-t border-neutral-200 bg-neutral-50 py-12">
+    <div class="mx-auto flex max-w-3xl flex-col items-center gap-6 px-4 text-center sm:px-6 lg:px-8">
+      <a
+        href="/use-cases"
+        class="inline-flex items-center gap-1.5 text-sm font-medium text-neutral-600 transition-colors hover:text-neutral-900"
+      >
+        &larr; View all use cases
+      </a>
+      <div class="flex flex-col items-center gap-3">
+        <p class="text-lg font-semibold text-neutral-900">
+          Ready to try this use case?
+        </p>
+        <CTAButton href="https://app.rockethooks.com/signup" size="lg">
+          Get Started Free
+        </CTAButton>
+      </div>
+    </div>
+  </section>
+</LandingLayout>

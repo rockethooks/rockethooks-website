@@ -1,0 +1,136 @@
+---
+title: "Inventory Monitoring"
+description: "Track stock levels across supplier APIs, warehouses, and distribution channels. Trigger reorder workflows before items go out of stock with RocketHooks."
+industry: "ecommerce"
+icon: "lucide:shopping-cart"
+order: 4
+featured: false
+---
+
+## The problem: stockouts happen faster than batch syncs can detect
+
+Inventory data lives in dozens of systems -- supplier portals, warehouse management APIs, marketplace backends, and ERP databases. Most expose stock levels through REST endpoints that update continuously, but downstream systems only sync on batch schedules (hourly, daily, or worse).
+
+The gap between real-time inventory changes and batch-processed updates creates predictable failures:
+
+- Stockouts on high-velocity SKUs go undetected until the next sync cycle
+- Overselling occurs when multiple channels read stale availability data
+- Reorder triggers fire too late, creating supply chain gaps
+- Warehouse transfer requests miss optimal timing windows
+
+Custom inventory polling scripts are the typical workaround, but they scale poorly across multiple suppliers and warehouses. Each API has different rate limits, pagination schemes, and authentication patterns.
+
+## How RocketHooks solves inventory monitoring
+
+RocketHooks monitors stock level endpoints across your entire supply chain and detects meaningful changes in real time. Define threshold-based alerts that trigger reorder workflows, channel updates, and team notifications before stockouts happen.
+
+**Core inventory monitoring capabilities:**
+
+1. **Threshold-based alerts** -- Trigger when stock drops below safety levels, hits zero, or changes by a significant quantity
+2. **Multi-supplier monitoring** -- Track inventory across dozens of supplier APIs with a single configuration approach
+3. **Warehouse-level granularity** -- Monitor stock by location, bin, or fulfillment center using JSONPath field selection
+4. **Reorder automation** -- Chain RocketHooks notifications into your procurement or ERP system to automate purchase orders
+
+## Setup in under five minutes
+
+### Step 1: Connect your inventory API
+
+```bash
+curl -X POST https://api.rockethooks.com/v1/monitors \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Warehouse Inventory Monitor",
+    "endpoint": "https://wms-api.example.com/v2/inventory?warehouse=US-EAST",
+    "method": "GET",
+    "headers": {
+      "Authorization": "Bearer YOUR_WMS_TOKEN"
+    },
+    "schedule": "*/10 * * * *"
+  }'
+```
+
+### Step 2: Define stock threshold rules
+
+```json
+{
+  "changeDetection": {
+    "strategy": "jsonpath",
+    "fields": [
+      "$.items[*].quantity_available",
+      "$.items[*].quantity_reserved"
+    ],
+    "conditions": [
+      {
+        "field": "$.items[*].quantity_available",
+        "operator": "lessThan",
+        "value": 50,
+        "severity": "warning",
+        "label": "low-stock"
+      },
+      {
+        "field": "$.items[*].quantity_available",
+        "operator": "equals",
+        "value": 0,
+        "severity": "critical",
+        "label": "out-of-stock"
+      }
+    ]
+  }
+}
+```
+
+### Step 3: Trigger reorder workflows
+
+```json
+{
+  "notifications": [
+    {
+      "channel": "webhook",
+      "url": "https://your-erp.com/api/purchase-orders/auto-create",
+      "events": ["condition.met"],
+      "filter": "$.label == 'low-stock'",
+      "transform": {
+        "sku": "$.context.itemSku",
+        "currentStock": "$.currentValue",
+        "reorderQuantity": 500,
+        "priority": "standard"
+      }
+    },
+    {
+      "channel": "slack",
+      "webhookUrl": "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK",
+      "events": ["condition.met"],
+      "filter": "$.label == 'out-of-stock'"
+    },
+    {
+      "channel": "email",
+      "to": ["procurement@yourcompany.com"],
+      "events": ["condition.met"],
+      "filter": "$.severity == 'critical'"
+    }
+  ]
+}
+```
+
+## Real-world impact
+
+A consumer electronics distributor monitoring 8,200 SKUs across 3 warehouse APIs and 12 supplier endpoints reduced stockout incidents by 73% in their first quarter with RocketHooks. Automated reorder triggers replaced a manual review process that ran twice daily and consistently missed fast-moving items.
+
+**Typical results:**
+
+- Stockout detection in under 10 minutes versus 4-12 hour batch sync cycles
+- 73% reduction in out-of-stock incidents for high-velocity SKUs
+- Automated reorder workflows replacing manual procurement reviews
+- Single monitoring layer across warehouse, supplier, and marketplace APIs
+
+## Supported inventory systems
+
+RocketHooks connects to any inventory system with a REST API:
+
+- **Warehouse management** -- ShipBob, ShipHero, Fulfil.io, custom WMS platforms
+- **E-commerce backends** -- Shopify Inventory API, WooCommerce Stock, BigCommerce
+- **Supplier portals** -- EDI-to-REST adapters, supplier catalog APIs
+- **ERP inventory modules** -- SAP, Oracle, NetSuite inventory endpoints
+- **3PL providers** -- Deliverr, Flexport, any 3PL with REST API access
+- **Marketplace inventory** -- Amazon FBA, Walmart Marketplace inventory feeds

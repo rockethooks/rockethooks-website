@@ -1,0 +1,123 @@
+---
+title: "ERP Integration"
+description: "Transform legacy ERP REST endpoints into real-time data feeds. Sync SAP, Oracle, and NetSuite data without modifying existing infrastructure."
+industry: "erp"
+icon: "lucide:server"
+order: 5
+featured: true
+---
+
+## The problem: ERP systems are data silos with no push mechanism
+
+Enterprise Resource Planning systems hold the most critical business data -- financials, inventory, procurement, HR records -- but they were designed for batch processing, not real-time events. SAP, Oracle, Microsoft Dynamics, and NetSuite expose data through REST or OData endpoints, yet offer limited (or no) native webhook capabilities.
+
+Teams building integrations against ERP APIs face recurring obstacles:
+
+- Batch ETL jobs run on fixed schedules, creating hours-long data lag
+- Custom middleware to bridge ERP data to downstream systems is expensive to build and maintain
+- ERP API rate limits make aggressive polling impractical
+- Field-level change tracking requires comparing full payloads across polling cycles, which is complex and error-prone
+
+The result is a familiar pattern: stale data propagating through business systems, with teams building increasingly complex middleware to bridge the gap.
+
+## How RocketHooks solves ERP integration
+
+RocketHooks acts as a lightweight, non-invasive integration layer between your ERP REST endpoints and downstream systems. It handles the complexity of polling, change detection, and event routing so your team can focus on business logic.
+
+**Why RocketHooks works for ERP:**
+
+1. **Zero ERP modifications** -- Connects through standard REST or OData endpoints. No custom modules, no middleware installations, no ERP admin changes
+2. **Field-level change detection** -- JSONPath expressions track specific fields in deeply nested ERP payloads without processing entire records
+3. **Rate-limit-aware polling** -- Adaptive scheduling respects ERP API throttling while maximizing data freshness
+4. **Payload transformation** -- Reshape ERP data formats into clean webhook payloads that downstream systems expect
+
+## Setup in under five minutes
+
+### Step 1: Connect your ERP endpoint
+
+```bash
+curl -X POST https://api.rockethooks.com/v1/monitors \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "SAP Purchase Order Monitor",
+    "endpoint": "https://your-sap-gateway.com/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/A_PurchaseOrder?$top=50&$orderby=CreationDate desc",
+    "method": "GET",
+    "headers": {
+      "Authorization": "Basic YOUR_SAP_CREDENTIALS",
+      "Accept": "application/json"
+    },
+    "schedule": "*/5 * * * *"
+  }'
+```
+
+### Step 2: Define ERP change detection
+
+```json
+{
+  "changeDetection": {
+    "strategy": "jsonpath",
+    "fields": [
+      "$.d.results[*].PurchaseOrderStatus",
+      "$.d.results[*].NetPriceAmount",
+      "$.d.results[*].SupplierConfirmationStatus"
+    ],
+    "identityField": "$.d.results[*].PurchaseOrder",
+    "ignoreFields": [
+      "$.d.results[*].__metadata",
+      "$.d.results[*].LastChangeDateTime"
+    ]
+  }
+}
+```
+
+### Step 3: Route ERP events to downstream systems
+
+```json
+{
+  "notifications": [
+    {
+      "channel": "webhook",
+      "url": "https://your-data-platform.com/api/erp-events",
+      "events": ["field.changed"],
+      "transform": {
+        "poNumber": "$.context.PurchaseOrder",
+        "field": "$.changes[0].field",
+        "oldValue": "$.changes[0].previousValue",
+        "newValue": "$.changes[0].currentValue",
+        "timestamp": "$.detectedAt"
+      }
+    },
+    {
+      "channel": "slack",
+      "webhookUrl": "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK",
+      "events": ["field.changed"],
+      "filter": "$.changes[?(@.field == 'PurchaseOrderStatus')]"
+    }
+  ]
+}
+```
+
+## Real-world impact
+
+A manufacturing company integrating SAP with their custom production planning system replaced a nightly batch ETL job with RocketHooks monitors. Purchase order status changes now propagate to production scheduling in under 3 minutes, down from a 12-hour average delay. The migration eliminated a custom middleware layer that required 2 engineers to maintain.
+
+**Typical improvements:**
+
+- Data propagation from hours (batch ETL) to minutes (event-driven)
+- 2-3 custom middleware components replaced per ERP integration
+- Zero changes to ERP configuration or installed modules
+- Maintenance burden shifts from custom code to declarative monitor configuration
+
+## Supported ERP platforms
+
+RocketHooks integrates with any ERP system that exposes REST or OData endpoints:
+
+- **SAP S/4HANA** -- OData services, Business APIs, custom CDS views
+- **Oracle ERP Cloud** -- REST APIs for financials, procurement, supply chain
+- **Microsoft Dynamics 365** -- OData/REST for finance, operations, commerce
+- **NetSuite** -- SuiteTalk REST, RESTlets, custom record endpoints
+- **Infor CloudSuite** -- ION API Gateway, Infor OS REST services
+- **Sage Intacct** -- REST API for financial management
+
+No ERP-specific connectors or marketplace apps required. Standard REST authentication (Basic, OAuth, API keys) handles connectivity.

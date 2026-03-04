@@ -1,0 +1,121 @@
+---
+title: "E-commerce Price Tracking"
+description: "Monitor competitor prices, track product availability, and trigger automated repricing workflows across Shopify, WooCommerce, and marketplace APIs."
+industry: "ecommerce"
+icon: "lucide:tag"
+order: 2
+featured: true
+---
+
+## The problem: prices change faster than teams can react
+
+E-commerce margins live and die on pricing accuracy. Competitor prices shift multiple times per day across platforms like Amazon, Shopify storefronts, and wholesale marketplaces. Without real-time visibility into price movements, retailers face concrete losses:
+
+- Competitors undercut you by cents and capture Buy Box placement
+- Wholesale supplier price increases go unnoticed until margin erosion shows up in reports
+- Flash sales and promotional pricing windows close before your team can respond
+- Catalog-wide price changes on marketplace APIs create data drift across channels
+
+Building custom price monitoring is deceptively complex. Rate limits, pagination, anti-bot measures, and the sheer volume of SKUs make reliable tracking a full-time engineering problem.
+
+## How RocketHooks solves price tracking
+
+RocketHooks monitors product API endpoints at configurable intervals and detects field-level changes in pricing data. Instead of building custom scrapers, point RocketHooks at any product REST API and define JSONPath expressions for the fields that matter.
+
+**Core capabilities for e-commerce teams:**
+
+1. **SKU-level monitoring** -- Track `price`, `compare_at_price`, `inventory_quantity`, and custom metafields across thousands of products
+2. **Threshold alerts** -- Trigger notifications only when prices change by more than a defined percentage or absolute value
+3. **Multi-marketplace sync** -- Monitor Shopify, WooCommerce, BigCommerce, and custom APIs from a single dashboard
+4. **Batch-efficient polling** -- Paginated endpoint support processes catalogs of 50,000+ SKUs within rate limits
+
+## Setup in under five minutes
+
+### Step 1: Connect your product API
+
+```bash
+curl -X POST https://api.rockethooks.com/v1/monitors \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Shopify Price Monitor",
+    "endpoint": "https://your-store.myshopify.com/admin/api/2024-01/products.json",
+    "method": "GET",
+    "headers": {
+      "X-Shopify-Access-Token": "YOUR_SHOPIFY_TOKEN"
+    },
+    "schedule": "*/15 * * * *",
+    "pagination": {
+      "strategy": "link-header",
+      "limit": 250
+    }
+  }'
+```
+
+### Step 2: Define price change detection
+
+```json
+{
+  "changeDetection": {
+    "strategy": "jsonpath",
+    "fields": [
+      "$.products[*].variants[*].price",
+      "$.products[*].variants[*].compare_at_price",
+      "$.products[*].variants[*].inventory_quantity"
+    ],
+    "threshold": {
+      "type": "percentage",
+      "value": 1.0
+    }
+  }
+}
+```
+
+### Step 3: Route price alerts
+
+```json
+{
+  "notifications": [
+    {
+      "channel": "webhook",
+      "url": "https://your-app.com/api/price-updates",
+      "events": ["field.changed"],
+      "transform": {
+        "sku": "$.changes[0].context.sku",
+        "oldPrice": "$.changes[0].previousValue",
+        "newPrice": "$.changes[0].currentValue"
+      }
+    },
+    {
+      "channel": "slack",
+      "webhookUrl": "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK",
+      "events": ["field.changed"],
+      "filter": "$.changes[?(@.percentChange > 5)]"
+    }
+  ]
+}
+```
+
+## Real-world impact
+
+An online electronics retailer tracking 12,000 SKUs across three competitor Shopify stores reduced their repricing response time from 6 hours to 4 minutes. Their automated workflow adjusts prices within competitive thresholds and has recovered an estimated 8% in margin that was previously lost to delayed reactions.
+
+**Typical results:**
+
+- Price change detection in under 5 minutes across catalogs of 50K+ SKUs
+- 90% reduction in manual price monitoring effort
+- Automated repricing workflows triggered within seconds of competitor changes
+- Single integration replacing per-marketplace monitoring scripts
+
+## Supported e-commerce platforms
+
+RocketHooks connects to any platform with a REST API:
+
+- **Shopify** -- Products, variants, inventory levels, price rules
+- **WooCommerce** -- Products, variations, stock management
+- **BigCommerce** -- Catalog, pricing, inventory APIs
+- **Magento/Adobe Commerce** -- REST and GraphQL product endpoints
+- **Amazon SP-API** -- Pricing, catalog items, competitive pricing
+- **Custom marketplaces** -- Any REST endpoint returning product data
+
+No platform plugins or marketplace app installations required. Standard API authentication handles the connection.

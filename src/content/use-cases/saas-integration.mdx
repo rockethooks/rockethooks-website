@@ -1,0 +1,123 @@
+---
+title: "SaaS Platform Integration"
+description: "Connect SaaS tools that lack native webhooks into your automation stack. Monitor any REST API and trigger workflows across your entire software ecosystem."
+industry: "general"
+icon: "lucide:plug"
+order: 7
+featured: false
+---
+
+## The problem: most SaaS APIs are pull-only
+
+Modern businesses run on dozens of SaaS platforms -- project management, HR, finance, analytics, customer support. While a few market leaders offer webhook integrations, the vast majority expose data only through REST APIs that require explicit polling.
+
+This creates a fundamental integration bottleneck:
+
+- Teams build custom polling scripts for each SaaS tool, each with different authentication, pagination, and rate limiting patterns
+- iPaaS platforms (Zapier, Make, Workato) charge per-execution fees that scale linearly with polling frequency
+- Internal "integration tax" grows as engineering teams maintain an expanding web of point-to-point connections
+- Data staleness accumulates across systems that only sync on fixed schedules
+
+The typical enterprise runs 100+ SaaS applications. Even if 20% lack webhook support, that is 20+ tools requiring custom polling infrastructure.
+
+## How RocketHooks solves SaaS integration
+
+RocketHooks provides a universal "webhook adapter" layer for any SaaS REST API. Instead of building custom polling and change detection for each tool, configure RocketHooks monitors that transform pull-based APIs into push-based event streams.
+
+**Why teams choose RocketHooks for SaaS integration:**
+
+1. **Universal API support** -- Any SaaS tool with a REST API works. No connectors to install, no marketplace apps to approve, no vendor-specific SDKs
+2. **Authentication flexibility** -- OAuth 2.0, API keys, Bearer tokens, Basic auth, custom headers -- configure once per monitor
+3. **Change-based triggering** -- Only fire events when data actually changes, eliminating redundant webhook calls and downstream processing
+4. **Cost-predictable scaling** -- Monitor hundreds of endpoints on a flat monthly price versus per-execution iPaaS fees
+
+## Setup in under five minutes
+
+### Step 1: Connect your SaaS API
+
+```bash
+curl -X POST https://api.rockethooks.com/v1/monitors \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Notion Database Monitor",
+    "endpoint": "https://api.notion.com/v1/databases/YOUR_DB_ID/query",
+    "method": "POST",
+    "headers": {
+      "Authorization": "Bearer YOUR_NOTION_TOKEN",
+      "Notion-Version": "2022-06-28"
+    },
+    "body": {
+      "sorts": [{ "timestamp": "last_edited_time", "direction": "descending" }],
+      "page_size": 50
+    },
+    "schedule": "*/5 * * * *"
+  }'
+```
+
+### Step 2: Define what changes matter
+
+```json
+{
+  "changeDetection": {
+    "strategy": "jsonpath",
+    "fields": [
+      "$.results[*].properties.Status.select.name",
+      "$.results[*].properties.Assignee.people[*].name",
+      "$.results[*].properties.Priority.select.name"
+    ],
+    "identityField": "$.results[*].id"
+  }
+}
+```
+
+### Step 3: Route events to your automation stack
+
+```json
+{
+  "notifications": [
+    {
+      "channel": "webhook",
+      "url": "https://your-app.com/api/saas-events",
+      "events": ["field.changed"],
+      "transform": {
+        "source": "notion",
+        "recordId": "$.context.id",
+        "field": "$.changes[0].field",
+        "newValue": "$.changes[0].currentValue",
+        "previousValue": "$.changes[0].previousValue"
+      }
+    },
+    {
+      "channel": "slack",
+      "webhookUrl": "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK",
+      "events": ["field.changed"],
+      "filter": "$.changes[?(@.field == 'Status')]"
+    }
+  ]
+}
+```
+
+## Real-world impact
+
+A 200-person SaaS company replaced 14 Zapier zaps and 6 custom polling scripts with RocketHooks monitors. Their monthly integration cost dropped from $890/month (Zapier Business tier + compute for custom scripts) to $79/month on RocketHooks Pro. More importantly, event detection latency dropped from 15 minutes (Zapier polling interval) to under 5 minutes.
+
+**Typical results:**
+
+- 70-85% cost reduction versus iPaaS per-execution pricing at scale
+- Event detection in under 5 minutes versus 15-minute polling intervals
+- Single authentication and monitoring approach across all SaaS tools
+- Maintenance burden reduced from per-tool scripts to declarative configurations
+
+## Supported SaaS platforms
+
+RocketHooks works with any platform that has a REST API. Common integrations:
+
+- **Project management** -- Notion, Asana, Monday.com, Linear, ClickUp
+- **HR and people** -- BambooHR, Gusto, Rippling, Workday REST APIs
+- **Finance** -- QuickBooks, Xero, Brex, Ramp transaction APIs
+- **Customer support** -- Zendesk, Intercom, Freshdesk ticket endpoints
+- **Analytics** -- Mixpanel, Amplitude, PostHog data export APIs
+- **Developer tools** -- GitHub, GitLab, Jira, Confluence REST APIs
+
+If the platform has a REST API and returns JSON, RocketHooks can monitor it.

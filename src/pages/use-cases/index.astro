@@ -1,0 +1,105 @@
+---
+import { getCollection } from 'astro:content';
+import LandingLayout from '@layouts/LandingLayout.astro';
+import Breadcrumbs from '@components/shared/Breadcrumbs.astro';
+import UseCaseCard from '@components/landing/UseCaseCard.astro';
+import FinalCTA from '@components/shared/FinalCTA.astro';
+import ItemListSchema from '@components/seo/ItemListSchema.astro';
+
+const useCases = await getCollection('use-cases');
+const sorted = useCases.sort((a, b) => a.data.order - b.data.order);
+
+const industryLabels: Record<string, string> = {
+  crm: 'CRM',
+  ecommerce: 'E-commerce',
+  devops: 'DevOps',
+  erp: 'Enterprise',
+  general: 'SaaS',
+};
+
+const iconMap: Record<string, string> = {
+  'crm-monitoring': 'lucide:contact',
+  'ecommerce-price-tracking': 'lucide:tag',
+  'devops-api-health': 'lucide:cpu',
+  'inventory-monitoring': 'lucide:shopping-cart',
+  'erp-integration': 'lucide:server',
+  'order-fulfillment': 'lucide:truck',
+  'saas-integration': 'lucide:plug',
+};
+---
+
+<LandingLayout
+  title="Use Cases - RocketHooks"
+  description="See how teams use RocketHooks to transform REST APIs into real-time event streams across CRM, e-commerce, DevOps, ERP, and SaaS platforms."
+>
+  <Fragment slot="head">
+    <ItemListSchema
+      name="RocketHooks Use Cases"
+      description="Industry-specific use cases showing how RocketHooks transforms REST API endpoints into real-time event streams with intelligent polling and multi-channel notifications."
+      items={sorted.map((uc) => ({
+        name: uc.data.title,
+        description: uc.data.description,
+        url: `/use-cases/${uc.id}`,
+      }))}
+    />
+  </Fragment>
+
+  <!-- Page Header -->
+  <section class="bg-white pb-8 pt-12 sm:pt-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs />
+
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="mb-3 text-sm font-semibold uppercase tracking-wider text-brand-600">
+          Use Cases
+        </p>
+        <h1 class="text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl">
+          Built for the integrations that matter
+        </h1>
+        <p class="mt-6 text-lg leading-relaxed text-neutral-600">
+          Most REST APIs are pull-only -- they expose data through endpoints but offer no push mechanism when that data changes. RocketHooks bridges this gap by transforming any API endpoint into a real-time event stream with intelligent polling, JSONPath change detection, and multi-channel delivery. From CRM contact updates to ERP purchase order transitions, teams across industries use RocketHooks to eliminate batch sync delays, replace fragile polling scripts, and react to data changes in seconds instead of hours.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Use Cases Grid -->
+  <section class="bg-neutral-50 py-16 sm:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {sorted.map((uc) => (
+          <UseCaseCard
+            icon={uc.data.icon ?? iconMap[uc.id] ?? 'lucide:zap'}
+            title={uc.data.title}
+            description={uc.data.description}
+            href={`/use-cases/${uc.id}`}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Industry Summary -->
+  <section class="bg-white py-16 sm:py-20">
+    <div class="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl">
+        Any REST API. Real-time events. Zero infrastructure changes.
+      </h2>
+      <p class="mt-4 text-lg leading-relaxed text-neutral-600">
+        RocketHooks works with any service that exposes a REST API and returns JSON. If you can call it with cURL, RocketHooks can monitor it, detect changes, and notify your team through webhooks, Slack, email, or SMS.
+      </p>
+      <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
+        {Object.entries(industryLabels).map(([_key, label]) => (
+          <span class="inline-flex items-center rounded-full border border-neutral-200 bg-neutral-50 px-4 py-1.5 text-sm font-medium text-neutral-700">
+            {label}
+          </span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <FinalCTA
+    headline="Ready to transform your APIs?"
+    subtitle="Start monitoring any REST API and receiving real-time events in minutes. Free plan includes 5 monitors and 1,000 deliveries per month."
+  />
+</LandingLayout>

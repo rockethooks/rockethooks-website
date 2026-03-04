@@ -1,0 +1,131 @@
+---
+title: "DevOps API Health Monitoring"
+description: "Watch deployment APIs, CI/CD pipelines, and infrastructure endpoints for status changes, failures, and performance degradation with RocketHooks."
+industry: "devops"
+icon: "lucide:cpu"
+order: 3
+featured: true
+---
+
+## The problem: blind spots between your monitoring tools
+
+DevOps teams rely on a patchwork of monitoring tools -- Datadog for metrics, PagerDuty for alerting, GitHub Actions for CI/CD. But critical status changes in deployment APIs, third-party service health endpoints, and infrastructure management tools often fall through the cracks.
+
+Common blind spots include:
+
+- CI/CD pipeline failures that only surface when someone checks the dashboard
+- Third-party API degradation that silently breaks downstream services
+- Infrastructure provisioning status changes (Terraform, CloudFormation) with no push notification
+- Deployment rollback triggers that depend on manual health check reviews
+
+Most infrastructure APIs expose status through REST endpoints but offer no webhook or push mechanism. Teams end up writing fragile cron jobs or relying on vendor-specific integrations that cover only part of the picture.
+
+## How RocketHooks solves DevOps monitoring
+
+RocketHooks converts any REST health, status, or deployment endpoint into a real-time event stream. Define monitors for your CI/CD APIs, cloud provider endpoints, and third-party service status pages, then route changes to the channels your team already uses.
+
+**What RocketHooks adds to your DevOps stack:**
+
+1. **Universal API health checks** -- Monitor any REST endpoint's response body, status code, and response time in a single configuration
+2. **Pipeline status tracking** -- Detect GitHub Actions, GitLab CI, or Jenkins build status changes the moment they happen
+3. **Service dependency monitoring** -- Watch third-party status page APIs (Stripe, AWS, Twilio) for degradation signals
+4. **Incident channel routing** -- Send critical failures to PagerDuty, warnings to Slack, and all events to your logging pipeline
+
+## Setup in under five minutes
+
+### Step 1: Create a deployment status monitor
+
+```bash
+curl -X POST https://api.rockethooks.com/v1/monitors \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "GitHub Actions Workflow Monitor",
+    "endpoint": "https://api.github.com/repos/your-org/your-repo/actions/runs?per_page=5",
+    "method": "GET",
+    "headers": {
+      "Authorization": "token YOUR_GITHUB_TOKEN",
+      "Accept": "application/vnd.github.v3+json"
+    },
+    "schedule": "*/2 * * * *"
+  }'
+```
+
+### Step 2: Define failure detection rules
+
+```json
+{
+  "changeDetection": {
+    "strategy": "jsonpath",
+    "fields": [
+      "$.workflow_runs[*].status",
+      "$.workflow_runs[*].conclusion"
+    ],
+    "conditions": [
+      {
+        "field": "$.workflow_runs[0].conclusion",
+        "operator": "equals",
+        "value": "failure",
+        "severity": "critical"
+      },
+      {
+        "field": "$.workflow_runs[0].conclusion",
+        "operator": "equals",
+        "value": "cancelled",
+        "severity": "warning"
+      }
+    ]
+  }
+}
+```
+
+### Step 3: Route incidents to your on-call stack
+
+```json
+{
+  "notifications": [
+    {
+      "channel": "webhook",
+      "url": "https://events.pagerduty.com/v2/enqueue",
+      "events": ["field.changed"],
+      "filter": "$.severity == 'critical'",
+      "transform": {
+        "routing_key": "YOUR_PAGERDUTY_KEY",
+        "event_action": "trigger",
+        "payload": {
+          "summary": "CI/CD pipeline failure detected",
+          "severity": "critical",
+          "source": "rockethooks"
+        }
+      }
+    },
+    {
+      "channel": "slack",
+      "webhookUrl": "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK",
+      "events": ["field.changed"]
+    }
+  ]
+}
+```
+
+## Real-world impact
+
+A platform engineering team monitoring 14 microservice deployment pipelines and 8 third-party API dependencies cut their mean time to detect (MTTD) from 23 minutes to under 90 seconds. They replaced 6 custom health check scripts and 3 vendor-specific integrations with a single RocketHooks configuration.
+
+**Typical improvements:**
+
+- MTTD reduced by 90% for third-party API degradation
+- Zero missed pipeline failures across all CI/CD workflows
+- Single pane of glass for 20+ infrastructure API health checks
+- On-call engineers alerted within seconds instead of discovering failures during standups
+
+## Supported DevOps tools and APIs
+
+RocketHooks monitors any tool that exposes a REST API:
+
+- **CI/CD** -- GitHub Actions, GitLab CI, Jenkins, CircleCI, Buildkite
+- **Cloud providers** -- AWS Health API, Azure Service Health, GCP Status
+- **Infrastructure** -- Terraform Cloud, Pulumi, CloudFormation stack events
+- **Status pages** -- Atlassian Statuspage, Instatus, any JSON health endpoint
+- **Container orchestration** -- Kubernetes API server, ECS task status, Nomad jobs
+- **Monitoring tools** -- Datadog, Grafana, Prometheus (via REST API adapters)

@@ -1,0 +1,109 @@
+---
+title: "CRM Monitoring"
+description: "Detect contact updates, deal stage changes, and lead scoring shifts across Salesforce, HubSpot, and other CRM systems in real time with RocketHooks."
+industry: "crm"
+icon: "lucide:contact"
+order: 1
+featured: true
+---
+
+## The problem: CRM data goes stale in minutes
+
+Sales teams depend on accurate, up-to-date customer data. But most CRM platforms -- Salesforce, HubSpot, Pipedrive, Zoho -- expose data through REST APIs that require explicit polling. Without a reliable change detection mechanism, teams face a familiar set of problems:
+
+- Reps work deals with outdated contact information
+- Lead score changes go unnoticed for hours
+- Deal stage transitions trigger downstream workflows too late
+- Marketing campaigns target contacts who already converted
+
+Manual API polling scripts break silently, consume rate limits inefficiently, and miss field-level changes buried in large payloads. Building custom webhook infrastructure on top of each CRM is expensive and fragile.
+
+## How RocketHooks solves CRM monitoring
+
+RocketHooks transforms any CRM REST endpoint into a real-time event stream. Point it at your CRM's contact, deal, or company endpoints and define exactly which fields matter using JSONPath expressions.
+
+**What changes in your workflow:**
+
+1. **Field-level precision** -- Monitor specific nested fields like `deal.stage`, `contact.lead_score`, or `company.annual_revenue` instead of polling entire records
+2. **Multi-channel alerts** -- Route deal stage changes to Slack, lead score shifts to webhooks, and contact updates to email -- all from a single monitor
+3. **Zero CRM modifications** -- Works with your existing CRM REST API. No custom apps, no marketplace installations, no admin permissions beyond API access
+4. **Rate limit intelligence** -- Adaptive polling respects your CRM's rate limits while maximizing freshness
+
+## Setup in under five minutes
+
+### Step 1: Connect your CRM API
+
+```bash
+curl -X POST https://api.rockethooks.com/v1/monitors \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "HubSpot Deal Stage Monitor",
+    "endpoint": "https://api.hubapi.com/crm/v3/objects/deals",
+    "method": "GET",
+    "headers": {
+      "Authorization": "Bearer YOUR_HUBSPOT_TOKEN"
+    },
+    "schedule": "*/5 * * * *"
+  }'
+```
+
+### Step 2: Define change detection rules
+
+```json
+{
+  "changeDetection": {
+    "strategy": "jsonpath",
+    "fields": [
+      "$.results[*].properties.dealstage",
+      "$.results[*].properties.amount",
+      "$.results[*].properties.closedate"
+    ],
+    "ignoreFields": ["$.results[*].properties.hs_lastmodifieddate"]
+  }
+}
+```
+
+### Step 3: Configure notification channels
+
+```json
+{
+  "notifications": [
+    {
+      "channel": "webhook",
+      "url": "https://your-app.com/api/crm-events",
+      "events": ["field.changed"]
+    },
+    {
+      "channel": "slack",
+      "webhookUrl": "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK",
+      "events": ["field.changed"],
+      "filter": "$.changes[?(@.field == 'dealstage')]"
+    }
+  ]
+}
+```
+
+## Real-world impact
+
+A B2B SaaS company monitoring 2,400 HubSpot deals reduced their response time to deal stage changes from 4 hours (batch sync) to under 30 seconds. Their sales ops team eliminated a custom Zapier workflow that cost $340/month and broke twice per quarter.
+
+**Key metrics teams typically see:**
+
+- Deal response time reduced from hours to seconds
+- Zero missed lead score changes
+- 85% reduction in CRM API calls through intelligent diffing
+- One integration replacing 3-5 custom sync scripts
+
+## Supported CRM platforms
+
+RocketHooks works with any CRM that exposes a REST API:
+
+- **Salesforce** -- Objects, SOQL queries, custom objects
+- **HubSpot** -- Contacts, deals, companies, tickets
+- **Pipedrive** -- Deals, persons, organizations
+- **Zoho CRM** -- Modules, custom fields
+- **Microsoft Dynamics 365** -- Entities via OData endpoints
+- **Close.com** -- Leads, activities, opportunities
+
+No platform-specific connectors needed. If your CRM has a REST API, RocketHooks can monitor it.
