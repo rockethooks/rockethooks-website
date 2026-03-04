@@ -1,0 +1,67 @@
+---
+import LandingLayout from '@layouts/LandingLayout.astro';
+import Breadcrumbs from '@components/shared/Breadcrumbs.astro';
+import SectionHeading from '@components/shared/SectionHeading.astro';
+import { getCollection } from 'astro:content';
+import { formatDate } from '@utils/content';
+import { render } from 'astro:content';
+
+const entries = await getCollection('changelog');
+const sorted = entries.sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const rendered = await Promise.all(
+  sorted.map(async (entry) => {
+    const { Content } = await render(entry);
+    return { entry, Content };
+  })
+);
+---
+
+<LandingLayout
+  title="Changelog"
+  description="Track every RocketHooks release. New features, improvements, and bug fixes for the API transformation platform."
+>
+  <section class="bg-neutral-50 py-16 sm:py-20">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs />
+      <h1 class="text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl">
+        Changelog
+      </h1>
+      <p class="mt-6 text-xl leading-relaxed text-neutral-600">
+        Every update to RocketHooks, documented. New features, improvements, and fixes shipped to production.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-16 sm:py-20">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <div class="space-y-16">
+        {rendered.map(({ entry, Content }) => (
+          <article class="relative">
+            <div class="flex flex-wrap items-center gap-3 mb-4">
+              <span class="inline-flex items-center rounded-full bg-brand-100 px-3 py-1 text-sm font-semibold text-brand-700">
+                v{entry.data.version}
+              </span>
+              <time
+                datetime={entry.data.pubDate.toISOString()}
+                class="text-sm text-neutral-500"
+              >
+                {formatDate(entry.data.pubDate)}
+              </time>
+            </div>
+            <h2 class="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl">
+              {entry.data.title}
+            </h2>
+            <p class="mt-2 text-neutral-600">{entry.data.description}</p>
+            <div class="mt-6 prose prose-neutral max-w-none prose-headings:text-lg prose-headings:font-semibold prose-h3:text-base">
+              <Content />
+            </div>
+            <hr class="mt-16 border-neutral-200 last:hidden" />
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</LandingLayout>

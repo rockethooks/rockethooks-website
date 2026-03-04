@@ -1,0 +1,40 @@
+---
+title: "Initial Beta Launch"
+description: "RocketHooks enters public beta with core API transformation, intelligent polling, and webhook delivery."
+pubDate: 2026-01-15
+version: "0.1.0-beta"
+---
+
+We are excited to announce the first public beta of RocketHooks -- an API transformation platform that turns any REST endpoint into real-time event streams.
+
+## What's Included
+
+### Core API Transformation Engine
+
+- **REST-to-event conversion** -- point RocketHooks at any REST API endpoint and receive events when data changes
+- **Intelligent polling** -- configurable intervals from 15 seconds to 24 hours with automatic backoff on rate limits
+- **JSONPath change detection** -- monitor specific fields within API responses using standard JSONPath expressions
+
+### Webhook Delivery
+
+- **Reliable delivery** with automatic retries (exponential backoff, up to 5 attempts)
+- **HMAC signature verification** on all outbound webhooks for security
+- **Delivery logs** with full request/response visibility for debugging
+
+### Dashboard
+
+- **Hook management** -- create, edit, pause, and delete hooks from a clean web interface
+- **Execution history** -- view recent runs, detected changes, and delivery status
+- **API authentication** -- configure OAuth 2.0, API keys, and custom headers per hook
+
+### Authentication and Security
+
+- **Clerk-powered authentication** with email, Google, and GitHub sign-in
+- **KMS encryption** for all stored API credentials
+- **SOC 2 compliant** AWS infrastructure
+
+## Known Limitations
+
+- Slack, SMS, and email notification channels are not yet available (webhooks only)
+- Maximum of 25 hooks per account during beta
+- Polling intervals below 15 seconds are not supported
