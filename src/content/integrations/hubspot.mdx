@@ -1,0 +1,107 @@
+---
+title: "HubSpot Integration"
+description: "Monitor HubSpot contacts, deals, tickets, and companies in real time. Transform HubSpot API endpoints into event streams with RocketHooks change detection."
+platform: "HubSpot"
+logo: "/images/integrations/hubspot.svg"
+category: "CRM"
+featured: true
+documentationUrl: "https://developers.hubspot.com/docs/api/overview"
+---
+
+## How RocketHooks Works with HubSpot
+
+RocketHooks polls HubSpot's REST API endpoints to detect changes in your CRM data. Whether you need to track new contacts, deal stage transitions, or ticket updates, RocketHooks monitors the endpoints you specify and delivers real-time notifications through webhooks, Slack, email, or SMS.
+
+No HubSpot workflow automation tier required -- RocketHooks works with **any HubSpot plan** that includes API access.
+
+## Authentication Setup
+
+HubSpot uses private app tokens for API authentication. Create a private app in your HubSpot account and configure:
+
+```json
+{
+  "auth": {
+    "type": "bearer",
+    "token": "YOUR_HUBSPOT_PRIVATE_APP_TOKEN"
+  }
+}
+```
+
+Ensure your private app has the necessary scopes: `crm.objects.contacts.read`, `crm.objects.deals.read`, `crm.objects.companies.read`, and any custom object scopes you need.
+
+## Endpoint Examples
+
+### Monitor New Contacts
+
+Track recently created contacts:
+
+```json
+{
+  "url": "https://api.hubapi.com/crm/v3/objects/contacts?limit=20&sorts=-createdate&properties=email,firstname,lastname,lifecyclestage",
+  "method": "GET",
+  "pollInterval": 60,
+  "changeDetection": {
+    "strategy": "jsonpath",
+    "expression": "$.results[*].id"
+  }
+}
+```
+
+### Monitor Deal Stage Changes
+
+Detect when deals move through your pipeline:
+
+```json
+{
+  "url": "https://api.hubapi.com/crm/v3/objects/deals?limit=50&sorts=-hs_lastmodifieddate&properties=dealname,dealstage,amount,pipeline",
+  "method": "GET",
+  "pollInterval": 120,
+  "changeDetection": {
+    "strategy": "jsonpath",
+    "expression": "$.results[*].properties.dealstage"
+  }
+}
+```
+
+### Monitor Support Tickets
+
+Watch for new or updated tickets:
+
+```json
+{
+  "url": "https://api.hubapi.com/crm/v3/objects/tickets?limit=20&sorts=-hs_lastmodifieddate&properties=subject,hs_pipeline_stage,hs_ticket_priority",
+  "method": "GET",
+  "pollInterval": 60,
+  "changeDetection": {
+    "strategy": "deep-compare"
+  }
+}
+```
+
+## Common Patterns
+
+### Lead-to-Sales Handoff
+
+Monitor the lifecycle stage field on contacts. When a contact moves from MQL to SQL, RocketHooks sends a webhook to your assignment system and a Slack notification to the sales team.
+
+### Revenue Alerts
+
+Track deal stage changes on high-value opportunities. Get instant SMS alerts when deals worth more than a threshold move to a closing stage.
+
+### Cross-Platform Sync
+
+Keep HubSpot data synchronized with your data warehouse, billing system, or custom dashboards. RocketHooks detects changes and triggers your sync pipeline automatically.
+
+## Delivery Channels
+
+- **Webhooks** -- Trigger backend workflows on CRM changes
+- **Slack** -- Notify sales and support channels in real time
+- **Email** -- Daily digests or instant alerts for stakeholders
+- **SMS** -- High-priority notifications for deal closures or escalations
+
+## Next Steps
+
+1. Create a HubSpot private app with the required scopes
+2. Copy the private app token into RocketHooks
+3. Configure your first monitor pointing to a HubSpot API endpoint
+4. Choose your notification channels and set up delivery rules

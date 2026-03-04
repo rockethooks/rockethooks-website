@@ -1,0 +1,112 @@
+---
+title: "Salesforce Integration"
+description: "Transform Salesforce REST API endpoints into real-time event streams. Monitor leads, opportunities, contacts, and custom objects with intelligent change detection."
+platform: "Salesforce"
+logo: "/images/integrations/salesforce.svg"
+category: "CRM"
+featured: true
+documentationUrl: "https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/"
+---
+
+## How RocketHooks Works with Salesforce
+
+RocketHooks connects to Salesforce through its REST API to monitor any standard or custom object for changes. Instead of building custom Apex triggers or configuring Platform Events, you point RocketHooks at the endpoints that matter and receive real-time notifications when data changes.
+
+This approach works with **any Salesforce edition** that includes API access -- no Salesforce admin privileges required beyond a connected app.
+
+## Authentication Setup
+
+RocketHooks supports Salesforce OAuth 2.0 connected app authentication. Configure your monitor with these credentials:
+
+```json
+{
+  "auth": {
+    "type": "oauth2",
+    "tokenUrl": "https://login.salesforce.com/services/oauth2/token",
+    "clientId": "YOUR_CONNECTED_APP_CLIENT_ID",
+    "clientSecret": "YOUR_CONNECTED_APP_SECRET",
+    "grantType": "client_credentials"
+  }
+}
+```
+
+For sandbox environments, replace `login.salesforce.com` with `test.salesforce.com`.
+
+## Endpoint Examples
+
+### Monitor New Leads
+
+Track when new leads are created in Salesforce:
+
+```json
+{
+  "url": "https://yourinstance.salesforce.com/services/data/v59.0/query?q=SELECT+Id,Name,Email,Status,CreatedDate+FROM+Lead+WHERE+CreatedDate=TODAY+ORDER+BY+CreatedDate+DESC",
+  "method": "GET",
+  "pollInterval": 60,
+  "changeDetection": {
+    "strategy": "jsonpath",
+    "expression": "$.records[*].Id"
+  }
+}
+```
+
+### Monitor Opportunity Stage Changes
+
+Detect when opportunities move between pipeline stages:
+
+```json
+{
+  "url": "https://yourinstance.salesforce.com/services/data/v59.0/query?q=SELECT+Id,Name,StageName,Amount,LastModifiedDate+FROM+Opportunity+WHERE+LastModifiedDate>=YESTERDAY",
+  "method": "GET",
+  "pollInterval": 120,
+  "changeDetection": {
+    "strategy": "jsonpath",
+    "expression": "$.records[*].StageName"
+  }
+}
+```
+
+### Monitor Contact Updates
+
+Watch for modifications to contact records:
+
+```json
+{
+  "url": "https://yourinstance.salesforce.com/services/data/v59.0/query?q=SELECT+Id,Name,Email,Phone,LastModifiedDate+FROM+Contact+WHERE+LastModifiedDate>=YESTERDAY",
+  "method": "GET",
+  "pollInterval": 300,
+  "changeDetection": {
+    "strategy": "deep-compare"
+  }
+}
+```
+
+## Common Patterns
+
+### Lead Routing Automation
+
+Monitor new leads and route them to the right sales rep based on territory, industry, or lead score. RocketHooks detects the new lead and sends a webhook to your routing logic -- no Salesforce workflow rules needed.
+
+### Pipeline Visibility
+
+Track opportunity stage changes and push updates to Slack channels so the entire team stays informed about deal progress without logging into Salesforce.
+
+### Data Sync
+
+Keep external systems in sync with Salesforce by monitoring specific objects. When a contact or account changes, RocketHooks notifies your data warehouse, marketing platform, or custom application to pull the latest data.
+
+## Delivery Channels
+
+Configure one or more notification channels for your Salesforce monitors:
+
+- **Webhooks** -- POST change payloads to any HTTP endpoint
+- **Slack** -- Send formatted messages to team channels
+- **Email** -- Alert stakeholders who are not in Slack
+- **SMS** -- Critical alerts for high-value opportunity changes
+
+## Next Steps
+
+1. Create a Salesforce Connected App with API access
+2. Add the OAuth credentials to RocketHooks
+3. Configure your first monitor with a SOQL query endpoint
+4. Set up notification channels for your team

@@ -1,0 +1,106 @@
+---
+title: "Jira Integration"
+description: "Monitor Jira issues, sprints, and project boards in real time. Transform Jira REST API endpoints into event streams with RocketHooks change detection."
+platform: "Jira"
+logo: "/images/integrations/jira.svg"
+category: "DevOps"
+featured: false
+documentationUrl: "https://developer.atlassian.com/cloud/jira/platform/rest/v3/intro/"
+---
+
+## How RocketHooks Works with Jira
+
+RocketHooks polls Jira's REST API to monitor issues, sprints, and project activity. Track status transitions, new assignments, sprint progress, and custom field changes across your Jira projects without writing Jira automation rules or configuring Jira webhooks manually.
+
+Works with **Jira Cloud** (Software, Service Management, and Business).
+
+## Authentication Setup
+
+Jira Cloud uses API tokens with basic authentication. Generate a token at [id.atlassian.com](https://id.atlassian.com/manage-profile/security/api-tokens):
+
+```json
+{
+  "auth": {
+    "type": "basic",
+    "username": "your-email@company.com",
+    "password": "YOUR_JIRA_API_TOKEN"
+  }
+}
+```
+
+## Endpoint Examples
+
+### Monitor Issue Status Changes
+
+Track issues transitioning between workflow states:
+
+```json
+{
+  "url": "https://your-domain.atlassian.net/rest/api/3/search?jql=project=PROJ+AND+updated>=-1h+ORDER+BY+updated+DESC&maxResults=20&fields=key,summary,status,assignee",
+  "method": "GET",
+  "pollInterval": 60,
+  "changeDetection": {
+    "strategy": "jsonpath",
+    "expression": "$.issues[*].fields.status.name"
+  }
+}
+```
+
+### Monitor New Issues
+
+Detect when new issues are created in a project:
+
+```json
+{
+  "url": "https://your-domain.atlassian.net/rest/api/3/search?jql=project=PROJ+AND+created>=-1h+ORDER+BY+created+DESC&maxResults=20&fields=key,summary,issuetype,priority,reporter",
+  "method": "GET",
+  "pollInterval": 120,
+  "changeDetection": {
+    "strategy": "jsonpath",
+    "expression": "$.issues[*].key"
+  }
+}
+```
+
+### Monitor Sprint Progress
+
+Watch for sprint scope changes and burndown:
+
+```json
+{
+  "url": "https://your-domain.atlassian.net/rest/agile/1.0/board/BOARD_ID/sprint?state=active",
+  "method": "GET",
+  "pollInterval": 300,
+  "changeDetection": {
+    "strategy": "deep-compare"
+  }
+}
+```
+
+## Common Patterns
+
+### Engineering Status Sync
+
+Monitor issue status changes and push updates to Slack channels so product managers and stakeholders stay informed without checking Jira directly.
+
+### SLA Monitoring
+
+Track service desk issues approaching SLA deadlines. When issues remain unresolved past a warning threshold, send SMS alerts to on-call engineers.
+
+### Cross-Tool Visibility
+
+Combine Jira issue tracking with GitHub PR monitoring. When a linked PR is merged, verify the Jira issue status is updated -- if not, send a reminder notification.
+
+## Delivery Channels
+
+- **Webhooks** -- Trigger downstream automation or status sync
+- **Slack** -- Notify teams of issue transitions and new assignments
+- **Email** -- Sprint summary digests for managers
+- **SMS** -- SLA breach alerts for on-call staff
+
+## Next Steps
+
+1. Generate a Jira API token from your Atlassian account
+2. Configure basic auth credentials in RocketHooks
+3. Set up a JQL-based monitor for your project
+4. Route notifications to Slack or your project management workflow

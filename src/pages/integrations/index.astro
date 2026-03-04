@@ -1,0 +1,118 @@
+---
+import { getCollection } from 'astro:content';
+import LandingLayout from '@layouts/LandingLayout.astro';
+import Breadcrumbs from '@components/shared/Breadcrumbs.astro';
+import SectionHeading from '@components/shared/SectionHeading.astro';
+import IntegrationCard from '@components/integrations/IntegrationCard.astro';
+import FinalCTA from '@components/shared/FinalCTA.astro';
+import ItemListSchema from '@components/seo/ItemListSchema.astro';
+
+const integrations = await getCollection('integrations');
+
+const categories = ['CRM', 'E-commerce', 'DevOps', 'Payments', 'Notifications', 'ERP'] as const;
+---
+
+<LandingLayout
+  title="Integrations - RocketHooks"
+  description="Connect RocketHooks with Salesforce, HubSpot, Shopify, Stripe, GitHub, Jira, Slack, and more. Transform any REST API into real-time event streams."
+>
+  <Fragment slot="head">
+    <ItemListSchema
+      name="RocketHooks Integrations"
+      description="Platform integrations supported by RocketHooks API transformation platform for real-time event streaming."
+      items={integrations.map((i) => ({
+        name: i.data.title,
+        url: `/integrations/${i.id}`,
+        description: i.data.description,
+      }))}
+    />
+  </Fragment>
+
+  <!-- Page Header -->
+  <section class="bg-white pb-8 pt-12 sm:pt-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs />
+
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="mb-3 text-sm font-semibold uppercase tracking-wider text-brand-600">
+          Integrations
+        </p>
+        <h1 class="text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl">
+          Connect with the tools you already use
+        </h1>
+        <p class="mt-6 text-lg leading-relaxed text-neutral-600">
+          RocketHooks transforms any REST API into real-time event streams. Monitor changes across CRMs, e-commerce platforms, DevOps tools, and more -- no infrastructure changes required.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category Filter Tabs -->
+  <section class="border-b border-neutral-200 bg-white">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <nav aria-label="Integration categories" class="flex gap-1 overflow-x-auto pb-px">
+        <a
+          href="#all"
+          class="shrink-0 border-b-2 border-brand-600 px-4 py-3 text-sm font-medium text-brand-600"
+          data-category="all"
+        >
+          All
+        </a>
+        {categories.map((cat) => (
+          <a
+            href={`#${cat.toLowerCase().replace(/[^a-z]/g, '-')}`}
+            class="shrink-0 border-b-2 border-transparent px-4 py-3 text-sm font-medium text-neutral-500 transition-colors hover:border-neutral-300 hover:text-neutral-700"
+            data-category={cat}
+          >
+            {cat}
+          </a>
+        ))}
+      </nav>
+    </div>
+  </section>
+
+  <!-- Integrations Grid -->
+  <section class="bg-neutral-50 py-16 sm:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        overline="Supported Platforms"
+        title="Integrations that work out of the box"
+        subtitle="Each integration comes with pre-built authentication, endpoint configuration, and change detection patterns. Get up and running in minutes."
+      />
+
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {integrations.map((integration) => (
+          <IntegrationCard integration={integration} />
+        ))}
+      </div>
+
+      {integrations.length === 0 && (
+        <p class="text-center text-neutral-500">
+          Integration guides are being added. Check back soon.
+        </p>
+      )}
+    </div>
+  </section>
+
+  <!-- Request Integration CTA -->
+  <section class="bg-white py-16 sm:py-20">
+    <div class="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+      <SectionHeading
+        overline="Don't see your platform?"
+        title="Request an integration"
+        subtitle="RocketHooks works with any REST API. If you need a dedicated guide for a platform not listed here, let us know and we will prioritize it."
+      />
+      <a
+        href="/contact"
+        class="inline-flex items-center justify-center rounded-lg bg-brand-600 px-6 py-3 text-base font-semibold text-white shadow-xs transition-colors hover:bg-brand-700 focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+      >
+        Request an Integration
+      </a>
+    </div>
+  </section>
+
+  <FinalCTA
+    headline="Ready to connect your APIs?"
+    subtitle="Start transforming REST endpoints into real-time event streams. Free plan includes 5 monitors and 1,000 deliveries per month."
+  />
+</LandingLayout>

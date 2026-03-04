@@ -1,0 +1,133 @@
+---
+import { getCollection, render } from 'astro:content';
+import LandingLayout from '@layouts/LandingLayout.astro';
+import Breadcrumbs from '@components/shared/Breadcrumbs.astro';
+import BreadcrumbSchema from '@components/seo/BreadcrumbSchema.astro';
+import FinalCTA from '@components/shared/FinalCTA.astro';
+import { Icon } from 'astro-icon/components';
+
+export async function getStaticPaths() {
+  const integrations = await getCollection('integrations');
+  return integrations.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { title, description, platform, logo, category, documentationUrl } = entry.data;
+const { Content } = await render(entry);
+---
+
+<LandingLayout
+  title={`${title} - Integrations - RocketHooks`}
+  description={description}
+>
+  <Fragment slot="head">
+    <BreadcrumbSchema
+      items={[
+        { name: 'Integrations', href: '/integrations' },
+        { name: title },
+      ]}
+    />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'SoftwareApplication',
+        name: `RocketHooks ${platform} Integration`,
+        description,
+        applicationCategory: 'DeveloperApplication',
+        operatingSystem: 'Web',
+        offers: {
+          '@type': 'Offer',
+          price: '0',
+          priceCurrency: 'USD',
+        },
+      })}
+    />
+  </Fragment>
+
+  <article class="bg-white pb-16 pt-12 sm:pt-16">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs />
+
+      <!-- Header -->
+      <header class="mb-12">
+        <div class="flex items-center gap-4">
+          {logo ? (
+            <img
+              src={logo}
+              alt={`${platform} logo`}
+              width={56}
+              height={56}
+              class="size-14 rounded-lg object-contain"
+              loading="eager"
+            />
+          ) : (
+            <div class="flex size-14 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
+              <Icon name="lucide:puzzle" size={28} />
+            </div>
+          )}
+          <div>
+            <span class="text-sm font-medium text-brand-600">{category}</span>
+            <h1 class="text-3xl font-semibold tracking-tight text-neutral-900 sm:text-4xl">
+              {title}
+            </h1>
+          </div>
+        </div>
+        <p class="mt-4 text-lg leading-relaxed text-neutral-600">
+          {description}
+        </p>
+      </header>
+
+      <!-- MDX Content -->
+      <div class="prose prose-neutral max-w-none prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-brand-600 prose-a:no-underline hover:prose-a:underline prose-code:rounded prose-code:bg-neutral-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:text-neutral-800 prose-code:before:content-none prose-code:after:content-none prose-pre:rounded-lg prose-pre:border prose-pre:border-neutral-200">
+        <Content />
+      </div>
+
+      <!-- Official Docs Link -->
+      {documentationUrl && (
+        <aside class="mt-12 rounded-lg border border-neutral-200 bg-neutral-50 p-6">
+          <div class="flex items-start gap-3">
+            <Icon name="lucide:external-link" size={20} class="mt-0.5 shrink-0 text-brand-600" />
+            <div>
+              <h2 class="text-base font-semibold text-neutral-900">
+                Official {platform} Documentation
+              </h2>
+              <p class="mt-1 text-sm text-neutral-600">
+                For complete API reference and authentication details, visit the official docs.
+              </p>
+              <a
+                href={documentationUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="mt-3 inline-flex items-center gap-1 text-sm font-medium text-brand-600 hover:underline"
+              >
+                Visit {platform} docs
+                <Icon name="lucide:arrow-up-right" size={14} />
+              </a>
+            </div>
+          </div>
+        </aside>
+      )}
+
+      <!-- Back to Integrations -->
+      <nav class="mt-8">
+        <a
+          href="/integrations"
+          class="inline-flex items-center gap-1.5 text-sm font-medium text-brand-600 hover:underline"
+        >
+          <Icon name="lucide:arrow-left" size={14} />
+          All integrations
+        </a>
+      </nav>
+    </div>
+  </article>
+
+  <FinalCTA
+    headline={`Ready to connect ${platform}?`}
+    subtitle={`Start receiving real-time events from ${platform} in minutes. No credit card required.`}
+  />
+</LandingLayout>

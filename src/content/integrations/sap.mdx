@@ -1,0 +1,129 @@
+---
+title: "SAP Integration"
+description: "Monitor SAP business objects, materials, and purchase orders through the SAP OData API. Transform SAP endpoints into real-time event streams with RocketHooks."
+platform: "SAP"
+logo: "/images/integrations/sap.svg"
+category: "ERP"
+featured: false
+documentationUrl: "https://api.sap.com/"
+---
+
+## How RocketHooks Works with SAP
+
+RocketHooks connects to SAP systems through OData REST APIs exposed by SAP S/4HANA, SAP Business ByDesign, or the SAP API Business Hub. Monitor business-critical objects like purchase orders, materials, inventory, and financial documents without building custom ABAP programs or configuring SAP event mesh.
+
+Compatible with **SAP S/4HANA Cloud**, **SAP Business ByDesign**, and any SAP system exposing OData services.
+
+## Authentication Setup
+
+SAP typically uses basic authentication or OAuth 2.0 client credentials. For basic auth:
+
+```json
+{
+  "auth": {
+    "type": "basic",
+    "username": "YOUR_SAP_API_USER",
+    "password": "YOUR_SAP_API_PASSWORD"
+  }
+}
+```
+
+For SAP S/4HANA Cloud with OAuth 2.0:
+
+```json
+{
+  "auth": {
+    "type": "oauth2",
+    "tokenUrl": "https://your-sap-instance.authentication.eu10.hana.ondemand.com/oauth/token",
+    "clientId": "YOUR_CLIENT_ID",
+    "clientSecret": "YOUR_CLIENT_SECRET",
+    "grantType": "client_credentials"
+  }
+}
+```
+
+## Endpoint Examples
+
+### Monitor Purchase Orders
+
+Track new and modified purchase orders:
+
+```json
+{
+  "url": "https://your-sap-instance.com/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/A_PurchaseOrder?$top=20&$orderby=LastChangeDateTime desc&$select=PurchaseOrder,Supplier,PurchasingOrganization,PurchaseOrderDate,PurchasingDocumentDeletionCode",
+  "method": "GET",
+  "pollInterval": 120,
+  "changeDetection": {
+    "strategy": "jsonpath",
+    "expression": "$.d.results[*].LastChangeDateTime"
+  },
+  "headers": {
+    "Accept": "application/json"
+  }
+}
+```
+
+### Monitor Material Master Changes
+
+Detect updates to material records:
+
+```json
+{
+  "url": "https://your-sap-instance.com/sap/opu/odata/sap/API_PRODUCT_SRV/A_Product?$top=50&$orderby=LastChangeDateTime desc&$select=Product,ProductType,BaseUnit,LastChangeDateTime",
+  "method": "GET",
+  "pollInterval": 300,
+  "changeDetection": {
+    "strategy": "jsonpath",
+    "expression": "$.d.results[*].LastChangeDateTime"
+  },
+  "headers": {
+    "Accept": "application/json"
+  }
+}
+```
+
+### Monitor Inventory Levels
+
+Watch for stock level changes across plants:
+
+```json
+{
+  "url": "https://your-sap-instance.com/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod?$top=100&$select=Material,Plant,MatlWrhsStkQtyInMatlBaseUnit",
+  "method": "GET",
+  "pollInterval": 600,
+  "changeDetection": {
+    "strategy": "deep-compare"
+  },
+  "headers": {
+    "Accept": "application/json"
+  }
+}
+```
+
+## Common Patterns
+
+### Procurement Automation
+
+Monitor purchase order creation and approval status. When a PO is approved, trigger downstream workflows in your supply chain management system via webhooks.
+
+### Master Data Governance
+
+Track changes to material, customer, and vendor master data. When critical fields are modified, alert the data governance team for review and approval.
+
+### Inventory Visibility
+
+Poll SAP for inventory levels across multiple plants. Push real-time stock updates to your e-commerce platform or warehouse management system to prevent overselling.
+
+## Delivery Channels
+
+- **Webhooks** -- Trigger ERP integration workflows or supply chain automation
+- **Slack** -- Notify procurement or logistics teams of PO changes
+- **Email** -- Daily summaries of master data changes for compliance
+- **SMS** -- Critical alerts for stock shortages or PO approval deadlines
+
+## Next Steps
+
+1. Create an API user in SAP or configure OAuth credentials
+2. Identify the OData services relevant to your business processes
+3. Set up your first monitor targeting an SAP OData endpoint
+4. Configure notification channels for your operations team

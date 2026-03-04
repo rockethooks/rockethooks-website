@@ -1,0 +1,108 @@
+---
+title: "GitHub Integration"
+description: "Monitor GitHub repositories, pull requests, issues, and releases. Transform GitHub API endpoints into real-time event streams with RocketHooks."
+platform: "GitHub"
+logo: "/images/integrations/github.svg"
+category: "DevOps"
+featured: true
+documentationUrl: "https://docs.github.com/en/rest"
+---
+
+## How RocketHooks Works with GitHub
+
+RocketHooks monitors GitHub's REST API to track repository activity, pull request status, issue updates, and release publications. While GitHub offers webhooks, RocketHooks is useful for monitoring across multiple repositories, tracking specific field-level changes, or consolidating GitHub events with data from other platforms.
+
+Works with **any GitHub plan** including free public repositories.
+
+## Authentication Setup
+
+Use a GitHub personal access token (classic or fine-grained) for authentication:
+
+```json
+{
+  "auth": {
+    "type": "bearer",
+    "token": "ghp_YOUR_PERSONAL_ACCESS_TOKEN"
+  }
+}
+```
+
+Fine-grained tokens are recommended for production. Grant only the `repo` or `read:org` permissions you need.
+
+## Endpoint Examples
+
+### Monitor Pull Request Activity
+
+Track new and updated pull requests:
+
+```json
+{
+  "url": "https://api.github.com/repos/OWNER/REPO/pulls?state=open&sort=updated&direction=desc&per_page=20",
+  "method": "GET",
+  "pollInterval": 60,
+  "changeDetection": {
+    "strategy": "jsonpath",
+    "expression": "$[*].updated_at"
+  }
+}
+```
+
+### Monitor New Issues
+
+Detect when new issues are opened:
+
+```json
+{
+  "url": "https://api.github.com/repos/OWNER/REPO/issues?state=open&sort=created&direction=desc&per_page=20",
+  "method": "GET",
+  "pollInterval": 120,
+  "changeDetection": {
+    "strategy": "jsonpath",
+    "expression": "$[*].id"
+  }
+}
+```
+
+### Monitor Releases
+
+Watch for new releases and tags:
+
+```json
+{
+  "url": "https://api.github.com/repos/OWNER/REPO/releases?per_page=5",
+  "method": "GET",
+  "pollInterval": 300,
+  "changeDetection": {
+    "strategy": "jsonpath",
+    "expression": "$[*].id"
+  }
+}
+```
+
+## Common Patterns
+
+### Code Review Notifications
+
+Monitor pull request status across multiple repositories. When a PR is updated or review-ready, push notifications to the relevant Slack channel so reviewers do not miss updates.
+
+### Issue Triage Pipeline
+
+Track new issues across your organization's repositories. Route them to the right team via webhooks based on labels, assignees, or repository ownership.
+
+### Release Monitoring
+
+Watch for new releases across dependencies or internal projects. Trigger deployment pipelines, update changelogs, or notify stakeholders when a new version is published.
+
+## Delivery Channels
+
+- **Webhooks** -- Trigger CI/CD pipelines or custom automation
+- **Slack** -- Notify development teams of PR and issue activity
+- **Email** -- Weekly repository activity digests
+- **SMS** -- Critical alerts for production release failures
+
+## Next Steps
+
+1. Create a fine-grained personal access token on GitHub
+2. Configure the token in RocketHooks with minimal permissions
+3. Set up your first monitor targeting a repository endpoint
+4. Route notifications to Slack or your CI/CD pipeline

@@ -1,0 +1,109 @@
+---
+title: "Shopify Integration"
+description: "Monitor Shopify orders, products, inventory, and customers in real time. Transform Shopify Admin API endpoints into event streams with RocketHooks."
+platform: "Shopify"
+logo: "/images/integrations/shopify.svg"
+category: "E-commerce"
+featured: true
+documentationUrl: "https://shopify.dev/docs/api/admin-rest"
+---
+
+## How RocketHooks Works with Shopify
+
+RocketHooks monitors Shopify's Admin REST API to detect changes across your store -- new orders, inventory updates, product modifications, and customer activity. Instead of relying solely on Shopify webhooks (which can miss events during outages), RocketHooks provides a reliable polling layer with intelligent change detection.
+
+Works with **any Shopify plan** that includes API access via custom apps.
+
+## Authentication Setup
+
+Create a custom app in your Shopify admin and configure the Admin API access token:
+
+```json
+{
+  "auth": {
+    "type": "custom-header",
+    "headers": {
+      "X-Shopify-Access-Token": "YOUR_ADMIN_API_ACCESS_TOKEN"
+    }
+  }
+}
+```
+
+Grant the minimum required scopes for your use case: `read_orders`, `read_products`, `read_inventory`, or `read_customers`.
+
+## Endpoint Examples
+
+### Monitor New Orders
+
+Track incoming orders in real time:
+
+```json
+{
+  "url": "https://your-store.myshopify.com/admin/api/2024-01/orders.json?status=any&limit=20&order=created_at+desc",
+  "method": "GET",
+  "pollInterval": 30,
+  "changeDetection": {
+    "strategy": "jsonpath",
+    "expression": "$.orders[*].id"
+  }
+}
+```
+
+### Monitor Inventory Levels
+
+Detect low stock or inventory changes:
+
+```json
+{
+  "url": "https://your-store.myshopify.com/admin/api/2024-01/inventory_levels.json?inventory_item_ids=ITEM_ID_1,ITEM_ID_2",
+  "method": "GET",
+  "pollInterval": 300,
+  "changeDetection": {
+    "strategy": "jsonpath",
+    "expression": "$.inventory_levels[*].available"
+  }
+}
+```
+
+### Monitor Product Updates
+
+Watch for product modifications (price changes, description updates):
+
+```json
+{
+  "url": "https://your-store.myshopify.com/admin/api/2024-01/products.json?limit=50&order=updated_at+desc",
+  "method": "GET",
+  "pollInterval": 120,
+  "changeDetection": {
+    "strategy": "deep-compare"
+  }
+}
+```
+
+## Common Patterns
+
+### Order Fulfillment Pipeline
+
+Monitor new orders and route them to your fulfillment system, ERP, or 3PL via webhooks. RocketHooks ensures every order is captured even if Shopify's native webhooks experience delivery failures.
+
+### Low Stock Alerts
+
+Track inventory levels across products and locations. When stock drops below a threshold, send Slack alerts to your operations team and trigger reorder workflows.
+
+### Price Monitoring
+
+Watch for product price changes across your catalog. Useful for marketplace sellers who need to sync prices to other channels when the source of truth updates.
+
+## Delivery Channels
+
+- **Webhooks** -- Connect to fulfillment, ERP, or accounting systems
+- **Slack** -- Real-time order notifications for the team
+- **Email** -- Daily sales summaries or low-stock warnings
+- **SMS** -- Urgent alerts for high-value orders or out-of-stock items
+
+## Next Steps
+
+1. Create a custom app in Shopify Admin with required API scopes
+2. Copy the Admin API access token into RocketHooks
+3. Set up your first order or inventory monitor
+4. Configure delivery channels for your operations workflow

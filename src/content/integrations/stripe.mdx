@@ -1,0 +1,108 @@
+---
+title: "Stripe Integration"
+description: "Monitor Stripe payments, subscriptions, invoices, and customer data in real time. Transform Stripe API endpoints into event streams with RocketHooks."
+platform: "Stripe"
+logo: "/images/integrations/stripe.svg"
+category: "Payments"
+featured: true
+documentationUrl: "https://stripe.com/docs/api"
+---
+
+## How RocketHooks Works with Stripe
+
+While Stripe offers its own webhook system, RocketHooks adds a complementary monitoring layer that polls Stripe API endpoints for changes you define. This is useful for aggregated views, custom change detection logic, or scenarios where Stripe webhooks alone are not sufficient -- such as monitoring specific field-level changes or combining Stripe data with other API sources.
+
+Works with **any Stripe account** that has API access.
+
+## Authentication Setup
+
+Stripe uses API key authentication. Use your restricted API key for security:
+
+```json
+{
+  "auth": {
+    "type": "bearer",
+    "token": "rk_live_YOUR_RESTRICTED_API_KEY"
+  }
+}
+```
+
+Create a restricted key in the Stripe Dashboard with only the read permissions your monitor needs.
+
+## Endpoint Examples
+
+### Monitor Recent Payments
+
+Track successful payments in real time:
+
+```json
+{
+  "url": "https://api.stripe.com/v1/payment_intents?limit=20&created[gte]=UNIX_TIMESTAMP",
+  "method": "GET",
+  "pollInterval": 30,
+  "changeDetection": {
+    "strategy": "jsonpath",
+    "expression": "$.data[*].id"
+  }
+}
+```
+
+### Monitor Subscription Status Changes
+
+Detect when subscriptions change status (active, past_due, canceled):
+
+```json
+{
+  "url": "https://api.stripe.com/v1/subscriptions?limit=50&status=all",
+  "method": "GET",
+  "pollInterval": 120,
+  "changeDetection": {
+    "strategy": "jsonpath",
+    "expression": "$.data[*].status"
+  }
+}
+```
+
+### Monitor Failed Invoices
+
+Watch for invoice payment failures:
+
+```json
+{
+  "url": "https://api.stripe.com/v1/invoices?limit=20&status=open",
+  "method": "GET",
+  "pollInterval": 300,
+  "changeDetection": {
+    "strategy": "jsonpath",
+    "expression": "$.data[*].id"
+  }
+}
+```
+
+## Common Patterns
+
+### Revenue Dashboard
+
+Poll Stripe for recent payments and push change events to your analytics pipeline. Build real-time revenue dashboards without relying solely on webhook delivery.
+
+### Churn Prevention
+
+Monitor subscription status changes. When a subscription moves to `past_due` or `unpaid`, trigger automated retention workflows via webhooks to your backend or Slack alerts to your customer success team.
+
+### Invoice Reconciliation
+
+Track invoice status transitions and sync them with your accounting system. RocketHooks detects when invoices move between draft, open, paid, and void states.
+
+## Delivery Channels
+
+- **Webhooks** -- Trigger billing workflows or sync with accounting
+- **Slack** -- Notify finance team of failed payments or large transactions
+- **Email** -- Daily revenue summaries for executives
+- **SMS** -- Alerts for failed subscription renewals or chargebacks
+
+## Next Steps
+
+1. Create a restricted API key in the Stripe Dashboard
+2. Grant only the read permissions your monitors need
+3. Configure your first payment or subscription monitor
+4. Set up notification channels for your finance workflow
