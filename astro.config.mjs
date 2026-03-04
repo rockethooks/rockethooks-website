@@ -12,6 +12,8 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeSlug from 'rehype-slug';
 import rehypeExternalLinks from 'rehype-external-links';
 
+import cloudflare from '@astrojs/cloudflare';
+
 export default defineConfig({
   site: 'https://www.rockethooks.com',
   output: 'static',
@@ -92,4 +94,6 @@ export default defineConfig({
       cssCodeSplit: true,
     },
   },
+
+  adapter: cloudflare(),
 });
