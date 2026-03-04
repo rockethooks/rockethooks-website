@@ -1,0 +1,373 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Header from '@components/shared/Header.astro';
+import Footer from '@components/shared/Footer.astro';
+import Breadcrumbs from '@components/shared/Breadcrumbs.astro';
+import FinalCTA from '@components/shared/FinalCTA.astro';
+import { Icon } from 'astro-icon/components';
+import { formatDate } from '@utils/content';
+
+interface AuthorData {
+  name: string;
+  title?: string;
+  bio?: string;
+  avatar?: string;
+  linkedin?: string;
+  github?: string;
+  twitter?: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  publishDate: Date;
+  updatedDate?: Date;
+  author: AuthorData;
+  image?: { src: string; alt: string };
+  category: 'educational' | 'problem-aware' | 'comparison';
+  tags?: string[];
+  readingTime?: string;
+}
+
+const {
+  title,
+  description,
+  publishDate,
+  updatedDate,
+  author,
+  image,
+  category,
+  tags = [],
+  readingTime,
+} = Astro.props;
+
+const categoryLabels: Record<string, string> = {
+  educational: 'Educational',
+  'problem-aware': 'Problem-Aware',
+  comparison: 'Comparison',
+};
+
+const categoryLabel = categoryLabels[category] ?? category;
+const formattedPublishDate = formatDate(publishDate);
+const isoPublishDate = publishDate.toISOString();
+const formattedUpdatedDate = updatedDate ? formatDate(updatedDate) : null;
+const isoUpdatedDate = updatedDate?.toISOString();
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  type="article"
+  image={image}
+  publishDate={publishDate}
+  updatedDate={updatedDate}
+>
+  <slot name="head" slot="head" />
+  <Header slot="header" />
+
+  <article
+    class="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8"
+    itemscope
+    itemtype="https://schema.org/TechArticle"
+  >
+    <!-- Article Header -->
+    <div class="mx-auto max-w-3xl">
+      <Breadcrumbs />
+
+      <!-- Category Badge -->
+      <a
+        href={`/blog/category/${category}`}
+        class="mb-4 inline-block rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-brand-700 transition-colors hover:bg-brand-100"
+      >
+        {categoryLabel}
+      </a>
+
+      <!-- Title -->
+      <h1
+        class="text-3xl font-semibold tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl"
+        itemprop="headline"
+      >
+        {title}
+      </h1>
+
+      <!-- Description -->
+      <p class="mt-4 text-lg leading-relaxed text-neutral-600" itemprop="description">
+        {description}
+      </p>
+
+      <!-- Meta Line -->
+      <div class="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-neutral-200 pb-6 text-sm text-neutral-500">
+        <!-- Author -->
+        <span class="flex items-center gap-1.5" itemprop="author" itemscope itemtype="https://schema.org/Person">
+          <Icon name="lucide:user" size={16} class="text-neutral-400" />
+          <span itemprop="name">{author.name}</span>
+        </span>
+
+        <span class="text-neutral-300" aria-hidden="true">|</span>
+
+        <!-- Publish Date -->
+        <time datetime={isoPublishDate} itemprop="datePublished" class="flex items-center gap-1.5">
+          <Icon name="lucide:calendar" size={16} class="text-neutral-400" />
+          {formattedPublishDate}
+        </time>
+
+        {readingTime && (
+          <>
+            <span class="text-neutral-300" aria-hidden="true">|</span>
+            <span class="flex items-center gap-1.5">
+              <Icon name="lucide:clock" size={16} class="text-neutral-400" />
+              {readingTime}
+            </span>
+          </>
+        )}
+      </div>
+    </div>
+
+    <!-- Two-Column Layout: Main Content + Sidebar -->
+    <div class="mx-auto mt-10 max-w-7xl lg:grid lg:grid-cols-[1fr_260px] lg:gap-10">
+      <!-- Main Content -->
+      <div class="min-w-0">
+        <!-- Hero Image -->
+        {image && (
+          <figure class="mb-10 overflow-hidden rounded-lg">
+            <img
+              src={image.src}
+              alt={image.alt}
+              class="w-full"
+              loading="eager"
+              itemprop="image"
+            />
+          </figure>
+        )}
+
+        <!-- Article Body (prose slot) -->
+        <div class="blog-prose" itemprop="articleBody">
+          <slot />
+        </div>
+
+        <!-- Tags -->
+        {tags.length > 0 && (
+          <div class="mt-10 border-t border-neutral-200 pt-6">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="text-sm font-medium text-neutral-500">Tags:</span>
+              {tags.map((tag) => (
+                <a
+                  href={`/blog/tag/${tag}`}
+                  class="rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium text-neutral-600 transition-colors hover:bg-neutral-200 hover:text-neutral-900"
+                >
+                  {tag}
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <!-- Last Updated -->
+        {formattedUpdatedDate && (
+          <p class="mt-6 text-sm text-neutral-500">
+            <time datetime={isoUpdatedDate} itemprop="dateModified">
+              Last updated: {formattedUpdatedDate}
+            </time>
+          </p>
+        )}
+
+        <!-- Author Bio Slot -->
+        <slot name="authorBio" />
+
+        <!-- Related Articles Slot -->
+        <slot name="relatedArticles" />
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="hidden lg:block">
+        <div class="sticky top-24">
+          <!-- Table of Contents Slot -->
+          <slot name="toc" />
+
+          <!-- Newsletter Slot -->
+          <slot name="newsletter" />
+        </div>
+      </aside>
+    </div>
+  </article>
+
+  <!-- Mobile ToC (rendered above content on small screens) -->
+  <div class="lg:hidden">
+    <slot name="mobileToc" />
+  </div>
+
+  <FinalCTA
+    headline="Start transforming your APIs today"
+    subtitle="Turn any REST endpoint into real-time events in minutes. No credit card required."
+  />
+
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style is:global>
+  /* ============================================
+     BLOG PROSE STYLES
+     Provides article typography without requiring
+     @tailwindcss/typography plugin. Scoped to
+     .blog-prose so it won't leak elsewhere.
+     ============================================ */
+  .blog-prose {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--color-neutral-700);
+  }
+
+  .blog-prose > * + * {
+    margin-top: 1.25em;
+  }
+
+  /* Headings */
+  .blog-prose h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--color-neutral-900);
+    margin-top: 2em;
+    margin-bottom: 0.75em;
+    scroll-margin-top: 5rem;
+  }
+
+  .blog-prose h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--color-neutral-900);
+    margin-top: 1.75em;
+    margin-bottom: 0.5em;
+    scroll-margin-top: 5rem;
+  }
+
+  .blog-prose h4 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--color-neutral-900);
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    scroll-margin-top: 5rem;
+  }
+
+  /* Links */
+  .blog-prose a {
+    color: var(--color-brand-600);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.15s;
+  }
+
+  .blog-prose a:hover {
+    color: var(--color-brand-800);
+  }
+
+  /* Paragraphs */
+  .blog-prose p {
+    margin-top: 1.25em;
+    margin-bottom: 0;
+  }
+
+  .blog-prose > p:first-child {
+    margin-top: 0;
+  }
+
+  /* Strong / Emphasis */
+  .blog-prose strong {
+    font-weight: 600;
+    color: var(--color-neutral-900);
+  }
+
+  /* Lists */
+  .blog-prose ul {
+    list-style-type: disc;
+    padding-left: 1.5em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+
+  .blog-prose ol {
+    list-style-type: decimal;
+    padding-left: 1.5em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+
+  .blog-prose li {
+    margin-top: 0.375em;
+    margin-bottom: 0.375em;
+  }
+
+  .blog-prose li > ul,
+  .blog-prose li > ol {
+    margin-top: 0.375em;
+    margin-bottom: 0.375em;
+  }
+
+  /* Blockquotes */
+  .blog-prose blockquote {
+    border-left: 3px solid var(--color-brand-300);
+    padding-left: 1em;
+    font-style: italic;
+    color: var(--color-neutral-600);
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+  }
+
+  .blog-prose blockquote p {
+    margin-top: 0;
+  }
+
+  /* Inline code */
+  .blog-prose :not(pre) > code {
+    background: var(--color-neutral-100);
+    border-radius: 0.25rem;
+    padding: 0.15em 0.35em;
+    font-size: 0.875em;
+    font-weight: 500;
+    color: var(--color-neutral-800);
+  }
+
+  /* Code blocks are styled by expressive-code -- no overrides needed */
+
+  /* Horizontal rules */
+  .blog-prose hr {
+    border: none;
+    border-top: 1px solid var(--color-neutral-200);
+    margin-top: 2em;
+    margin-bottom: 2em;
+  }
+
+  /* Tables */
+  .blog-prose table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+  }
+
+  .blog-prose th {
+    background: var(--color-neutral-50);
+    font-weight: 600;
+    text-align: left;
+    padding: 0.625em 0.75em;
+    border-bottom: 2px solid var(--color-neutral-200);
+  }
+
+  .blog-prose td {
+    padding: 0.625em 0.75em;
+    border-bottom: 1px solid var(--color-neutral-200);
+  }
+
+  /* Images inside prose */
+  .blog-prose img {
+    border-radius: 0.5rem;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    max-width: 100%;
+    height: auto;
+  }
+</style>

@@ -1,0 +1,120 @@
+---
+import LandingLayout from './LandingLayout.astro';
+import SectionHeading from '@components/shared/SectionHeading.astro';
+import Breadcrumbs from '@components/shared/Breadcrumbs.astro';
+
+interface PaginationPage {
+  url: {
+    prev: string | undefined;
+    next: string | undefined;
+    current: string;
+  };
+  currentPage: number;
+  lastPage: number;
+}
+
+interface Props {
+  title?: string;
+  description?: string;
+  page?: PaginationPage;
+  currentCategory?: string;
+}
+
+const {
+  title = 'Blog',
+  description = 'Insights, tutorials, and guides on API transformation, webhook integration, and real-time event streaming.',
+  page,
+  currentCategory,
+} = Astro.props;
+
+const categories = [
+  { label: 'All', value: '' },
+  { label: 'Educational', value: 'educational' },
+  { label: 'Problem-Aware', value: 'problem-aware' },
+  { label: 'Comparison', value: 'comparison' },
+] as const;
+
+function getCategoryHref(value: string): string {
+  if (!value) return '/blog';
+  return `/blog/category/${value}`;
+}
+
+function isCategoryActive(value: string): boolean {
+  if (!value) return !currentCategory;
+  return currentCategory === value;
+}
+---
+
+<LandingLayout title={title} description={description}>
+  <slot name="head" slot="head" />
+
+  <section class="py-12 sm:py-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs />
+
+      <SectionHeading
+        overline="Blog"
+        title={title}
+        subtitle={description}
+      />
+
+      <!-- Category Filter Pills -->
+      <nav aria-label="Blog categories" class="mb-10 flex flex-wrap justify-center gap-2">
+        {categories.map((cat) => (
+          <a
+            href={getCategoryHref(cat.value)}
+            class:list={[
+              'rounded-full px-4 py-2 text-sm font-medium transition-colors',
+              isCategoryActive(cat.value)
+                ? 'bg-brand-600 text-white shadow-xs'
+                : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200 hover:text-neutral-900',
+            ]}
+            {...(isCategoryActive(cat.value) ? { 'aria-current': 'page' } : {})}
+          >
+            {cat.label}
+          </a>
+        ))}
+      </nav>
+
+      <!-- Article Grid (slotted content) -->
+      <slot />
+
+      <!-- Pagination -->
+      {page && page.lastPage > 1 && (
+        <nav aria-label="Blog pagination" class="mt-12 flex items-center justify-center gap-2">
+          {page.url.prev ? (
+            <a
+              href={page.url.prev}
+              class="inline-flex items-center gap-1 rounded-md border border-neutral-200 px-4 py-2 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-50"
+              rel="prev"
+            >
+              Previous
+            </a>
+          ) : (
+            <span class="inline-flex items-center gap-1 rounded-md border border-neutral-100 px-4 py-2 text-sm font-medium text-neutral-300" aria-disabled="true">
+              Previous
+            </span>
+          )}
+
+          <span class="px-3 text-sm text-neutral-500">
+            Page {page.currentPage} of {page.lastPage}
+          </span>
+
+          {page.url.next ? (
+            <a
+              href={page.url.next}
+              class="inline-flex items-center gap-1 rounded-md border border-neutral-200 px-4 py-2 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-50"
+              rel="next"
+            >
+              Next
+            </a>
+          ) : (
+            <span class="inline-flex items-center gap-1 rounded-md border border-neutral-100 px-4 py-2 text-sm font-medium text-neutral-300" aria-disabled="true">
+              Next
+            </span>
+          )}
+        </nav>
+      )}
+    </div>
+  </section>
+</LandingLayout>
