@@ -3,6 +3,7 @@ import type { APIContext } from 'astro';
 import { getCollection } from 'astro:content';
 import { getPublishedPosts } from '@utils/content';
 
+export const prerender = true;
 interface RSSItem {
   title: string;
   pubDate: Date;

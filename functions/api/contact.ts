@@ -1,6 +1,7 @@
-import type { APIRoute } from 'astro';
-
-export const prerender = false;
+/**
+ * Cloudflare Pages Function for handling contact form submissions.
+ * This runs on Cloudflare's edge network alongside the static Astro site.
+ */
 
 interface ContactFormData {
   name: string;
@@ -60,9 +61,9 @@ function validateFormData(data: FormData): {
   return { valid: true, data: { name, email, subject, message } };
 }
 
-export const POST: APIRoute = async ({ request }) => {
+export async function onRequestPost(context: { request: Request }) {
   try {
-    const formData = await request.formData();
+    const formData = await context.request.formData();
     const result = validateFormData(formData);
 
     if (!result.valid) {
@@ -92,11 +93,11 @@ export const POST: APIRoute = async ({ request }) => {
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }
-};
+}
 
-export const ALL: APIRoute = () => {
+export function onRequest() {
   return new Response(
     JSON.stringify({ error: 'Method not allowed' }),
     { status: 405, headers: { 'Content-Type': 'application/json' } }
   );
-};
+}
