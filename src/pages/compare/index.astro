@@ -1,0 +1,73 @@
+---
+import LandingLayout from '@layouts/LandingLayout.astro';
+import Breadcrumbs from '@components/shared/Breadcrumbs.astro';
+import SectionHeading from '@components/shared/SectionHeading.astro';
+import ArticleList from '@components/blog/ArticleList.astro';
+import FinalCTA from '@components/shared/FinalCTA.astro';
+import ItemListSchema from '@components/seo/ItemListSchema.astro';
+import { getPostsByCategory } from '@utils/content';
+
+const comparisonPosts = await getPostsByCategory('comparison');
+---
+
+<LandingLayout
+  title="Compare RocketHooks - RocketHooks"
+  description="See how RocketHooks compares to Zapier, custom polling, native webhooks, and other API integration approaches. Data-driven comparisons to help you choose."
+>
+  <Fragment slot="head">
+    <ItemListSchema
+      name="RocketHooks Comparisons"
+      description="Detailed comparisons of RocketHooks API transformation platform against alternative approaches and competing tools."
+      items={comparisonPosts.map((post) => ({
+        name: post.data.title,
+        url: `/blog/${post.id}`,
+        description: post.data.description,
+      }))}
+    />
+  </Fragment>
+
+  <!-- Page Header -->
+  <section class="bg-white pb-8 pt-12 sm:pt-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs />
+
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="mb-3 text-sm font-semibold uppercase tracking-wider text-brand-600">
+          Comparisons
+        </p>
+        <h1 class="text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl">
+          How RocketHooks compares
+        </h1>
+        <p class="mt-6 text-lg leading-relaxed text-neutral-600">
+          Choosing the right API integration approach matters. Explore detailed, data-driven comparisons between RocketHooks and alternative solutions -- from DIY polling to iPaaS platforms.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison Articles Grid -->
+  <section class="bg-neutral-50 py-16 sm:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        overline="Decision-Stage Content"
+        title="Side-by-side comparisons"
+        subtitle="Each comparison covers pricing, features, developer experience, and real-world performance so you can make an informed decision."
+      />
+
+      <ArticleList posts={comparisonPosts} />
+
+      {comparisonPosts.length === 0 && (
+        <div class="mx-auto max-w-lg text-center">
+          <p class="text-neutral-500">
+            Comparison articles are being published. Check back soon for detailed analysis of RocketHooks versus alternative solutions.
+          </p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <FinalCTA
+    headline="Ready to see the difference?"
+    subtitle="Try RocketHooks free and experience API transformation that just works. No credit card required."
+  />
+</LandingLayout>
