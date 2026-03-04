@@ -1,0 +1,33 @@
+---
+import BlogLayout from '@layouts/BlogLayout.astro';
+import ArticleList from '@components/blog/ArticleList.astro';
+import { getPostsByCategory } from '@utils/content';
+
+type Category = 'educational' | 'problem-aware' | 'comparison';
+
+export function getStaticPaths() {
+  const categories: Category[] = ['educational', 'problem-aware', 'comparison'];
+  return categories.map((category) => ({
+    params: { category },
+  }));
+}
+
+const { category } = Astro.params as { category: Category };
+
+const categoryLabels: Record<Category, string> = {
+  educational: 'Educational',
+  'problem-aware': 'Problem-Aware',
+  comparison: 'Comparison',
+};
+
+const posts = await getPostsByCategory(category);
+const label = categoryLabels[category];
+---
+
+<BlogLayout
+  title={`${label} Articles`}
+  description={`Browse ${label.toLowerCase()} articles about API transformation, webhook integration, and real-time event streaming.`}
+  currentCategory={category}
+>
+  <ArticleList posts={posts} />
+</BlogLayout>

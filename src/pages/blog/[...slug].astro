@@ -1,0 +1,68 @@
+---
+import { getCollection, render } from 'astro:content';
+import BlogPostLayout from '@layouts/BlogPostLayout.astro';
+import ArticleSchema from '@components/seo/ArticleSchema.astro';
+import TableOfContents from '@components/blog/TableOfContents.astro';
+import AuthorBio from '@components/blog/AuthorBio.astro';
+import RelatedArticles from '@components/blog/RelatedArticles.astro';
+import NewsletterSignup from '@components/blog/NewsletterSignup.astro';
+import { getAuthorById, getRelatedArticles } from '@utils/content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content, headings, remarkPluginFrontmatter } = await render(post);
+
+const authorEntry = await getAuthorById(post.data.author);
+const author = authorEntry
+  ? { id: authorEntry.id, ...authorEntry.data }
+  : { id: post.data.author, name: post.data.author };
+
+const relatedArticles = await getRelatedArticles(post.id, post.data.category);
+const readingTime = remarkPluginFrontmatter?.readingTime as string | undefined;
+
+const authorUrl = author.linkedin ?? author.github;
+---
+
+<BlogPostLayout
+  title={post.data.title}
+  description={post.data.description}
+  publishDate={post.data.pubDate}
+  updatedDate={post.data.updatedDate}
+  author={author}
+  image={post.data.image}
+  category={post.data.category}
+  tags={post.data.tags}
+  readingTime={readingTime}
+>
+  <ArticleSchema
+    slot="head"
+    title={post.data.title}
+    description={post.data.description}
+    publishDate={post.data.pubDate}
+    updatedDate={post.data.updatedDate}
+    authorName={author.name}
+    authorUrl={authorUrl}
+    image={post.data.image?.src}
+    keywords={post.data.seoKeywords}
+    url={`/blog/${post.id}`}
+  />
+
+  <TableOfContents slot="toc" headings={headings} />
+
+  <Content />
+
+  <AuthorBio slot="authorBio" author={author} />
+
+  <RelatedArticles slot="relatedArticles" articles={relatedArticles} />
+
+  <div slot="newsletter">
+    <NewsletterSignup />
+  </div>
+</BlogPostLayout>
