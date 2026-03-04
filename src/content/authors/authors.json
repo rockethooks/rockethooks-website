@@ -1,12 +1,12 @@
 [
   {
-    "id": "adnene-manai",
-    "name": "Adnene Manai",
-    "title": "Founder & CEO",
-    "bio": "Founder and CEO of RocketHooks. Over a decade of experience building distributed systems, serverless architectures, and developer tools. Previously led engineering teams at high-growth startups. Passionate about eliminating undifferentiated infrastructure work so developers can focus on their products.",
-    "avatar": "/images/authors/adnene-manai.jpg",
-    "linkedin": "https://www.linkedin.com/in/adnenemanai",
-    "github": "https://github.com/adnene"
+    "id": "adnene",
+    "name": "Adnene Khalfa",
+    "title": "Founder",
+    "bio": "Over a decade of experience building distributed systems, serverless architectures, and developer tools. Previously led engineering teams at high-growth startups. Passionate about eliminating undifferentiated infrastructure work so developers can focus on their products.",
+    "avatar": "/images/authors/adnene.jpg",
+    "linkedin": "https://www.linkedin.com/in/adnenekhalfa",
+    "github": "https://github.com/c10h22"
   },
   {
     "id": "rockethooks-team",
@@ -19,10 +19,19 @@
   {
     "id": "sarah-chen",
     "name": "Sarah Chen",
-    "title": "Head of Developer Relations",
-    "bio": "Developer advocate with deep expertise in API design, integration patterns, and webhook infrastructure. Writes about practical strategies for real-time data pipelines and event-driven architecture. Contributor to OpenAPI and AsyncAPI specifications.",
+    "title": "Senior Developer Advocate",
+    "bio": "Full-stack engineer with deep expertise in API integrations, event-driven systems, and developer tooling. Previously built integration platforms serving millions of API calls daily at enterprise SaaS companies.",
     "avatar": "/images/authors/sarah-chen.jpg",
-    "linkedin": "https://www.linkedin.com/in/sarahchen-devrel",
-    "github": "https://github.com/sarahchen"
+    "linkedin": "https://www.linkedin.com/in/sarahchen-dev",
+    "github": "https://github.com/sarah-chen"
+  },
+  {
+    "id": "marcus-rodriguez",
+    "name": "Marcus Rodriguez",
+    "title": "Solutions Architect",
+    "bio": "Infrastructure and DevOps specialist focused on serverless architectures, API reliability patterns, and enterprise integration strategies. Contributor to multiple open-source monitoring projects.",
+    "avatar": "/images/authors/marcus-rodriguez.jpg",
+    "linkedin": "https://www.linkedin.com/in/marcusrodriguez-arch",
+    "github": "https://github.com/marcus-rodriguez"
   }
 ]
