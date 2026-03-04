@@ -10,12 +10,12 @@ RocketHooks is an **API transformation platform** (not just webhooks). It transf
 
 ## Commands
 
-| Command | Purpose |
-|---------|---------|
-| `yarn dev` | Start dev server (localhost:4321) |
-| `yarn build` | Type-check + build to `dist/` |
-| `yarn preview` | Preview production build locally |
-| `yarn astro` | Access Astro CLI directly |
+| Command        | Purpose                           |
+| -------------- | --------------------------------- |
+| `yarn dev`     | Start dev server (localhost:4321) |
+| `yarn build`   | Type-check + build to `dist/`     |
+| `yarn preview` | Preview production build locally  |
+| `yarn astro`   | Access Astro CLI directly         |
 
 **Note:** Use `yarn`, not `npm`. No test or lint scripts configured yet -- add them as integrations are set up.
 
@@ -28,19 +28,20 @@ RocketHooks is an **API transformation platform** (not just webhooks). It transf
 
 ### Planned Integrations (from PRD)
 
-| Integration | Package | Purpose |
-|-------------|---------|---------|
-| Tailwind CSS 3.4 | `@astrojs/tailwind` | Utility-first styling |
-| MDX | `@astrojs/mdx` | Content collections with components |
-| Sitemap | `@astrojs/sitemap` | XML sitemap generation |
-| RSS | `@astrojs/rss` | RSS feed generation |
-| astro-icon | `astro-icon` | Inline SVG icons (zero JS) |
+| Integration      | Package             | Purpose                             |
+| ---------------- | ------------------- | ----------------------------------- |
+| Tailwind CSS 3.4 | `@astrojs/tailwind` | Utility-first styling               |
+| MDX              | `@astrojs/mdx`      | Content collections with components |
+| Sitemap          | `@astrojs/sitemap`  | XML sitemap generation              |
+| RSS              | `@astrojs/rss`      | RSS feed generation                 |
+| astro-icon       | `astro-icon`        | Inline SVG icons (zero JS)          |
 
 ## Architecture
 
 ### Zero-JS-by-Default Strategy
 
 The site ships pure HTML with no JavaScript baseline. This is a deliberate architectural choice:
+
 - AI crawlers cannot execute JavaScript -- raw HTML is mandatory for GEO
 - Pages with FCP < 0.4s get 3x more AI citations
 - Interactive components (pricing calculator, code examples) use **React islands** via `client:*` directives
@@ -49,13 +50,13 @@ The site ships pure HTML with no JavaScript baseline. This is a deliberate archi
 
 Content is managed as code (MDX/Git, no headless CMS). Collections planned:
 
-| Collection | Type | Schema Highlights |
-|------------|------|-------------------|
-| `blog` | content | `geoTargetQuery`, `category` (educational/problem-aware/comparison), `author` ref |
-| `use-cases` | content | `industry` enum, `order`, `featured` |
-| `integrations` | content | `platform`, `logo`, `category` |
-| `authors` | data | `name`, `bio`, `linkedin`, `github` (E-E-A-T signals) |
-| `changelog` | content | Release notes |
+| Collection     | Type    | Schema Highlights                                                                 |
+| -------------- | ------- | --------------------------------------------------------------------------------- |
+| `blog`         | content | `geoTargetQuery`, `category` (educational/problem-aware/comparison), `author` ref |
+| `use-cases`    | content | `industry` enum, `order`, `featured`                                              |
+| `integrations` | content | `platform`, `logo`, `category`                                                    |
+| `authors`      | data    | `name`, `bio`, `linkedin`, `github` (E-E-A-T signals)                             |
+| `changelog`    | content | Release notes                                                                     |
 
 All schemas validated with Zod via Astro's Content Collections API.
 
@@ -85,11 +86,11 @@ src/
 
 Three interconnected content hubs, each with 15-25 cluster articles:
 
-| Hub | URL | Purpose |
-|-----|-----|---------|
-| Use Cases | `/use-cases/` | Industry-specific solutions (CRM, ecommerce, DevOps) |
-| Comparisons | `/compare/` | Decision-stage content (vs Zapier, vs custom polling) |
-| Blog | `/blog/` | Educational + problem-aware articles |
+| Hub         | URL           | Purpose                                               |
+| ----------- | ------------- | ----------------------------------------------------- |
+| Use Cases   | `/use-cases/` | Industry-specific solutions (CRM, ecommerce, DevOps)  |
+| Comparisons | `/compare/`   | Decision-stage content (vs Zapier, vs custom polling) |
+| Blog        | `/blog/`      | Educational + problem-aware articles                  |
 
 Every spoke links back to its hub; hubs link to all spokes. No orphan pages.
 
@@ -107,13 +108,13 @@ Every spoke links back to its hub; hubs link to all spokes. No orphan pages.
 
 ### JSON-LD Schema Strategy
 
-| Page Type | Schema Types |
-|-----------|-------------|
-| Homepage | `Organization`, `WebSite` with `SearchAction` |
-| Pricing | `WebApplication`, `FAQPage`, `AggregateOffer` |
-| Blog posts | `TechArticle`, `Person` (author), `BreadcrumbList` |
-| Hub pages | `CollectionPage`, `BreadcrumbList` |
-| All non-homepage | `BreadcrumbList` |
+| Page Type        | Schema Types                                       |
+| ---------------- | -------------------------------------------------- |
+| Homepage         | `Organization`, `WebSite` with `SearchAction`      |
+| Pricing          | `WebApplication`, `FAQPage`, `AggregateOffer`      |
+| Blog posts       | `TechArticle`, `Person` (author), `BreadcrumbList` |
+| Hub pages        | `CollectionPage`, `BreadcrumbList`                 |
+| All non-homepage | `BreadcrumbList`                                   |
 
 ### Image Rules
 
@@ -127,29 +128,29 @@ Every spoke links back to its hub; hubs link to all spokes. No orphan pages.
 
 ### Cloudflare Pages
 
-| Environment | URL | Branch |
-|-------------|-----|--------|
-| Production | https://www.rockethooks.com | `main` |
-| Staging | https://staging.www.rockethooks.com | `staging` |
-| Sandbox | https://sandbox.www.rockethooks.com | `sandbox` |
+| Environment | URL                                      | Branch           |
+| ----------- | ---------------------------------------- | ---------------- |
+| Production  | https://www.rockethooks.com              | `main`           |
+| Staging     | https://staging.www.rockethooks.com      | `staging`        |
+| Sandbox     | https://sandbox.www.rockethooks.com      | `sandbox`        |
 | PR Previews | `[branch].rockethooks-website.pages.dev` | feature branches |
 
 ### Environment Variables
 
-| Variable | Purpose |
-|----------|---------|
-| `PUBLIC_SITE_URL` | Canonical URL generation |
-| `PUBLIC_CLOUDFLARE_BEACON_TOKEN` | Cloudflare Web Analytics |
-| `PUBLIC_GA4_MEASUREMENT_ID` | Google Analytics 4 |
-| `PUBLIC_ENV` | Environment detection (production/preview) |
+| Variable                         | Purpose                                    |
+| -------------------------------- | ------------------------------------------ |
+| `PUBLIC_SITE_URL`                | Canonical URL generation                   |
+| `PUBLIC_CLOUDFLARE_BEACON_TOKEN` | Cloudflare Web Analytics                   |
+| `PUBLIC_GA4_MEASUREMENT_ID`      | Google Analytics 4                         |
+| `PUBLIC_ENV`                     | Environment detection (production/preview) |
 
 ### Build Configuration
 
 ```yaml
 build:
-  command: "yarn build"
-  output_directory: "dist"
-  root_directory: "."
+  command: 'yarn build'
+  output_directory: 'dist'
+  root_directory: '.'
 ```
 
 ## i18n Strategy
@@ -169,11 +170,11 @@ Configured via Astro's `i18n` with `prefixDefaultLocale: false` and fallback to 
 
 Technical specifications live in the parent `specifications/` directory (symlinked as `.specifications/`):
 
-| Document | Path |
-|----------|------|
-| Full Technical PRD | `.specifications/prd-technical/website/rockethooks-website-technical-specification.md` |
-| Setup Status | `.specifications/prd-technical/website/setup-completion-summary.md` |
-| Architecture Decision | `.specifications/prd-technical/website/docs/website-architecture-ideation.md` |
-| SEO/GEO Research | `.specifications/prd-technical/website/docs/seo-geo-research-report.md` |
-| Product Positioning | `.specifications/product-positioning/` |
-| Master PRD | `.specifications/prd.md` |
+| Document              | Path                                                                                   |
+| --------------------- | -------------------------------------------------------------------------------------- |
+| Full Technical PRD    | `.specifications/prd-technical/website/rockethooks-website-technical-specification.md` |
+| Setup Status          | `.specifications/prd-technical/website/setup-completion-summary.md`                    |
+| Architecture Decision | `.specifications/prd-technical/website/docs/website-architecture-ideation.md`          |
+| SEO/GEO Research      | `.specifications/prd-technical/website/docs/seo-geo-research-report.md`                |
+| Product Positioning   | `.specifications/product-positioning/`                                                 |
+| Master PRD            | `.specifications/prd.md`                                                               |
