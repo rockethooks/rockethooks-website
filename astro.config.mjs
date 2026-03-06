@@ -67,13 +67,24 @@ export default defineConfig({
           es: 'es-ES',
         },
       },
+      prefix: 'pages-',
+      lastmod: new Date(),
     }),
     icon({
       include: {
         lucide: ['*'],
       },
     }),
-    robotsTxt(),
+    robotsTxt({
+      sitemap: true,
+      sitemapBaseFileName: 'pages-index',
+      policy: [
+        {
+          userAgent: '*',
+          allow: '/',
+        },
+      ],
+    }),
   ],
 
   markdown: {
