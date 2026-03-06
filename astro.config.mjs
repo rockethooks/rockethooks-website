@@ -67,7 +67,7 @@ export default defineConfig({
           es: 'es-ES',
         },
       },
-      prefix: 'pages-',
+      filenameBase: 'pages',
       lastmod: new Date(),
     }),
     icon({
