@@ -1,5 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
+import Logo from '@components/shared/Logo.astro';
 
 interface NavItem {
   label: string;
@@ -28,8 +29,11 @@ function isActive(href: string): boolean {
 >
   <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
     <!-- Logo -->
-    <a href="/" class="text-xl font-semibold text-brand-600 transition-colors hover:text-brand-700">
-      RocketHooks
+    <a href="/" class="flex items-center gap-2 transition-opacity hover:opacity-80" aria-label="RocketHooks home">
+      <Logo size={32} class="text-brand-600" />
+      <span class="text-xl font-bold tracking-tight">
+        <span class="text-brand-600">Rocket</span><span class="text-neutral-800">Hooks</span>
+      </span>
     </a>
 
     <!-- Desktop Navigation -->

@@ -1,5 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
+import Logo from '@components/shared/Logo.astro';
 
 interface FooterLink {
   label: string;
@@ -63,8 +64,11 @@ const currentYear = new Date().getFullYear();
     <div class="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
       <!-- Brand + Newsletter Column -->
       <div class="lg:col-span-4">
-        <a href="/" class="text-xl font-semibold text-brand-600">
-          RocketHooks
+        <a href="/" class="flex items-center gap-2" aria-label="RocketHooks home">
+          <Logo size={28} class="text-brand-600" />
+          <span class="text-xl font-bold tracking-tight">
+            <span class="text-brand-600">Rocket</span><span class="text-neutral-800">Hooks</span>
+          </span>
         </a>
         <p class="mt-3 max-w-sm text-sm leading-relaxed text-neutral-600">
           Transform any REST API into real-time event streams. Intelligent polling, change detection, and multi-channel notifications -- zero infrastructure changes required.
