@@ -133,8 +133,11 @@ const isoUpdatedDate = updatedDate?.toISOString();
             <img
               src={image.src}
               alt={image.alt}
+              width={1200}
+              height={675}
               class="w-full"
               loading="eager"
+              fetchpriority="high"
               itemprop="image"
             />
           </figure>
