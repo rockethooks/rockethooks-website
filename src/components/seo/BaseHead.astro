@@ -10,6 +10,7 @@ interface Props {
   publishDate?: Date;
   updatedDate?: Date;
   noindex?: boolean;
+  alternates?: Array<{ hreflang: string; href: string }>;
 }
 
 const SITE_NAME = 'RocketHooks';
@@ -26,6 +27,7 @@ const {
   publishDate,
   updatedDate,
   noindex = false,
+  alternates,
 } = Astro.props;
 
 const formattedTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
@@ -78,4 +80,15 @@ const imageUrl = image.src.startsWith('http') ? image.src : `${siteUrl}${image.s
 
 {!noindex && (
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+)}
+
+{alternates && alternates.length > 0 ? (
+  alternates.map(alt => (
+    <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />
+  ))
+) : (
+  <>
+    <link rel="alternate" hreflang="en" href={pageUrl} />
+    <link rel="alternate" hreflang="x-default" href={pageUrl} />
+  </>
 )}
