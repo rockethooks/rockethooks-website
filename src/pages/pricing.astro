@@ -6,7 +6,7 @@ import FinalCTA from '@components/shared/FinalCTA.astro';
 import WebApplicationSchema from '@components/seo/WebApplicationSchema.astro';
 import OfferSchema from '@components/seo/OfferSchema.astro';
 import FAQSchema from '@components/seo/FAQSchema.astro';
-import BreadcrumbSchema from '@components/seo/BreadcrumbSchema.astro';
+import Breadcrumbs from '@components/shared/Breadcrumbs.astro';
 import { Icon } from 'astro-icon/components';
 import { pricingTiers } from '@data/pricing';
 import { faqs } from '@data/faqs';
@@ -108,23 +108,13 @@ const comparisonFeatures: ComparisonFeature[] = [
       url="/contact?subject=enterprise"
     />
     <FAQSchema items={allPricingFaqs.map((faq) => ({ question: faq.question, answer: faq.answer }))} />
-    <BreadcrumbSchema items={[{ name: 'Pricing' }]} />
   </Fragment>
-
-  <!-- Breadcrumb navigation -->
-  <nav aria-label="Breadcrumb" class="bg-white pt-6">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <ol class="flex items-center gap-2 text-sm text-neutral-500">
-        <li><a href="/" class="hover:text-neutral-700 transition-colors">Home</a></li>
-        <li aria-hidden="true">/</li>
-        <li aria-current="page" class="font-medium text-neutral-900">Pricing</li>
-      </ol>
-    </div>
-  </nav>
 
   <!-- Pricing header + tiers -->
   <section class="bg-white py-16 sm:py-24">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs />
+
       <SectionHeading
         overline="Pricing"
         title="Simple, transparent pricing"

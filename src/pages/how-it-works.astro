@@ -3,7 +3,6 @@ import LandingLayout from '@layouts/LandingLayout.astro';
 import Breadcrumbs from '@components/shared/Breadcrumbs.astro';
 import SectionHeading from '@components/shared/SectionHeading.astro';
 import FinalCTA from '@components/shared/FinalCTA.astro';
-import BreadcrumbSchema from '@components/seo/BreadcrumbSchema.astro';
 import { Icon } from 'astro-icon/components';
 import { processSteps } from '@data/process-steps';
 ---
@@ -12,10 +11,6 @@ import { processSteps } from '@data/process-steps';
   title="How It Works - RocketHooks"
   description="Learn how RocketHooks transforms REST APIs into real-time event streams in 5 steps: sign up, connect your API, define JSONPath watchers, configure notifications, and go live."
 >
-  <Fragment slot="head">
-    <BreadcrumbSchema items={[{ name: 'How It Works', href: '/how-it-works' }]} />
-  </Fragment>
-
   <!-- Page Header -->
   <section class="bg-white pb-8 pt-12 sm:pt-16">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

@@ -2,7 +2,6 @@
 import { getCollection, render } from 'astro:content';
 import LandingLayout from '@layouts/LandingLayout.astro';
 import Breadcrumbs from '@components/shared/Breadcrumbs.astro';
-import BreadcrumbSchema from '@components/seo/BreadcrumbSchema.astro';
 import FinalCTA from '@components/shared/FinalCTA.astro';
 import { Icon } from 'astro-icon/components';
 
@@ -24,12 +23,6 @@ const { Content } = await render(entry);
   description={description}
 >
   <Fragment slot="head">
-    <BreadcrumbSchema
-      items={[
-        { name: 'Integrations', href: '/integrations' },
-        { name: title },
-      ]}
-    />
     <script
       is:inline
       type="application/ld+json"
