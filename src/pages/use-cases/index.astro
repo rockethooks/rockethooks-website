@@ -5,6 +5,7 @@ import Breadcrumbs from '@components/shared/Breadcrumbs.astro';
 import UseCaseCard from '@components/landing/UseCaseCard.astro';
 import FinalCTA from '@components/shared/FinalCTA.astro';
 import ItemListSchema from '@components/seo/ItemListSchema.astro';
+import CollectionPageSchema from '@components/seo/CollectionPageSchema.astro';
 
 const useCases = await getCollection('use-cases');
 const sorted = useCases.sort((a, b) => a.data.order - b.data.order);
@@ -33,6 +34,10 @@ const iconMap: Record<string, string> = {
   description="See how teams use RocketHooks to transform REST APIs into real-time event streams across CRM, e-commerce, DevOps, ERP, and SaaS platforms."
 >
   <Fragment slot="head">
+    <CollectionPageSchema
+      name="RocketHooks Use Cases"
+      description="Industry-specific use cases showing how RocketHooks transforms REST API endpoints into real-time event streams with intelligent polling and multi-channel notifications."
+    />
     <ItemListSchema
       name="RocketHooks Use Cases"
       description="Industry-specific use cases showing how RocketHooks transforms REST API endpoints into real-time event streams with intelligent polling and multi-channel notifications."

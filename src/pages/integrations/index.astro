@@ -6,6 +6,7 @@ import SectionHeading from '@components/shared/SectionHeading.astro';
 import IntegrationCard from '@components/integrations/IntegrationCard.astro';
 import FinalCTA from '@components/shared/FinalCTA.astro';
 import ItemListSchema from '@components/seo/ItemListSchema.astro';
+import CollectionPageSchema from '@components/seo/CollectionPageSchema.astro';
 
 const integrations = await getCollection('integrations');
 
@@ -17,6 +18,10 @@ const categories = ['CRM', 'E-commerce', 'DevOps', 'Payments', 'Notifications', 
   description="Connect RocketHooks with Salesforce, HubSpot, Shopify, Stripe, GitHub, Jira, Slack, and more. Transform any REST API into real-time event streams."
 >
   <Fragment slot="head">
+    <CollectionPageSchema
+      name="RocketHooks Integrations"
+      description="Platform integrations supported by RocketHooks API transformation platform for real-time event streaming."
+    />
     <ItemListSchema
       name="RocketHooks Integrations"
       description="Platform integrations supported by RocketHooks API transformation platform for real-time event streaming."

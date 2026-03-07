@@ -1,11 +1,18 @@
 ---
 import BlogLayout from '@layouts/BlogLayout.astro';
 import ArticleList from '@components/blog/ArticleList.astro';
+import CollectionPageSchema from '@components/seo/CollectionPageSchema.astro';
 import { getPublishedPosts } from '@utils/content';
 
 const posts = await getPublishedPosts();
 ---
 
 <BlogLayout>
+  <Fragment slot="head">
+    <CollectionPageSchema
+      name="RocketHooks Blog"
+      description="Insights, tutorials, and guides on API transformation, webhook integration, and real-time event streaming."
+    />
+  </Fragment>
   <ArticleList posts={posts} />
 </BlogLayout>

@@ -5,6 +5,7 @@ import SectionHeading from '@components/shared/SectionHeading.astro';
 import ArticleList from '@components/blog/ArticleList.astro';
 import FinalCTA from '@components/shared/FinalCTA.astro';
 import ItemListSchema from '@components/seo/ItemListSchema.astro';
+import CollectionPageSchema from '@components/seo/CollectionPageSchema.astro';
 import { getPostsByCategory } from '@utils/content';
 
 const comparisonPosts = await getPostsByCategory('comparison');
@@ -15,6 +16,10 @@ const comparisonPosts = await getPostsByCategory('comparison');
   description="See how RocketHooks compares to Zapier, custom polling, native webhooks, and other API integration approaches. Data-driven comparisons to help you choose."
 >
   <Fragment slot="head">
+    <CollectionPageSchema
+      name="RocketHooks Comparisons"
+      description="Detailed comparisons of RocketHooks API transformation platform against alternative approaches and competing tools."
+    />
     <ItemListSchema
       name="RocketHooks Comparisons"
       description="Detailed comparisons of RocketHooks API transformation platform against alternative approaches and competing tools."
