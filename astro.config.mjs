@@ -67,8 +67,6 @@ export default defineConfig({
           es: 'es-ES',
         },
       },
-      filenameBase: 'pages',
-      lastmod: new Date(),
     }),
     icon({
       include: {
@@ -77,12 +75,16 @@ export default defineConfig({
     }),
     robotsTxt({
       sitemap: true,
-      sitemapBaseFileName: 'pages-index',
+      sitemapBaseFileName: 'sitemap-index',
       policy: [
-        {
-          userAgent: '*',
-          allow: '/',
-        },
+        { userAgent: '*', allow: '/' },
+        { userAgent: 'GPTBot', allow: '/' },
+        { userAgent: 'ChatGPT-User', allow: '/' },
+        { userAgent: 'Google-Extended', allow: '/' },
+        { userAgent: 'anthropic-ai', allow: '/' },
+        { userAgent: 'ClaudeBot', allow: '/' },
+        { userAgent: 'PerplexityBot', allow: '/' },
+        { userAgent: 'Bytespider', allow: '/' },
       ],
     }),
   ],
