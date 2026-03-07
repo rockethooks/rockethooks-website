@@ -27,6 +27,7 @@ export default defineConfig({
         weights: ['100 900'],
         styles: ['normal', 'italic'],
         subsets: ['latin', 'latin-ext'],
+        fallbacks: ['system-ui', '-apple-system', 'sans-serif'],
       },
       {
         provider: fontProviders.google(),
@@ -35,6 +36,7 @@ export default defineConfig({
         weights: [400, 500, 600, 700],
         styles: ['normal'],
         subsets: ['latin'],
+        fallbacks: ['ui-monospace', 'SFMono-Regular', 'monospace'],
       },
     ],
   },
