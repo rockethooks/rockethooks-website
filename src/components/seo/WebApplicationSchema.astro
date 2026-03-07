@@ -1,13 +1,20 @@
 ---
 import { Schema } from 'astro-seo-schema';
 
+interface Props {
+  rating?: { ratingValue: number; reviewCount: number };
+}
+
+const { rating } = Astro.props;
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://www.rockethooks.com';
 ---
 
+<!-- Google requires aggregateRating or review for WebApplication rich results.
+     Pass rating prop when real user reviews are collected. -->
 <Schema
   item={{
     '@context': 'https://schema.org' as const,
-    '@type': 'SoftwareApplication',
+    '@type': 'WebApplication',
     name: 'RocketHooks',
     applicationCategory: 'DeveloperApplication',
     operatingSystem: 'Web',
@@ -29,5 +36,13 @@ const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://www.rocket
       'Two-tier circuit breaker protection',
       'Visual response diff viewer',
     ],
+    ...(rating ? {
+      aggregateRating: {
+        '@type': 'AggregateRating' as const,
+        ratingValue: rating.ratingValue,
+        reviewCount: rating.reviewCount,
+        bestRating: 5,
+      },
+    } : {}),
   }}
 />
