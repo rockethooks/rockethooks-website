@@ -30,6 +30,7 @@ const {
 
 const formattedTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://www.rockethooks.com';
+const pageUrl = canonical ?? `${siteUrl}${Astro.url.pathname}`;
 const imageUrl = image.src.startsWith('http') ? image.src : `${siteUrl}${image.src}`;
 ---
 
@@ -43,6 +44,7 @@ const imageUrl = image.src.startsWith('http') ? image.src : `${siteUrl}${image.s
       title: formattedTitle,
       type: type === 'article' ? 'article' : 'website',
       image: imageUrl,
+      url: pageUrl,
     },
     optional: {
       description,
@@ -73,3 +75,7 @@ const imageUrl = image.src.startsWith('http') ? image.src : `${siteUrl}${image.s
   }}
   surpressWarnings={true}
 />
+
+{!noindex && (
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+)}
