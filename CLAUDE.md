@@ -143,6 +143,7 @@ Every spoke links back to its hub; hubs link to all spokes. No orphan pages.
 | `PUBLIC_CLOUDFLARE_BEACON_TOKEN` | Cloudflare Web Analytics                   |
 | `PUBLIC_GA4_MEASUREMENT_ID`      | Google Analytics 4                         |
 | `PUBLIC_ENV`                     | Environment detection (production/preview) |
+| `PUBLIC_APP_URL`                 | Webapp URL for login/signup links          |
 
 ### Build Configuration
 
