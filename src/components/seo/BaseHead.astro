@@ -32,15 +32,18 @@ const {
 
 const formattedTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://www.rockethooks.com';
-const pageUrl = canonical ?? `${siteUrl}${Astro.url.pathname}`;
+const pageUrl = canonical
+  ? (canonical.startsWith('http') ? canonical : `${siteUrl}${canonical}`)
+  : `${siteUrl}${Astro.url.pathname}`;
 const imageUrl = image.src.startsWith('http') ? image.src : `${siteUrl}${image.src}`;
 ---
 
 <SEO
   title={formattedTitle}
   description={description}
-  canonical={canonical}
+  canonical={pageUrl}
   noindex={noindex}
+  robotsExtras="max-snippet:-1, max-image-preview:large, max-video-preview:-1"
   openGraph={{
     basic: {
       title: formattedTitle,
@@ -77,10 +80,6 @@ const imageUrl = image.src.startsWith('http') ? image.src : `${siteUrl}${image.s
   }}
   surpressWarnings={true}
 />
-
-{!noindex && (
-  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-)}
 
 {alternates && alternates.length > 0 ? (
   alternates.map(alt => (
