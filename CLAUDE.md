@@ -153,6 +153,16 @@ build:
   root_directory: '.'
 ```
 
+### Verify Deployments
+
+Use Wrangler CLI to check deployment status:
+
+```bash
+wrangler deployments list  # List recent deployments with timestamps
+```
+
+**Note:** Use `wrangler deployments list` (not `wrangler pages deployment list`) for this project.
+
 ## i18n Strategy
 
 URL-prefix pattern with English at root (no prefix):
