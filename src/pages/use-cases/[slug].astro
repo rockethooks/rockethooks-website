@@ -4,6 +4,7 @@ import LandingLayout from '@layouts/LandingLayout.astro';
 import Breadcrumbs from '@components/shared/Breadcrumbs.astro';
 import ArticleSchema from '@components/seo/ArticleSchema.astro';
 import CTAButton from '@components/shared/CTAButton.astro';
+import { getAppUrl } from '@utils/urls';
 
 export async function getStaticPaths() {
   const useCases = await getCollection('use-cases');
@@ -90,7 +91,7 @@ const colorClasses = industryColors[entry.data.industry] ?? industryColors.gener
         <p class="text-lg font-semibold text-neutral-900">
           Ready to try this use case?
         </p>
-        <CTAButton href="https://app.rockethooks.com/signup" size="lg">
+        <CTAButton href={getAppUrl()} size="lg">
           Get Started Free
         </CTAButton>
       </div>

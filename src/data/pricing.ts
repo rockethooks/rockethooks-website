@@ -1,4 +1,5 @@
 import type { PricingTier } from './types';
+import { getAppUrl } from '@utils/urls';
 
 export const pricingTiers: PricingTier[] = [
   {
@@ -16,7 +17,7 @@ export const pricingTiers: PricingTier[] = [
     ],
     cta: {
       label: 'Get Started Free',
-      href: 'https://app.rockethooks.com/signup',
+      href: getAppUrl(),
     },
   },
   {
@@ -36,7 +37,7 @@ export const pricingTiers: PricingTier[] = [
     ],
     cta: {
       label: 'Start Free Trial',
-      href: 'https://app.rockethooks.com/signup?plan=pro',
+      href: getAppUrl('/', { plan: 'pro' }),
     },
     highlighted: true,
     badge: 'Most Popular',

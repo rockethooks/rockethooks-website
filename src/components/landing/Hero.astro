@@ -1,5 +1,6 @@
 ---
 import CTAButton from '@components/shared/CTAButton.astro';
+import { getAppUrl } from '@utils/urls';
 ---
 
 <section class="relative overflow-hidden bg-white">
@@ -17,7 +18,7 @@ import CTAButton from '@components/shared/CTAButton.astro';
         without touching your existing infrastructure. Deploy in 5 minutes.
       </p>
       <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-        <CTAButton href="https://app.rockethooks.com/signup" variant="primary" size="lg">
+        <CTAButton href={getAppUrl()} variant="primary" size="lg">
           Start Free Trial
         </CTAButton>
         <CTAButton href="#how-it-works" variant="secondary" size="lg">

@@ -1,5 +1,6 @@
 ---
 import CTAButton from './CTAButton.astro';
+import { getAppUrl } from '@utils/urls';
 
 interface Props {
   headline?: string;
@@ -12,7 +13,7 @@ const {
   headline = 'Ready to transform your APIs?',
   subtitle = 'Start receiving real-time events from any REST API in minutes. No credit card required.',
   ctaLabel = 'Get Started Free',
-  ctaHref = 'https://app.rockethooks.com/signup',
+  ctaHref = getAppUrl(),
 } = Astro.props;
 ---
 

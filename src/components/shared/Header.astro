@@ -1,6 +1,7 @@
 ---
 import { Icon } from 'astro-icon/components';
 import Logo from '@components/shared/Logo.astro';
+import { getAppUrl } from '@utils/urls';
 
 interface NavItem {
   label: string;
@@ -62,13 +63,15 @@ function isActive(href: string): boolean {
     <!-- Desktop CTAs -->
     <div class="hidden items-center gap-3 md:flex">
       <a
-        href="https://app.rockethooks.com/login"
+        href={getAppUrl()}
+        rel="noopener"
         class="rounded-md px-3 py-2 text-sm font-medium text-neutral-600 transition-colors hover:text-neutral-900"
       >
         Log in
       </a>
       <a
-        href="https://app.rockethooks.com/signup"
+        href={getAppUrl()}
+        rel="noopener"
         class="rounded-md bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-xs transition-colors hover:bg-brand-700"
       >
         Start Free Trial
@@ -112,13 +115,15 @@ function isActive(href: string): boolean {
 
       <div class="mt-4 flex flex-col gap-2 border-t border-neutral-200 pt-4">
         <a
-          href="https://app.rockethooks.com/login"
+          href={getAppUrl()}
+          rel="noopener"
           class="rounded-md px-3 py-2.5 text-center text-base font-medium text-neutral-600 transition-colors hover:text-neutral-900"
         >
           Log in
         </a>
         <a
-          href="https://app.rockethooks.com/signup"
+          href={getAppUrl()}
+          rel="noopener"
           class="rounded-md bg-brand-600 px-4 py-2.5 text-center text-base font-semibold text-white shadow-xs transition-colors hover:bg-brand-700"
         >
           Start Free Trial
