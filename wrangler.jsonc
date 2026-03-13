@@ -16,32 +16,21 @@
   "vars": {
     "NODE_VERSION": "24",
     "PUBLIC_APP_URL": "https://app.sandbox.rockethooks.com",
-    "PUBLIC_CLOUDFLARE_BEACON_TOKEN": "",
-    "PUBLIC_ENV": "preview",
-    "PUBLIC_GA4_MEASUREMENT_ID": "",
-    "PUBLIC_SITE_URL": "https://sandbox.www.rockethooks.com",
+    "PUBLIC_CLOUDFLARE_BEACON_TOKEN": "faf1ebdd5549410fa46464a5cea7fa67",
+    "PUBLIC_ENV": "production",
+    "PUBLIC_GA4_MEASUREMENT_ID": "G-RL523H0X2D",
+    "PUBLIC_SITE_URL": "https://www.rockethooks.com",
     "YARN_VERSION": "1.22.22"
   },
   "env": {
-    "production": {
-      "vars": {
-        "NODE_VERSION": "24",
-        "PUBLIC_APP_URL": "https://app.sandbox.rockethooks.com",
-        "PUBLIC_CLOUDFLARE_BEACON_TOKEN": "faf1ebdd5549410fa46464a5cea7fa67",
-        "PUBLIC_ENV": "production",
-        "PUBLIC_GA4_MEASUREMENT_ID": "G-RL523H0X2D",
-        "PUBLIC_SITE_URL": "https://www.rockethooks.com",
-        "YARN_VERSION": "1.22.22"
-      }
-    },
     "preview": {
       "vars": {
         "NODE_VERSION": "24",
-        "PUBLIC_APP_URL": "https://app.staging.rockethooks.com",
+        "PUBLIC_APP_URL": "https://app.sandbox.rockethooks.com",
         "PUBLIC_CLOUDFLARE_BEACON_TOKEN": "",
         "PUBLIC_ENV": "preview",
         "PUBLIC_GA4_MEASUREMENT_ID": "",
-        "PUBLIC_SITE_URL": "https://staging.www.rockethooks.com",
+        "PUBLIC_SITE_URL": "https://sandbox.www.rockethooks.com",
         "YARN_VERSION": "1.22.22"
       }
     }
