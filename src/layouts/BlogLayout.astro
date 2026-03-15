@@ -1,7 +1,9 @@
 ---
 import LandingLayout from './LandingLayout.astro';
-import SectionHeading from '@components/shared/SectionHeading.astro';
-import Breadcrumbs from '@components/shared/Breadcrumbs.astro';
+import { SectionHeading } from '@components/shared/SectionHeading';
+import { Breadcrumbs } from '@components/shared/Breadcrumbs';
+import BreadcrumbSchema from '@components/seo/BreadcrumbSchema.astro';
+import { getBreadcrumbs } from '@utils/content';
 
 interface PaginationPage {
   url: {
@@ -43,14 +45,19 @@ function isCategoryActive(value: string): boolean {
   if (!value) return !currentCategory;
   return currentCategory === value;
 }
+
+const breadcrumbItems = getBreadcrumbs(Astro.url.pathname);
 ---
 
 <LandingLayout title={title} description={description}>
-  <slot name="head" slot="head" />
+  <Fragment slot="head">
+    <slot name="head" />
+    <BreadcrumbSchema items={breadcrumbItems.slice(1).map((item) => ({ name: item.label, href: item.href }))} />
+  </Fragment>
 
   <section class="py-12 sm:py-16">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <Breadcrumbs />
+      <Breadcrumbs items={breadcrumbItems} />
 
       <SectionHeading
         overline="Blog"
