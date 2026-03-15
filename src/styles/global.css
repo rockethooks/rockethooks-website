@@ -7,7 +7,7 @@
 
 /* Map Astro Fonts API variables to Tailwind theme */
 @theme inline {
-  --font-sans: 'Geist Variable', sans-serif;
+  --font-sans: var(--font-inter);
   --font-mono: var(--font-jetbrains-mono);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
