@@ -43,7 +43,7 @@ function FeatureCard({ icon, title, description, className }: FeatureCardProps) 
   return (
     <div
       className={cn(
-        'animate-card rounded-lg border border-neutral-200 bg-white p-6 shadow-xs transition-shadow hover:shadow-sm',
+        'animate-card rounded-lg border border-neutral-200 bg-white p-6 shadow-xs hover-lift',
         className,
       )}
     >

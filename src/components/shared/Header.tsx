@@ -121,49 +121,64 @@ export default function Header({ pathname: initialPathname }: HeaderProps) {
       </nav>
 
       {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <div id="mobile-menu" className="border-t border-neutral-200 md:hidden">
-          <div className="space-y-1 px-4 pb-4 pt-2">
-            {navItems.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  'flex items-center gap-2 rounded-md px-3 py-2.5 text-base font-medium transition-colors',
-                  isActive(pathname, item.href)
-                    ? 'bg-brand-50 text-brand-700'
-                    : 'text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900'
-                )}
-                {...(item.external
-                  ? { target: '_blank', rel: 'noopener noreferrer' }
-                  : {})}
-              >
-                {item.label}
-                {item.external && (
-                  <ExternalLink size={14} className="opacity-50" />
-                )}
-              </a>
-            ))}
+      <div
+        id="mobile-menu"
+        className={cn(
+          'overflow-hidden transition-all duration-300 ease-in-out md:hidden',
+          mobileMenuOpen
+            ? 'max-h-96 opacity-100'
+            : 'max-h-0 opacity-0',
+        )}
+        inert={!mobileMenuOpen}
+      >
+        <div
+          className={cn(
+            'space-y-1 px-4 pb-4 pt-2',
+            mobileMenuOpen && 'border-t border-neutral-200',
+          )}
+        >
+          {navItems.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              className={cn(
+                'flex items-center gap-2 rounded-md px-3 py-2.5 text-base font-medium transition-colors',
+                isActive(pathname, item.href)
+                  ? 'bg-brand-50 text-brand-700'
+                  : 'text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900'
+              )}
+              tabIndex={mobileMenuOpen ? 0 : -1}
+              {...(item.external
+                ? { target: '_blank', rel: 'noopener noreferrer' }
+                : {})}
+            >
+              {item.label}
+              {item.external && (
+                <ExternalLink size={14} className="opacity-50" />
+              )}
+            </a>
+          ))}
 
-            <div className="mt-4 flex flex-col gap-2 border-t border-neutral-200 pt-4">
-              <a
-                href={appUrl}
-                rel="noopener"
-                className="rounded-md px-3 py-2.5 text-center text-base font-medium text-neutral-600 transition-colors hover:text-neutral-900"
-              >
-                Log in
-              </a>
-              <a
-                href={appUrl}
-                rel="noopener"
-                className="rounded-md bg-brand-600 px-4 py-2.5 text-center text-base font-semibold text-white shadow-xs transition-colors hover:bg-brand-700"
-              >
-                Start Free Trial
-              </a>
-            </div>
+          <div className="mt-4 flex flex-col gap-2 border-t border-neutral-200 pt-4">
+            <a
+              href={appUrl}
+              rel="noopener"
+              tabIndex={mobileMenuOpen ? 0 : -1}
+              className="rounded-md px-3 py-2.5 text-center text-base font-medium text-neutral-600 transition-colors hover:text-neutral-900"
+            >
+              Log in
+            </a>
+            <a
+              href={appUrl}
+              rel="noopener"
+              tabIndex={mobileMenuOpen ? 0 : -1}
+              className="rounded-md bg-brand-600 px-4 py-2.5 text-center text-base font-semibold text-white shadow-xs transition-colors hover:bg-brand-700"
+            >
+              Start Free Trial
+            </a>
           </div>
         </div>
-      )}
+      </div>
     </header>
   );
 }

@@ -3,6 +3,7 @@ import LandingLayout from '@layouts/LandingLayout.astro';
 import OrganizationSchema from '@components/seo/OrganizationSchema.astro';
 import WebSiteSchema from '@components/seo/WebSiteSchema.astro';
 import { Hero } from '@components/landing/Hero';
+import { LogoBar } from '@components/landing/LogoBar';
 import { SocialProof } from '@components/landing/SocialProof';
 import { HowItWorks } from '@components/landing/HowItWorks';
 import { Features } from '@components/landing/Features';
@@ -26,6 +27,7 @@ const displayedFaqs = faqs.slice(0, 8);
   </Fragment>
 
   <Hero />
+  <LogoBar />
   <SocialProof />
   <HowItWorks />
   <Features />
