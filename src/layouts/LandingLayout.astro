@@ -46,12 +46,21 @@ const props = Astro.props;
           { opacity: [0, 1], y: [30, 0] } as Record<string, [number, number]>,
           { duration: 0.6, ease: [0.39, 0.24, 0.3, 1] }
         );
+        // Animate section headings first
+        const headings = el.querySelectorAll(".animate-heading");
+        if (headings.length) {
+          animate(
+            Array.from(headings) as Element[],
+            { opacity: [0, 1], y: [20, 0] } as Record<string, [number, number]>,
+            { duration: 0.5, ease: [0.39, 0.24, 0.3, 1] }
+          );
+        }
         const cards = el.querySelectorAll(".animate-card");
         if (cards.length) {
           animate(
             Array.from(cards) as Element[],
             { opacity: [0, 1], y: [20, 0] } as Record<string, [number, number]>,
-            { delay: stagger(0.15), ease: [0.39, 0.24, 0.3, 1] }
+            { delay: stagger(0.1), ease: [0.39, 0.24, 0.3, 1] }
           );
         }
       }, { amount: 0.2 });

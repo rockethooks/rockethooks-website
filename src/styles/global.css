@@ -419,6 +419,22 @@ code, pre {
   }
 }
 
+/* FAQ smooth open/close -- progressive enhancement (Chromium only) */
+:root {
+  interpolate-size: allow-keywords;
+}
+
+.faq-item {
+  & > div {
+    block-size: 0;
+    overflow: hidden;
+    transition: block-size 0.3s ease, padding 0.3s ease;
+  }
+  &[open] > div {
+    block-size: auto;
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

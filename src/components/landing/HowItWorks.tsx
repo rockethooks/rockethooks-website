@@ -21,13 +21,14 @@ function HowItWorks({ className }: HowItWorksProps) {
         />
 
         <div className="mx-auto max-w-2xl">
-          {processSteps.map((step) => (
+          {processSteps.map((step, index) => (
             <ProcessStep
               key={step.number}
               number={step.number}
               icon={step.icon}
               title={step.title}
               description={step.description}
+              isLast={index === processSteps.length - 1}
             />
           ))}
         </div>

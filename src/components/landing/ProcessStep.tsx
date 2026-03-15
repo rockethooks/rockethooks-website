@@ -25,10 +25,11 @@ interface ProcessStepProps {
   icon: string;
   title: string;
   description: string;
+  isLast?: boolean;
   className?: string;
 }
 
-function ProcessStep({ number, icon, title, description, className }: ProcessStepProps) {
+function ProcessStep({ number, icon, title, description, isLast = false, className }: ProcessStepProps) {
   const IconComponent = iconMap[icon];
 
   return (
@@ -37,9 +38,11 @@ function ProcessStep({ number, icon, title, description, className }: ProcessSte
         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-600 text-sm font-semibold text-white">
           {number}
         </div>
-        <div className="mt-2 h-full w-px bg-neutral-200" aria-hidden="true" />
+        {!isLast && (
+          <div className="mt-2 h-full w-px bg-neutral-200" aria-hidden="true" />
+        )}
       </div>
-      <div className="pb-10">
+      <div className={cn(isLast ? 'pb-0' : 'pb-10')}>
         <div className="mb-2 inline-flex items-center gap-2 text-brand-600">
           {IconComponent && <IconComponent size={18} />}
         </div>
