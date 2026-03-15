@@ -1,13 +1,15 @@
 ---
 import LandingLayout from '@layouts/LandingLayout.astro';
-import Breadcrumbs from '@components/shared/Breadcrumbs.astro';
-import SectionHeading from '@components/shared/SectionHeading.astro';
-import ArticleList from '@components/blog/ArticleList.astro';
-import FinalCTA from '@components/shared/FinalCTA.astro';
+import BreadcrumbSchema from '@components/seo/BreadcrumbSchema.astro';
+import { Breadcrumbs } from '@components/shared/Breadcrumbs';
+import { SectionHeading } from '@components/shared/SectionHeading';
+import { ArticleList } from '@components/blog/ArticleList';
+import { FinalCTA } from '@components/shared/FinalCTA';
 import ItemListSchema from '@components/seo/ItemListSchema.astro';
 import CollectionPageSchema from '@components/seo/CollectionPageSchema.astro';
-import { getPostsByCategory } from '@utils/content';
+import { getPostsByCategory, getBreadcrumbs } from '@utils/content';
 
+const breadcrumbItems = getBreadcrumbs(Astro.url.pathname);
 const comparisonPosts = await getPostsByCategory('comparison');
 ---
 
@@ -16,6 +18,7 @@ const comparisonPosts = await getPostsByCategory('comparison');
   description="See how RocketHooks compares to Zapier, custom polling, native webhooks, and other API integration approaches. Data-driven comparisons to help you choose."
 >
   <Fragment slot="head">
+    <BreadcrumbSchema items={breadcrumbItems.slice(1).map((item) => ({ name: item.label, href: item.href }))} />
     <CollectionPageSchema
       name="RocketHooks Comparisons"
       description="Detailed comparisons of RocketHooks API transformation platform against alternative approaches and competing tools."
@@ -34,7 +37,7 @@ const comparisonPosts = await getPostsByCategory('comparison');
   <!-- Page Header -->
   <section class="bg-white pb-8 pt-12 sm:pt-16">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <Breadcrumbs />
+      <Breadcrumbs items={breadcrumbItems} />
 
       <div class="mx-auto max-w-3xl text-center">
         <p class="mb-3 text-sm font-semibold uppercase tracking-wider text-brand-600">
@@ -59,7 +62,15 @@ const comparisonPosts = await getPostsByCategory('comparison');
         subtitle="Each comparison covers pricing, features, developer experience, and real-world performance so you can make an informed decision."
       />
 
-      <ArticleList posts={comparisonPosts} />
+      <ArticleList posts={comparisonPosts.map((post) => ({
+        title: post.data.title,
+        description: post.data.description,
+        pubDate: post.data.pubDate.toISOString(),
+        author: post.data.author,
+        category: post.data.category,
+        image: post.data.image,
+        slug: post.id,
+      }))} />
 
       {comparisonPosts.length === 0 && (
         <div class="mx-auto max-w-lg text-center">

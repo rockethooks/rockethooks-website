@@ -2,15 +2,18 @@
 import LandingLayout from '@layouts/LandingLayout.astro';
 import { SectionHeading } from '@components/shared/SectionHeading';
 import { PricingTier } from '@components/landing/PricingTier';
-import FinalCTA from '@components/shared/FinalCTA.astro';
+import { FinalCTA } from '@components/shared/FinalCTA';
 import WebApplicationSchema from '@components/seo/WebApplicationSchema.astro';
 import OfferSchema from '@components/seo/OfferSchema.astro';
 import FAQSchema from '@components/seo/FAQSchema.astro';
-import Breadcrumbs from '@components/shared/Breadcrumbs.astro';
+import BreadcrumbSchema from '@components/seo/BreadcrumbSchema.astro';
+import { Breadcrumbs } from '@components/shared/Breadcrumbs';
+import { getBreadcrumbs } from '@utils/content';
 import { Icon } from 'astro-icon/components';
 import { pricingTiers } from '@data/pricing';
 import { faqs } from '@data/faqs';
 
+const breadcrumbItems = getBreadcrumbs(Astro.url.pathname);
 const pricingFaqs = faqs.filter((faq) => faq.category === 'pricing');
 
 const additionalPricingFaqs = [
@@ -108,12 +111,13 @@ const comparisonFeatures: ComparisonFeature[] = [
       url="/contact?subject=enterprise"
     />
     <FAQSchema items={allPricingFaqs.map((faq) => ({ question: faq.question, answer: faq.answer }))} />
+    <BreadcrumbSchema items={breadcrumbItems.slice(1).map((item) => ({ name: item.label, href: item.href }))} />
   </Fragment>
 
   <!-- Pricing header + tiers -->
   <section class="bg-white py-16 sm:py-24">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <Breadcrumbs />
+      <Breadcrumbs items={breadcrumbItems} />
 
       <SectionHeading
         overline="Pricing"

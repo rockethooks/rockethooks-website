@@ -1,15 +1,18 @@
 ---
 import LandingLayout from '@layouts/LandingLayout.astro';
-import Breadcrumbs from '@components/shared/Breadcrumbs.astro';
+import BreadcrumbSchema from '@components/seo/BreadcrumbSchema.astro';
+import { Breadcrumbs } from '@components/shared/Breadcrumbs';
 import { SectionHeading } from '@components/shared/SectionHeading';
 import { FeatureCard } from '@components/landing/FeatureCard';
-import FinalCTA from '@components/shared/FinalCTA.astro';
+import { FinalCTA } from '@components/shared/FinalCTA';
+import { getBreadcrumbs } from '@utils/content';
 import ItemListSchema from '@components/seo/ItemListSchema.astro';
 import FAQSchema from '@components/seo/FAQSchema.astro';
 import { features, featureCategories } from '@data/features';
 import { faqs } from '@data/faqs';
 import type { Feature } from '@data/types';
 
+const breadcrumbItems = getBreadcrumbs(Astro.url.pathname);
 const featuresFaqs = faqs.filter((faq) => faq.category === 'features');
 
 const categories = Object.keys(featureCategories) as Feature['category'][];
@@ -25,6 +28,7 @@ const groupedFeatures = categories.map((category) => ({
   description="Explore all RocketHooks features: REST-to-real-time API transformation, JSONPath change detection, multi-channel notifications, enterprise security, and reliable webhook delivery."
 >
   <Fragment slot="head">
+    <BreadcrumbSchema items={breadcrumbItems.slice(1).map((item) => ({ name: item.label, href: item.href }))} />
     <ItemListSchema
       name="RocketHooks Features"
       description="Complete list of RocketHooks API transformation platform features including change detection, multi-channel notifications, and enterprise security."
@@ -39,7 +43,7 @@ const groupedFeatures = categories.map((category) => ({
   <!-- Page Header -->
   <section class="bg-white pb-8 pt-12 sm:pt-16">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <Breadcrumbs />
+      <Breadcrumbs items={breadcrumbItems} />
 
       <div class="mx-auto max-w-3xl text-center">
         <p class="mb-3 text-sm font-semibold uppercase tracking-wider text-brand-600">

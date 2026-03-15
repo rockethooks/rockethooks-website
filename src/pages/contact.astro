@@ -1,16 +1,24 @@
 ---
 import LandingLayout from '@layouts/LandingLayout.astro';
-import Breadcrumbs from '@components/shared/Breadcrumbs.astro';
+import BreadcrumbSchema from '@components/seo/BreadcrumbSchema.astro';
+import { Breadcrumbs } from '@components/shared/Breadcrumbs';
 import { Icon } from 'astro-icon/components';
+import { getBreadcrumbs } from '@utils/content';
+
+const breadcrumbItems = getBreadcrumbs(Astro.url.pathname);
 ---
 
 <LandingLayout
   title="Contact Us"
   description="Get in touch with the RocketHooks team. Questions about API transformation, pricing, or enterprise plans -- we are here to help."
 >
+  <Fragment slot="head">
+    <BreadcrumbSchema items={breadcrumbItems.slice(1).map((item) => ({ name: item.label, href: item.href }))} />
+  </Fragment>
+
   <section class="bg-neutral-50 py-16 sm:py-20">
     <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-      <Breadcrumbs />
+      <Breadcrumbs items={breadcrumbItems} />
       <h1 class="text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl">
         Get in Touch
       </h1>

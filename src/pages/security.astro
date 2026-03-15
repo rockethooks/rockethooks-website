@@ -1,19 +1,27 @@
 ---
 import LandingLayout from '@layouts/LandingLayout.astro';
-import Breadcrumbs from '@components/shared/Breadcrumbs.astro';
-import SectionHeading from '@components/shared/SectionHeading.astro';
-import FinalCTA from '@components/shared/FinalCTA.astro';
+import BreadcrumbSchema from '@components/seo/BreadcrumbSchema.astro';
+import { Breadcrumbs } from '@components/shared/Breadcrumbs';
+import { SectionHeading } from '@components/shared/SectionHeading';
+import { FinalCTA } from '@components/shared/FinalCTA';
 import { Icon } from 'astro-icon/components';
+import { getBreadcrumbs } from '@utils/content';
+
+const breadcrumbItems = getBreadcrumbs(Astro.url.pathname);
 ---
 
 <LandingLayout
   title="Security"
   description="RocketHooks security commitment: enterprise-grade infrastructure, encryption at rest and in transit, SOC 2 compliance, and resilient architecture built on AWS."
 >
+  <Fragment slot="head">
+    <BreadcrumbSchema items={breadcrumbItems.slice(1).map((item) => ({ name: item.label, href: item.href }))} />
+  </Fragment>
+
   <!-- Hero -->
   <section class="bg-neutral-50 py-16 sm:py-20">
     <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-      <Breadcrumbs />
+      <Breadcrumbs items={breadcrumbItems} />
       <h1 class="text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl">
         Security at RocketHooks
       </h1>

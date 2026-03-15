@@ -2,11 +2,14 @@
 import { getCollection, render } from 'astro:content';
 import BlogPostLayout from '@layouts/BlogPostLayout.astro';
 import ArticleSchema from '@components/seo/ArticleSchema.astro';
-import TableOfContents from '@components/blog/TableOfContents.astro';
-import AuthorBio from '@components/blog/AuthorBio.astro';
-import RelatedArticles from '@components/blog/RelatedArticles.astro';
-import NewsletterSignup from '@components/blog/NewsletterSignup.astro';
+import PersonSchema from '@components/seo/PersonSchema.astro';
+import { TableOfContents } from '@components/blog/TableOfContents';
+import { AuthorBio } from '@components/blog/AuthorBio';
+import { RelatedArticles } from '@components/blog/RelatedArticles';
+import { NewsletterSignup } from '@components/blog/NewsletterSignup';
 import { getAuthorById, getRelatedArticles } from '@utils/content';
+import type { ArticleCardProps } from '@components/blog/ArticleCard';
+import type { AuthorProps } from '../../types/content';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -28,6 +31,35 @@ const relatedArticles = await getRelatedArticles(post.id, post.data.category);
 const readingTime = remarkPluginFrontmatter?.readingTime as string | undefined;
 
 const authorUrl = author.linkedin ?? author.github;
+
+// Serialize author for React component
+const authorProps: AuthorProps = {
+  name: author.name,
+  title: author.title,
+  bio: author.bio,
+  avatar: author.avatar,
+  linkedin: author.linkedin,
+  github: author.github,
+  twitter: author.twitter,
+};
+
+// Serialize related articles for React component
+const relatedArticleProps: ArticleCardProps[] = relatedArticles.map((article) => ({
+  title: article.data.title,
+  description: article.data.description,
+  pubDate: article.data.pubDate.toISOString(),
+  author: article.data.author,
+  category: article.data.category,
+  image: article.data.image,
+  slug: article.id,
+}));
+
+// Serialize headings for React component
+const tocHeadings = headings.map((h) => ({
+  depth: h.depth,
+  slug: h.slug,
+  text: h.text,
+}));
 ---
 
 <BlogPostLayout
@@ -41,26 +73,36 @@ const authorUrl = author.linkedin ?? author.github;
   tags={post.data.tags}
   readingTime={readingTime}
 >
-  <ArticleSchema
-    slot="head"
-    title={post.data.title}
-    description={post.data.description}
-    publishDate={post.data.pubDate}
-    updatedDate={post.data.updatedDate}
-    authorName={author.name}
-    authorUrl={authorUrl}
-    image={post.data.image?.src}
-    keywords={post.data.seoKeywords}
-    url={`/blog/${post.id}`}
-  />
+  <Fragment slot="head">
+    <ArticleSchema
+      title={post.data.title}
+      description={post.data.description}
+      publishDate={post.data.pubDate}
+      updatedDate={post.data.updatedDate}
+      authorName={author.name}
+      authorUrl={authorUrl}
+      image={post.data.image?.src}
+      keywords={post.data.seoKeywords}
+      url={`/blog/${post.id}`}
+    />
+    <PersonSchema
+      name={author.name}
+      jobTitle={author.title}
+      description={author.bio}
+      image={author.avatar}
+      linkedin={author.linkedin}
+      github={author.github}
+      twitter={author.twitter}
+    />
+  </Fragment>
 
-  <TableOfContents slot="toc" headings={headings} />
+  <TableOfContents slot="toc" headings={tocHeadings} client:idle />
 
   <Content />
 
-  <AuthorBio slot="authorBio" author={author} />
+  <AuthorBio slot="authorBio" author={authorProps} />
 
-  <RelatedArticles slot="relatedArticles" articles={relatedArticles} />
+  <RelatedArticles slot="relatedArticles" articles={relatedArticleProps} />
 
   <div slot="newsletter">
     <NewsletterSignup />

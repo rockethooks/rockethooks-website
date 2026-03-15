@@ -1,20 +1,28 @@
 ---
 import LandingLayout from '@layouts/LandingLayout.astro';
-import Breadcrumbs from '@components/shared/Breadcrumbs.astro';
-import SectionHeading from '@components/shared/SectionHeading.astro';
-import FinalCTA from '@components/shared/FinalCTA.astro';
+import BreadcrumbSchema from '@components/seo/BreadcrumbSchema.astro';
+import { Breadcrumbs } from '@components/shared/Breadcrumbs';
+import { SectionHeading } from '@components/shared/SectionHeading';
+import { FinalCTA } from '@components/shared/FinalCTA';
 import { Icon } from 'astro-icon/components';
 import { processSteps } from '@data/process-steps';
+import { getBreadcrumbs } from '@utils/content';
+
+const breadcrumbItems = getBreadcrumbs(Astro.url.pathname);
 ---
 
 <LandingLayout
   title="How It Works - RocketHooks"
   description="Learn how RocketHooks transforms REST APIs into real-time event streams in 5 steps: sign up, connect your API, define JSONPath watchers, configure notifications, and go live."
 >
+  <Fragment slot="head">
+    <BreadcrumbSchema items={breadcrumbItems.slice(1).map((item) => ({ name: item.label, href: item.href }))} />
+  </Fragment>
+
   <!-- Page Header -->
   <section class="bg-white pb-8 pt-12 sm:pt-16">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <Breadcrumbs />
+      <Breadcrumbs items={breadcrumbItems} />
 
       <div class="mx-auto max-w-3xl text-center">
         <p class="mb-3 text-sm font-semibold uppercase tracking-wider text-brand-600">

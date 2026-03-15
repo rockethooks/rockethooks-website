@@ -1,12 +1,15 @@
 ---
 import { getCollection } from 'astro:content';
 import LandingLayout from '@layouts/LandingLayout.astro';
-import Breadcrumbs from '@components/shared/Breadcrumbs.astro';
-import UseCaseCard from '@components/landing/UseCaseCard.astro';
-import FinalCTA from '@components/shared/FinalCTA.astro';
+import BreadcrumbSchema from '@components/seo/BreadcrumbSchema.astro';
+import { Breadcrumbs } from '@components/shared/Breadcrumbs';
+import { UseCaseCard } from '@components/landing/UseCaseCard';
+import { FinalCTA } from '@components/shared/FinalCTA';
 import ItemListSchema from '@components/seo/ItemListSchema.astro';
 import CollectionPageSchema from '@components/seo/CollectionPageSchema.astro';
+import { getBreadcrumbs } from '@utils/content';
 
+const breadcrumbItems = getBreadcrumbs(Astro.url.pathname);
 const useCases = await getCollection('use-cases');
 const sorted = useCases.sort((a, b) => a.data.order - b.data.order);
 
@@ -34,6 +37,7 @@ const iconMap: Record<string, string> = {
   description="See how teams use RocketHooks to transform REST APIs into real-time event streams across CRM, e-commerce, DevOps, ERP, and SaaS platforms."
 >
   <Fragment slot="head">
+    <BreadcrumbSchema items={breadcrumbItems.slice(1).map((item) => ({ name: item.label, href: item.href }))} />
     <CollectionPageSchema
       name="RocketHooks Use Cases"
       description="Industry-specific use cases showing how RocketHooks transforms REST API endpoints into real-time event streams with intelligent polling and multi-channel notifications."
@@ -52,7 +56,7 @@ const iconMap: Record<string, string> = {
   <!-- Page Header -->
   <section class="bg-white pb-8 pt-12 sm:pt-16">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <Breadcrumbs />
+      <Breadcrumbs items={breadcrumbItems} />
 
       <div class="mx-auto max-w-3xl text-center">
         <p class="mb-3 text-sm font-semibold uppercase tracking-wider text-brand-600">

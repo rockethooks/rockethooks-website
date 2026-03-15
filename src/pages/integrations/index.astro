@@ -1,13 +1,16 @@
 ---
 import { getCollection } from 'astro:content';
 import LandingLayout from '@layouts/LandingLayout.astro';
-import Breadcrumbs from '@components/shared/Breadcrumbs.astro';
-import SectionHeading from '@components/shared/SectionHeading.astro';
-import IntegrationCard from '@components/integrations/IntegrationCard.astro';
-import FinalCTA from '@components/shared/FinalCTA.astro';
+import BreadcrumbSchema from '@components/seo/BreadcrumbSchema.astro';
+import { Breadcrumbs } from '@components/shared/Breadcrumbs';
+import { SectionHeading } from '@components/shared/SectionHeading';
+import { IntegrationCard } from '@components/integrations/IntegrationCard';
+import { FinalCTA } from '@components/shared/FinalCTA';
 import ItemListSchema from '@components/seo/ItemListSchema.astro';
 import CollectionPageSchema from '@components/seo/CollectionPageSchema.astro';
+import { getBreadcrumbs } from '@utils/content';
 
+const breadcrumbItems = getBreadcrumbs(Astro.url.pathname);
 const integrations = await getCollection('integrations');
 
 const categories = ['CRM', 'E-commerce', 'DevOps', 'Payments', 'Notifications', 'ERP'] as const;
@@ -18,6 +21,7 @@ const categories = ['CRM', 'E-commerce', 'DevOps', 'Payments', 'Notifications', 
   description="Connect RocketHooks with Salesforce, HubSpot, Shopify, Stripe, GitHub, Jira, Slack, and more. Transform any REST API into real-time event streams."
 >
   <Fragment slot="head">
+    <BreadcrumbSchema items={breadcrumbItems.slice(1).map((item) => ({ name: item.label, href: item.href }))} />
     <CollectionPageSchema
       name="RocketHooks Integrations"
       description="Platform integrations supported by RocketHooks API transformation platform for real-time event streaming."
@@ -36,7 +40,7 @@ const categories = ['CRM', 'E-commerce', 'DevOps', 'Payments', 'Notifications', 
   <!-- Page Header -->
   <section class="bg-white pb-8 pt-12 sm:pt-16">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <Breadcrumbs />
+      <Breadcrumbs items={breadcrumbItems} />
 
       <div class="mx-auto max-w-3xl text-center">
         <p class="mb-3 text-sm font-semibold uppercase tracking-wider text-brand-600">
@@ -87,7 +91,15 @@ const categories = ['CRM', 'E-commerce', 'DevOps', 'Payments', 'Notifications', 
 
       <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {integrations.map((integration) => (
-          <IntegrationCard integration={integration} />
+          <IntegrationCard
+            slug={integration.id}
+            title={integration.data.title}
+            description={integration.data.description}
+            platform={integration.data.platform}
+            logo={integration.data.logo}
+            category={integration.data.category}
+            featured={integration.data.featured}
+          />
         ))}
       </div>
 
