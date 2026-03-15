@@ -1,19 +1,28 @@
 ---
 import LandingLayout from '@layouts/LandingLayout.astro';
-import Breadcrumbs from '@components/shared/Breadcrumbs.astro';
-import SectionHeading from '@components/shared/SectionHeading.astro';
-import FinalCTA from '@components/shared/FinalCTA.astro';
+import BreadcrumbSchema from '@components/seo/BreadcrumbSchema.astro';
+import { Breadcrumbs } from '@components/shared/Breadcrumbs';
+import { SectionHeading } from '@components/shared/SectionHeading';
+import { FinalCTA } from '@components/shared/FinalCTA';
 import { Icon } from 'astro-icon/components';
+import { getBreadcrumbs } from '@utils/content';
+import { getAppUrl } from '@utils/urls';
+
+const breadcrumbItems = getBreadcrumbs(Astro.url.pathname);
 ---
 
 <LandingLayout
   title="About RocketHooks"
   description="RocketHooks transforms REST API endpoints into real-time event streams. Learn why we built an API transformation platform that eliminates polling complexity."
 >
+  <Fragment slot="head">
+    <BreadcrumbSchema items={breadcrumbItems.slice(1).map((item) => ({ name: item.label, href: item.href }))} />
+  </Fragment>
+
   <!-- Hero Section -->
   <section class="bg-neutral-50 py-16 sm:py-20">
     <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-      <Breadcrumbs />
+      <Breadcrumbs items={breadcrumbItems} />
       <h1 class="text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl">
         Why We Built RocketHooks
       </h1>
@@ -166,5 +175,6 @@ import { Icon } from 'astro-icon/components';
   <FinalCTA
     headline="Ready to stop writing polling loops?"
     subtitle="Transform any REST API into real-time events in minutes. Free to start, no credit card required."
+    ctaHref={getAppUrl()}
   />
 </LandingLayout>
