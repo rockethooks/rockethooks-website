@@ -4,24 +4,51 @@ interface SocialProofProps {
   className?: string;
 }
 
-const stats = [
-  { value: '10,000+', label: 'API monitors active' },
-  { value: '99.9%', label: 'uptime SLA' },
-  { value: '<2s', label: 'avg. webhook delivery' },
+interface StatItem {
+  value: string;
+  label: string;
+  countTarget?: number;
+  countPrefix?: string;
+  countSuffix?: string;
+  countDecimals?: number;
+}
+
+const stats: StatItem[] = [
+  { value: '10,000+', label: 'API monitors active', countTarget: 10000, countSuffix: '+' },
+  { value: '99.9%', label: 'uptime SLA', countTarget: 99.9, countSuffix: '%', countDecimals: 1 },
+  { value: '<2s', label: 'avg. webhook delivery', countTarget: 2, countPrefix: '<', countSuffix: 's' },
   { value: '60-80%', label: 'cost reduction' },
-] as const;
+];
 
 function SocialProof({ className }: SocialProofProps) {
   return (
     <section className={cn('bg-gradient-to-b from-brand-50/50 to-white', className)}>
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 gap-6 sm:gap-8 lg:grid-cols-4">
-          {stats.map((stat) => (
-            <div key={stat.label} className="text-center">
-              <p className="text-2xl font-semibold text-brand-600 sm:text-3xl">{stat.value}</p>
-              <p className="mt-1 text-sm text-neutral-600">{stat.label}</p>
-            </div>
-          ))}
+          {stats.map((stat) => {
+            const isAnimated = stat.countTarget !== undefined;
+
+            return (
+              <div key={stat.label} className="text-center">
+                <p
+                  className={cn(
+                    'text-2xl font-semibold text-brand-600 sm:text-3xl',
+                    isAnimated && 'animate-counter'
+                  )}
+                  aria-label={stat.value}
+                  {...(isAnimated && {
+                    'data-count-target': String(stat.countTarget),
+                    ...(stat.countPrefix && { 'data-count-prefix': stat.countPrefix }),
+                    ...(stat.countSuffix && { 'data-count-suffix': stat.countSuffix }),
+                    ...(stat.countDecimals && { 'data-count-decimals': String(stat.countDecimals) }),
+                  })}
+                >
+                  {stat.value}
+                </p>
+                <p className="mt-1 text-sm text-neutral-600">{stat.label}</p>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

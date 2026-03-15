@@ -7,6 +7,7 @@ export const testimonials: Testimonial[] = [
     name: 'Sarah Chen',
     role: 'Lead Backend Engineer',
     company: 'ShipFast Commerce',
+    rating: 5,
   },
   {
     quote:
@@ -14,6 +15,7 @@ export const testimonials: Testimonial[] = [
     name: 'Marcus Rivera',
     role: 'CTO',
     company: 'PipelineIQ',
+    rating: 5,
   },
   {
     quote:
@@ -21,6 +23,7 @@ export const testimonials: Testimonial[] = [
     name: 'Anika Patel',
     role: 'VP of Engineering',
     company: 'LogiTrack Systems',
+    rating: 5,
   },
   {
     quote:
@@ -28,5 +31,6 @@ export const testimonials: Testimonial[] = [
     name: 'James Okoro',
     role: 'DevOps Lead',
     company: 'Nextera Health',
+    rating: 5,
   },
 ];
