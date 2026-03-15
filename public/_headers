@@ -39,3 +39,8 @@
 # Prevent indexing of preview deployments (*.pages.dev)
 https://:project.pages.dev/*
   X-Robots-Tag: noindex
+
+# Partytown web worker CORS headers
+/~partytown/*
+  Cross-Origin-Embedder-Policy: credentialless
+  Cross-Origin-Opener-Policy: same-origin

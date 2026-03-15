@@ -14,6 +14,8 @@ import rehypeExternalLinks from 'rehype-external-links';
 
 import cloudflare from '@astrojs/cloudflare';
 import react from '@astrojs/react';
+import partytown from '@astrojs/partytown';
+import rehypeCallouts from 'rehype-callouts';
 
 export default defineConfig({
   site: 'https://www.rockethooks.com',
@@ -77,6 +79,11 @@ export default defineConfig({
         lucide: ['*'],
       },
     }),
+    partytown({
+      config: {
+        forward: ['dataLayer.push'],
+      },
+    }),
     robotsTxt({
       sitemap: true,
       sitemapBaseFileName: 'sitemap-index',
@@ -95,6 +102,7 @@ export default defineConfig({
 
   markdown: {
     rehypePlugins: [
+      rehypeCallouts,
       rehypeSlug,
       [rehypeAutolinkHeadings, { behavior: 'wrap' }],
       [rehypeExternalLinks, { target: '_blank', rel: ['noopener', 'noreferrer'] }],
