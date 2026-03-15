@@ -13,6 +13,7 @@ import rehypeSlug from 'rehype-slug';
 import rehypeExternalLinks from 'rehype-external-links';
 
 import cloudflare from '@astrojs/cloudflare';
+import react from '@astrojs/react';
 
 export default defineConfig({
   site: 'https://www.rockethooks.com',
@@ -51,6 +52,7 @@ export default defineConfig({
   },
 
   integrations: [
+    react(),
     // CRITICAL: expressiveCode MUST come before mdx()
     expressiveCode({
       themes: ['github-dark', 'github-light'],
