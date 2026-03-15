@@ -36,10 +36,11 @@ function UseCaseCard({ icon, title, description, href, className }: UseCaseCardP
     <a
       href={href}
       className={cn(
-        'animate-card group flex flex-col rounded-lg border border-neutral-200 bg-white p-6 shadow-xs transition-all hover:border-brand-200 hover:shadow-sm',
+        'animate-card group relative flex flex-col overflow-hidden rounded-lg border border-neutral-200 bg-white p-6 shadow-xs transition-all hover:border-brand-200 hover:shadow-sm',
         className,
       )}
     >
+      <span className="absolute left-0 top-0 h-full w-1 -translate-x-full bg-brand-500 transition-transform group-hover:translate-x-0" />
       <div className="mb-4 inline-flex items-center justify-center rounded-md bg-brand-50 p-2.5 text-brand-600 transition-colors group-hover:bg-brand-100">
         {IconComponent ? <IconComponent size={22} /> : null}
       </div>

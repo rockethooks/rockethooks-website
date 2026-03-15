@@ -5,7 +5,7 @@ import { features } from '@data/features';
 
 function Features() {
   return (
-    <section className="bg-neutral-50 py-16 sm:py-24">
+    <section className="bg-dot-grid py-16 sm:py-24">
       <div className="animate-section mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           overline="Features"

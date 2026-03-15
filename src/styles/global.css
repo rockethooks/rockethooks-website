@@ -224,7 +224,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
-  font-weight: 600;  /* Semibold - Minimal Pro style */
+  font-weight: 700;  /* Bold - stronger visual hierarchy */
   line-height: 1.2;
 }
 
@@ -388,6 +388,12 @@ code, pre {
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
   }
+}
+
+@utility bg-dot-grid {
+  background-color: oklch(0.985 0.002 247);
+  background-image: radial-gradient(circle, oklch(0.87 0.01 255 / 0.6) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
 @utility bg-hero-mesh {

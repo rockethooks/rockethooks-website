@@ -43,11 +43,11 @@ function FeatureCard({ icon, title, description, className }: FeatureCardProps) 
   return (
     <div
       className={cn(
-        'animate-card rounded-lg border border-neutral-200 bg-white p-6 shadow-xs hover-lift',
+        'animate-card rounded-lg border border-neutral-200 border-t-2 border-t-brand-200 bg-white p-6 shadow-xs hover-lift',
         className,
       )}
     >
-      <div className="mb-4 inline-flex items-center justify-center rounded-md bg-brand-50 p-2.5 text-brand-600">
+      <div className="mb-4 inline-flex items-center justify-center rounded-md bg-brand-50 p-2.5 text-brand-600 transition-colors hover:bg-brand-100">
         {IconComponent ? <IconComponent size={22} /> : null}
       </div>
       <h3 className="text-lg font-semibold text-neutral-900">{title}</h3>

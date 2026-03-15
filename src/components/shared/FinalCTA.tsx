@@ -26,7 +26,7 @@ function FinalCTA({
   className,
 }: FinalCTAProps) {
   return (
-    <section className={cn('bg-brand-600', className)}>
+    <section className={cn('bg-gradient-to-br from-brand-700 via-brand-600 to-brand-500', className)}>
       <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 sm:py-20 lg:px-8">
         <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
           {headline}

@@ -13,7 +13,7 @@ const stats = [
 
 function SocialProof({ className }: SocialProofProps) {
   return (
-    <section className={cn('border-y border-neutral-200 bg-neutral-50', className)}>
+    <section className={cn('bg-gradient-to-b from-brand-50/50 to-white', className)}>
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 gap-6 sm:gap-8 lg:grid-cols-4">
           {stats.map((stat) => (

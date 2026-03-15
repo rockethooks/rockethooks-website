@@ -12,18 +12,28 @@ function TestimonialCard({ quote, name, role, company, className }: TestimonialC
   return (
     <blockquote
       className={cn(
-        'flex min-w-0 flex-col justify-between rounded-lg border border-neutral-200 bg-white p-6 shadow-xs',
+        'relative flex min-w-0 flex-col justify-between rounded-lg border-0 border-l-4 border-l-brand-200 bg-white p-6 shadow-xs',
         className
       )}
     >
+      <span className="absolute -top-2 -left-1 text-6xl leading-none text-brand-100 select-none pointer-events-none">
+        {'\u201C'}
+      </span>
       <p className="text-sm leading-relaxed text-neutral-700">
         &ldquo;{quote}&rdquo;
       </p>
       <footer className="mt-4 border-t border-neutral-100 pt-4">
-        <p className="text-sm font-semibold text-neutral-900">{name}</p>
-        <p className="text-xs text-neutral-500">
-          {role}, {company}
-        </p>
+        <div className="flex items-center gap-3">
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-100 text-sm font-semibold text-brand-700">
+            {name.charAt(0)}
+          </span>
+          <div>
+            <p className="text-sm font-semibold text-neutral-900">{name}</p>
+            <p className="text-xs text-neutral-500">
+              {role}, {company}
+            </p>
+          </div>
+        </div>
       </footer>
     </blockquote>
   );
