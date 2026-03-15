@@ -2,15 +2,19 @@
 import LandingLayout from '@layouts/LandingLayout.astro';
 import OrganizationSchema from '@components/seo/OrganizationSchema.astro';
 import WebSiteSchema from '@components/seo/WebSiteSchema.astro';
-import Hero from '@components/landing/Hero.astro';
-import SocialProof from '@components/landing/SocialProof.astro';
-import HowItWorks from '@components/landing/HowItWorks.astro';
-import Features from '@components/landing/Features.astro';
-import UseCases from '@components/landing/UseCases.astro';
-import Testimonials from '@components/landing/Testimonials.astro';
-import PricingPreview from '@components/landing/PricingPreview.astro';
-import FAQ from '@components/landing/FAQ.astro';
+import { Hero } from '@components/landing/Hero';
+import { SocialProof } from '@components/landing/SocialProof';
+import { HowItWorks } from '@components/landing/HowItWorks';
+import { Features } from '@components/landing/Features';
+import { UseCases } from '@components/landing/UseCases';
+import { Testimonials } from '@components/landing/Testimonials';
+import { PricingPreview } from '@components/landing/PricingPreview';
+import { FAQ } from '@components/landing/FAQ';
+import FAQSchema from '@components/seo/FAQSchema.astro';
 import FinalCTA from '@components/shared/FinalCTA.astro';
+import { faqs } from '@data/faqs';
+
+const displayedFaqs = faqs.slice(0, 8);
 ---
 
 <LandingLayout
@@ -26,8 +30,9 @@ import FinalCTA from '@components/shared/FinalCTA.astro';
   <HowItWorks />
   <Features />
   <UseCases />
-  <Testimonials />
+  <Testimonials client:visible />
   <PricingPreview />
+  <FAQSchema items={displayedFaqs.map((faq) => ({ question: faq.question, answer: faq.answer }))} />
   <FAQ />
   <FinalCTA />
 </LandingLayout>
