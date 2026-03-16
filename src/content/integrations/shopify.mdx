@@ -88,7 +88,7 @@ Monitor new orders and route them to your fulfillment system, ERP, or 3PL via we
 
 ### Low Stock Alerts
 
-Track inventory levels across products and locations. When stock drops below a threshold, send Slack alerts to your operations team and trigger reorder workflows.
+Track inventory levels across products and locations. When stock drops below a threshold, send webhook alerts to your operations systems and trigger reorder workflows.
 
 ### Price Monitoring
 
@@ -96,14 +96,13 @@ Watch for product price changes across your catalog. Useful for marketplace sell
 
 ## Delivery Channels
 
-- **Webhooks** -- Connect to fulfillment, ERP, or accounting systems
-- **Slack** -- Real-time order notifications for the team
-- **Email** -- Daily sales summaries or low-stock warnings
-- **SMS** -- Urgent alerts for high-value orders or out-of-stock items
+- **Webhooks** -- Connect to fulfillment, ERP, or accounting systems with HMAC-signed payloads and automatic retries
+
+_Additional delivery channels (Slack, email, SMS) coming soon._
 
 ## Next Steps
 
 1. Create a custom app in Shopify Admin with required API scopes
 2. Copy the Admin API access token into RocketHooks
 3. Set up your first order or inventory monitor
-4. Configure delivery channels for your operations workflow
+4. Configure webhook delivery for your operations workflow

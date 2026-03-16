@@ -81,11 +81,11 @@ Watch for sprint scope changes and burndown:
 
 ### Engineering Status Sync
 
-Monitor issue status changes and push updates to Slack channels so product managers and stakeholders stay informed without checking Jira directly.
+Monitor issue status changes and push updates via webhooks to your team tools so product managers and stakeholders stay informed without checking Jira directly.
 
 ### SLA Monitoring
 
-Track service desk issues approaching SLA deadlines. When issues remain unresolved past a warning threshold, send SMS alerts to on-call engineers.
+Track service desk issues approaching SLA deadlines. When issues remain unresolved past a warning threshold, send webhook alerts to your on-call system for immediate escalation.
 
 ### Cross-Tool Visibility
 
@@ -93,14 +93,13 @@ Combine Jira issue tracking with GitHub PR monitoring. When a linked PR is merge
 
 ## Delivery Channels
 
-- **Webhooks** -- Trigger downstream automation or status sync
-- **Slack** -- Notify teams of issue transitions and new assignments
-- **Email** -- Sprint summary digests for managers
-- **SMS** -- SLA breach alerts for on-call staff
+- **Webhooks** -- Trigger downstream automation or status sync with HMAC-signed payloads and automatic retries
+
+_Additional delivery channels (Slack, email, SMS) coming soon._
 
 ## Next Steps
 
 1. Generate a Jira API token from your Atlassian account
 2. Configure basic auth credentials in RocketHooks
 3. Set up a JQL-based monitor for your project
-4. Route notifications to Slack or your project management workflow
+4. Route webhook notifications to your project management workflow

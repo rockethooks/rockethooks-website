@@ -116,14 +116,13 @@ Poll SAP for inventory levels across multiple plants. Push real-time stock updat
 
 ## Delivery Channels
 
-- **Webhooks** -- Trigger ERP integration workflows or supply chain automation
-- **Slack** -- Notify procurement or logistics teams of PO changes
-- **Email** -- Daily summaries of master data changes for compliance
-- **SMS** -- Critical alerts for stock shortages or PO approval deadlines
+- **Webhooks** -- Trigger ERP integration workflows or supply chain automation with HMAC-signed payloads and automatic retries
+
+_Additional delivery channels (Slack, email, SMS) coming soon._
 
 ## Next Steps
 
 1. Create an API user in SAP or configure OAuth credentials
 2. Identify the OData services relevant to your business processes
 3. Set up your first monitor targeting an SAP OData endpoint
-4. Configure notification channels for your operations team
+4. Configure webhook delivery for your operations team

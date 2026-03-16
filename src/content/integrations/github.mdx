@@ -83,7 +83,7 @@ Watch for new releases and tags:
 
 ### Code Review Notifications
 
-Monitor pull request status across multiple repositories. When a PR is updated or review-ready, push notifications to the relevant Slack channel so reviewers do not miss updates.
+Monitor pull request status across multiple repositories. When a PR is updated or review-ready, push webhook notifications to your team tools so reviewers do not miss updates.
 
 ### Issue Triage Pipeline
 
@@ -95,14 +95,13 @@ Watch for new releases across dependencies or internal projects. Trigger deploym
 
 ## Delivery Channels
 
-- **Webhooks** -- Trigger CI/CD pipelines or custom automation
-- **Slack** -- Notify development teams of PR and issue activity
-- **Email** -- Weekly repository activity digests
-- **SMS** -- Critical alerts for production release failures
+- **Webhooks** -- Trigger CI/CD pipelines or custom automation with HMAC-signed payloads and automatic retries
+
+_Additional delivery channels (Slack, email, SMS) coming soon._
 
 ## Next Steps
 
 1. Create a fine-grained personal access token on GitHub
 2. Configure the token in RocketHooks with minimal permissions
 3. Set up your first monitor targeting a repository endpoint
-4. Route notifications to Slack or your CI/CD pipeline
+4. Route webhook notifications to your CI/CD pipeline or team tools

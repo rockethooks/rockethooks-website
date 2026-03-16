@@ -87,7 +87,7 @@ Poll Stripe for recent payments and push change events to your analytics pipelin
 
 ### Churn Prevention
 
-Monitor subscription status changes. When a subscription moves to `past_due` or `unpaid`, trigger automated retention workflows via webhooks to your backend or Slack alerts to your customer success team.
+Monitor subscription status changes. When a subscription moves to `past_due` or `unpaid`, trigger automated retention workflows via webhooks to your backend systems.
 
 ### Invoice Reconciliation
 
@@ -95,14 +95,13 @@ Track invoice status transitions and sync them with your accounting system. Rock
 
 ## Delivery Channels
 
-- **Webhooks** -- Trigger billing workflows or sync with accounting
-- **Slack** -- Notify finance team of failed payments or large transactions
-- **Email** -- Daily revenue summaries for executives
-- **SMS** -- Alerts for failed subscription renewals or chargebacks
+- **Webhooks** -- Trigger billing workflows or sync with accounting via HMAC-signed payloads and automatic retries
+
+_Additional delivery channels (Slack, email, SMS) coming soon._
 
 ## Next Steps
 
 1. Create a restricted API key in the Stripe Dashboard
 2. Grant only the read permissions your monitors need
 3. Configure your first payment or subscription monitor
-4. Set up notification channels for your finance workflow
+4. Set up webhook delivery for your finance workflow

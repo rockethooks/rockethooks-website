@@ -10,7 +10,7 @@ documentationUrl: "https://developers.hubspot.com/docs/api/overview"
 
 ## How RocketHooks Works with HubSpot
 
-RocketHooks polls HubSpot's REST API endpoints to detect changes in your CRM data. Whether you need to track new contacts, deal stage transitions, or ticket updates, RocketHooks monitors the endpoints you specify and delivers real-time notifications through webhooks, Slack, email, or SMS.
+RocketHooks polls HubSpot's REST API endpoints to detect changes in your CRM data. Whether you need to track new contacts, deal stage transitions, or ticket updates, RocketHooks monitors the endpoints you specify and delivers real-time webhook notifications when changes are detected.
 
 No HubSpot workflow automation tier required -- RocketHooks works with **any HubSpot plan** that includes API access.
 
@@ -82,11 +82,11 @@ Watch for new or updated tickets:
 
 ### Lead-to-Sales Handoff
 
-Monitor the lifecycle stage field on contacts. When a contact moves from MQL to SQL, RocketHooks sends a webhook to your assignment system and a Slack notification to the sales team.
+Monitor the lifecycle stage field on contacts. When a contact moves from MQL to SQL, RocketHooks sends a webhook to your assignment system to notify the sales team.
 
 ### Revenue Alerts
 
-Track deal stage changes on high-value opportunities. Get instant SMS alerts when deals worth more than a threshold move to a closing stage.
+Track deal stage changes on high-value opportunities. Get instant webhook alerts when deals worth more than a threshold move to a closing stage.
 
 ### Cross-Platform Sync
 
@@ -94,14 +94,13 @@ Keep HubSpot data synchronized with your data warehouse, billing system, or cust
 
 ## Delivery Channels
 
-- **Webhooks** -- Trigger backend workflows on CRM changes
-- **Slack** -- Notify sales and support channels in real time
-- **Email** -- Daily digests or instant alerts for stakeholders
-- **SMS** -- High-priority notifications for deal closures or escalations
+- **Webhooks** -- Trigger backend workflows on CRM changes with HMAC-signed payloads and automatic retries
+
+_Additional delivery channels (Slack, email, SMS) coming soon._
 
 ## Next Steps
 
 1. Create a HubSpot private app with the required scopes
 2. Copy the private app token into RocketHooks
 3. Configure your first monitor pointing to a HubSpot API endpoint
-4. Choose your notification channels and set up delivery rules
+4. Configure webhook delivery rules for your team

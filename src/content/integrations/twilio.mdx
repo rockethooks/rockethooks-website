@@ -1,16 +1,16 @@
 ---
 title: "Twilio Integration"
-description: "Monitor Twilio messages, calls, and account activity. Use Twilio SMS as a delivery channel for critical RocketHooks notifications."
+description: "Monitor Twilio messages, calls, and account activity through the Twilio API. Detect delivery status changes, call logs, and usage patterns with RocketHooks."
 platform: "Twilio"
 logo: "/images/integrations/twilio.svg"
-category: "Notifications"
+category: "Communication"
 featured: false
 documentationUrl: "https://www.twilio.com/docs/usage/api"
 ---
 
 ## How RocketHooks Works with Twilio
 
-Twilio serves a dual role with RocketHooks. You can monitor Twilio API endpoints to track message delivery status, call logs, and account usage. More commonly, Twilio powers the **SMS delivery channel** in RocketHooks -- sending text message alerts when monitored APIs detect changes.
+RocketHooks monitors Twilio's REST API endpoints to track message delivery status, call logs, account usage, and balance changes. By polling Twilio's API at configurable intervals, RocketHooks detects changes in your communication infrastructure and routes events via webhooks to your backend systems.
 
 Works with **any Twilio account** including trial accounts.
 
@@ -80,53 +80,29 @@ Watch your Twilio account balance for unexpected usage:
 }
 ```
 
-## Twilio as an SMS Delivery Channel
-
-The primary use of Twilio with RocketHooks is sending SMS alerts. Configure SMS delivery in your monitor settings:
-
-```json
-{
-  "channels": [
-    {
-      "type": "sms",
-      "provider": "twilio",
-      "accountSid": "YOUR_ACCOUNT_SID",
-      "authToken": "YOUR_AUTH_TOKEN",
-      "from": "+15551234567",
-      "to": ["+15559876543"]
-    }
-  ]
-}
-```
-
-RocketHooks formats change events into concise SMS messages optimized for the 160-character limit.
-
 ## Common Patterns
-
-### Critical Alert Escalation
-
-Use Twilio SMS as the final escalation tier. When Slack and email notifications go unacknowledged, send an SMS to on-call staff for payment failures, security events, or infrastructure issues.
 
 ### Delivery Monitoring
 
-Monitor Twilio message delivery status to ensure your SMS alerts are being received. Detect failed deliveries and switch to alternative notification channels.
+Monitor Twilio message delivery status to ensure your outbound SMS messages are being received. Detect failed deliveries and route alerts to your operations systems via webhooks for immediate remediation.
 
 ### Usage Alerts
 
-Track your Twilio account balance. When it drops below a threshold, receive a notification to top up before service interruption.
+Track your Twilio account balance and usage patterns. When balance drops below a threshold or usage spikes unexpectedly, receive a webhook notification to take action before service interruption.
+
+### Call Analytics Pipeline
+
+Poll Twilio call logs and route new call records via webhooks to your analytics or CRM system. Build real-time dashboards for call center activity without relying on Twilio's native webhook infrastructure.
 
 ## Delivery Channels
 
-Twilio integrations typically involve:
+- **Webhooks** -- Route Twilio API change events to any HTTP endpoint with HMAC-signed payloads and automatic retries
 
-- **SMS** -- Critical alerts via Twilio messaging
-- **Webhooks** -- Backend automation for delivery status tracking
-- **Slack** -- Team visibility into SMS delivery success rates
-- **Email** -- Delivery failure reports
+_Additional delivery channels (Slack, email, SMS) coming soon._
 
 ## Next Steps
 
-1. Sign up for a Twilio account and verify a phone number
-2. Copy your Account SID and Auth Token from the console
-3. Configure Twilio as an SMS delivery channel in RocketHooks
-4. Optionally monitor Twilio API endpoints for delivery tracking
+1. Locate your Account SID and Auth Token in the Twilio Console
+2. Configure Twilio API credentials in RocketHooks
+3. Set up your first monitor targeting a Twilio API endpoint
+4. Configure webhook delivery to route Twilio events to your backend systems

@@ -89,7 +89,7 @@ Monitor new leads and route them to the right sales rep based on territory, indu
 
 ### Pipeline Visibility
 
-Track opportunity stage changes and push updates to Slack channels so the entire team stays informed about deal progress without logging into Salesforce.
+Track opportunity stage changes and push updates via webhooks to your team communication tools so the entire team stays informed about deal progress without logging into Salesforce.
 
 ### Data Sync
 
@@ -97,16 +97,15 @@ Keep external systems in sync with Salesforce by monitoring specific objects. Wh
 
 ## Delivery Channels
 
-Configure one or more notification channels for your Salesforce monitors:
+Configure webhook delivery for your Salesforce monitors:
 
-- **Webhooks** -- POST change payloads to any HTTP endpoint
-- **Slack** -- Send formatted messages to team channels
-- **Email** -- Alert stakeholders who are not in Slack
-- **SMS** -- Critical alerts for high-value opportunity changes
+- **Webhooks** -- POST HMAC-signed change payloads to any HTTP endpoint with exponential backoff retries
+
+_Additional delivery channels (Slack, email, SMS) coming soon._
 
 ## Next Steps
 
 1. Create a Salesforce Connected App with API access
 2. Add the OAuth credentials to RocketHooks
 3. Configure your first monitor with a SOQL query endpoint
-4. Set up notification channels for your team
+4. Set up webhook delivery for your team

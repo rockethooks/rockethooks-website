@@ -82,13 +82,13 @@ Watch for inventory changes across your catalog:
 
 ## Common Patterns
 
-### Multi-Channel Order Processing
+### Cross-Platform Order Processing
 
 Monitor WooCommerce orders alongside Shopify or other storefronts. RocketHooks normalizes the change events so your fulfillment pipeline receives a consistent webhook payload regardless of the source.
 
 ### Abandoned Cart Recovery
 
-Track order status changes. When orders stay in "pending" status beyond a configured time, trigger email campaigns or Slack alerts to follow up with customers.
+Track order status changes. When orders stay in "pending" status beyond a configured time, trigger webhook-based follow-up workflows to re-engage customers.
 
 ### Inventory Sync
 
@@ -96,14 +96,13 @@ Keep WooCommerce inventory synchronized with warehouse management systems. When 
 
 ## Delivery Channels
 
-- **Webhooks** -- Connect to fulfillment or accounting systems
-- **Slack** -- Real-time team notifications for new orders
-- **Email** -- Order summaries or stock alerts for managers
-- **SMS** -- Critical alerts for high-value orders
+- **Webhooks** -- Connect to fulfillment or accounting systems with HMAC-signed payloads and automatic retries
+
+_Additional delivery channels (Slack, email, SMS) coming soon._
 
 ## Next Steps
 
 1. Generate WooCommerce REST API keys (read permissions minimum)
 2. Add the consumer key and secret to RocketHooks
 3. Configure your first order or product monitor
-4. Set up notification channels for your workflow
+4. Set up webhook delivery for your workflow

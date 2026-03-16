@@ -1,16 +1,16 @@
 ---
 title: "Slack Integration"
-description: "Monitor Slack channels, messages, and user activity through the Slack API. Use Slack as a delivery channel for RocketHooks notifications."
+description: "Monitor Slack channels, messages, and user activity through the Slack API. Detect changes in your workspace and route events via webhooks with RocketHooks."
 platform: "Slack"
 logo: "/images/integrations/slack.svg"
-category: "Notifications"
+category: "Communication"
 featured: true
 documentationUrl: "https://api.slack.com/docs"
 ---
 
 ## How RocketHooks Works with Slack
 
-Slack serves a dual role with RocketHooks. First, you can monitor Slack API endpoints to detect channel activity, user presence changes, or new messages in specific channels. Second -- and more commonly -- Slack is a **delivery channel** where RocketHooks sends formatted notifications when changes are detected in other monitored APIs.
+RocketHooks monitors Slack's REST API endpoints to detect changes in your workspace -- new messages in specific channels, user presence updates, channel membership changes, and more. By polling Slack's API at configurable intervals, RocketHooks transforms Slack data into real-time webhook events that feed into your automation pipelines.
 
 Works with **any Slack workspace** with bot token access.
 
@@ -27,7 +27,7 @@ Create a Slack app and install it to your workspace. Use the bot token for API m
 }
 ```
 
-Required scopes for monitoring: `channels:history`, `channels:read`, `users:read`. For delivery only, no monitoring scopes are needed -- configure Slack as a notification channel in RocketHooks.
+Required scopes for monitoring: `channels:history`, `channels:read`, `users:read`, `team:read`.
 
 ## Endpoint Examples
 
@@ -49,7 +49,7 @@ Track new messages in a specific channel:
 
 ### Monitor User Presence
 
-Detect when team members come online or go offline:
+Detect when team members update their status or go offline:
 
 ```json
 {
@@ -78,50 +78,29 @@ Watch for changes to channel membership:
 }
 ```
 
-## Slack as a Delivery Channel
-
-The most common use of Slack with RocketHooks is receiving notifications. Configure a Slack delivery channel in your monitor settings:
-
-```json
-{
-  "channels": [
-    {
-      "type": "slack",
-      "webhookUrl": "https://hooks.slack.com/services/T00/B00/XXXXX",
-      "channel": "#api-alerts",
-      "messageFormat": "blocks"
-    }
-  ]
-}
-```
-
-RocketHooks formats change events as rich Slack Block Kit messages with context, timestamps, and action buttons.
-
 ## Common Patterns
 
-### Centralized Alert Hub
+### Team Coordination Triggers
 
-Route all RocketHooks notifications to dedicated Slack channels organized by service type: `#alerts-payments`, `#alerts-crm`, `#alerts-infrastructure`.
+Monitor Slack channels for new messages and route change events via webhooks to your backend systems. Useful for triggering automated workflows when specific channels receive updates.
 
-### Escalation Workflows
+### User Activity Tracking
 
-Use Slack as the first notification tier. If a change event is not acknowledged within a defined window, escalate to SMS or email for critical alerts.
+Track user presence and status changes across your workspace. When team members update their status or go inactive, send webhook events to your HR or project management tools for activity reporting.
 
-### Team Coordination
+### Channel Audit and Compliance
 
-Monitor Slack channels for specific keywords or patterns to trigger automated workflows in other systems via RocketHooks webhooks.
+Monitor channel membership changes and message activity for compliance purposes. Route change events to your audit logging system via webhooks.
 
 ## Delivery Channels
 
-Slack integrations typically deliver to:
+- **Webhooks** -- Route Slack API change events to any HTTP endpoint with HMAC-signed payloads and automatic retries
 
-- **Slack** -- Primary notification channel with rich formatting
-- **Webhooks** -- Supplementary triggers for backend automation
-- **Email** -- Fallback for team members not active in Slack
+_Additional delivery channels (Slack notifications, email, SMS) coming soon._
 
 ## Next Steps
 
 1. Create a Slack app at api.slack.com with required scopes
 2. Install the app to your workspace
-3. Configure Slack as a delivery channel in RocketHooks
-4. Optionally set up Slack API monitoring for channel-level tracking
+3. Configure your first Slack API monitor in RocketHooks
+4. Set up webhook delivery to route Slack events to your automation pipeline
