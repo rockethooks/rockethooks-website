@@ -99,7 +99,7 @@ export default function Footer() {
               </span>
             </a>
             <p className="mt-3 max-w-sm text-sm leading-relaxed text-neutral-600">
-              Transform any REST API into real-time event streams. Intelligent polling, change
+              Transform any API into real-time event streams. Intelligent polling, change
               detection, and reliable webhook delivery -- zero infrastructure changes required.
             </p>
 

@@ -20,7 +20,7 @@ const DEFAULT_APP_URL = 'https://app.rockethooks.com';
 
 function FinalCTA({
   headline = 'Ready to transform your APIs?',
-  subtitle = 'Start receiving real-time events from any REST API in minutes. No credit card required.',
+  subtitle = 'Start receiving real-time events from any API in minutes. No credit card required.',
   ctaLabel = 'Get Started Free',
   ctaHref = DEFAULT_APP_URL,
   className,

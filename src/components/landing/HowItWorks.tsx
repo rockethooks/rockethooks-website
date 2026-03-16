@@ -16,7 +16,7 @@ function HowItWorks({ className }: HowItWorksProps) {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           overline="How It Works"
-          title="From REST API to real-time events in 5 steps"
+          title="From API to real-time events in 5 steps"
           subtitle="No infrastructure changes. No code modifications to your existing systems. Just connect and go."
         />
 

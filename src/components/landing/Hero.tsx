@@ -16,7 +16,7 @@ function Hero({ className }: HeroProps) {
             API Transformation Platform
           </p>
           <h1 className="text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl lg:text-6xl">
-            Turn Any REST API Into
+            Turn Any API Into
             <span className="text-brand-600"> Real-Time Events</span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-neutral-600 sm:text-xl">
