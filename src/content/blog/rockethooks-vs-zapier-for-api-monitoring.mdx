@@ -26,7 +26,7 @@ Zapier and RocketHooks both connect applications, but they solve fundamentally d
 | Custom API endpoints | Full URL + auth config | Requires custom app development |
 | Change detection | JSONPath field-level | Trigger-dependent |
 | Polling interval control | Configurable (30s minimum) | 1-15 minutes (plan-dependent) |
-| Multi-channel output | Webhooks, Slack, email, SMS | Actions in workflow |
+| Multi-channel output | Webhooks (Slack, email, SMS coming soon) | Actions in workflow |
 | Pricing model | Per-endpoint flat rate | Per-task execution |
 | Code-first configuration | API + dashboard | Visual builder primarily |
 
@@ -57,7 +57,7 @@ curl -X POST https://api.rockethooks.com/v1/hooks \
     },
     "monitor": ["$.deals[*].status", "$.deals[*].value"],
     "interval": 60,
-    "channels": ["webhook", "slack"]
+    "channels": ["webhook"]
   }'
 ```
 
@@ -76,11 +76,11 @@ Zapier is the better choice when:
 
 | Scenario | RocketHooks | Zapier |
 |----------|------------|--------|
-| 10 endpoints, 1-min polling | ~$29/mo (Starter) | ~$49/mo (Professional) |
-| 50 endpoints, 30-sec polling | ~$99/mo (Pro) | Not possible (1-min minimum) |
-| High-volume (500+ changes/day) | Flat per-endpoint | Per-task (costs scale linearly) |
+| 6 endpoints, 1-min polling | $49/mo (Developer) | ~$49/mo (Professional) |
+| 15 endpoints, 30-sec polling | $149/mo (Startup) | Not possible (1-min minimum) |
+| 50 endpoints, high-frequency | $499/mo (Growth) | Per-task (costs scale linearly) |
 
-The pricing difference becomes significant at scale. Zapier charges per task execution, meaning high-change-rate endpoints can generate substantial monthly costs. RocketHooks charges per endpoint regardless of how many changes are detected.
+RocketHooks offers a 14-day free trial on all plans with no credit card required. The pricing difference becomes significant at scale. Zapier charges per task execution, meaning high-change-rate endpoints can generate substantial monthly costs. RocketHooks charges per endpoint regardless of how many changes are detected.
 
 ## Can They Work Together?
 
