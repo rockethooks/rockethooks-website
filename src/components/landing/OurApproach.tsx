@@ -36,7 +36,7 @@ const capabilities: Capability[] = [
     icon: ShieldCheck,
     title: 'Enterprise-Grade Reliability',
     description:
-      'Built on AWS serverless infrastructure with two-tier circuit breakers for sub-second failure detection. Your events are delivered, even when downstream systems are temporarily unavailable.',
+      'Fully scalable infrastructure with two-tier circuit breakers for sub-second failure detection. Your events are delivered, even when downstream systems are temporarily unavailable.',
   },
 ];
 
