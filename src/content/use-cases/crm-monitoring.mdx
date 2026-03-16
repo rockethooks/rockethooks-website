@@ -9,7 +9,7 @@ featured: true
 
 ## The problem: CRM data goes stale in minutes
 
-Sales teams depend on accurate, up-to-date customer data. But most CRM platforms -- Salesforce, HubSpot, Pipedrive, Zoho -- expose data through APIs that require explicit polling. Without a reliable change detection mechanism, teams face a familiar set of problems:
+Sales teams depend on accurate, up-to-date customer data. But most CRM platforms (Salesforce, HubSpot, Pipedrive, Zoho) expose data through APIs that require explicit polling. Without a reliable change detection mechanism, teams face a familiar set of problems:
 
 - Reps work deals with outdated contact information
 - Lead score changes go unnoticed for hours
@@ -24,10 +24,10 @@ RocketHooks transforms any CRM API endpoint into a real-time event stream. Point
 
 **What changes in your workflow:**
 
-1. **Field-level precision** -- Monitor specific nested fields like `deal.stage`, `contact.lead_score`, or `company.annual_revenue` instead of polling entire records
-2. **Real-time webhook alerts** -- Route deal stage changes, lead score shifts, and contact updates to your systems via HMAC-signed webhooks
-3. **Zero CRM modifications** -- Works with your existing CRM API. No custom apps, no marketplace installations, no admin permissions beyond API access
-4. **Rate limit intelligence** -- Adaptive polling respects your CRM's rate limits while maximizing freshness
+1. **Field-level precision**: Monitor specific nested fields like `deal.stage`, `contact.lead_score`, or `company.annual_revenue` instead of polling entire records
+2. **Real-time webhook alerts**: Route deal stage changes, lead score shifts, and contact updates to your systems via HMAC-signed webhooks
+3. **Zero CRM modifications**: Works with your existing CRM API. No custom apps, no marketplace installations, no admin permissions beyond API access
+4. **Rate limit intelligence**: Adaptive polling respects your CRM's rate limits while maximizing freshness
 
 ## Setup in under five minutes
 
@@ -96,11 +96,11 @@ A B2B SaaS company monitoring 2,400 HubSpot deals reduced their response time to
 
 RocketHooks works with any CRM that exposes an API:
 
-- **Salesforce** -- Objects, SOQL queries, custom objects
-- **HubSpot** -- Contacts, deals, companies, tickets
-- **Pipedrive** -- Deals, persons, organizations
-- **Zoho CRM** -- Modules, custom fields
-- **Microsoft Dynamics 365** -- Entities via OData endpoints
-- **Close.com** -- Leads, activities, opportunities
+- **Salesforce**: Objects, SOQL queries, custom objects
+- **HubSpot**: Contacts, deals, companies, tickets
+- **Pipedrive**: Deals, persons, organizations
+- **Zoho CRM**: Modules, custom fields
+- **Microsoft Dynamics 365**: Entities via OData endpoints
+- **Close.com**: Leads, activities, opportunities
 
 No platform-specific connectors needed. If your CRM has an API, RocketHooks can monitor it.

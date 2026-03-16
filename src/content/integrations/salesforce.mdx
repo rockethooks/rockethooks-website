@@ -12,7 +12,7 @@ documentationUrl: "https://developer.salesforce.com/docs/atlas.en-us.api_rest.me
 
 RocketHooks connects to Salesforce through its API to monitor any standard or custom object for changes. Instead of building custom Apex triggers or configuring Platform Events, you point RocketHooks at the endpoints that matter and receive real-time notifications when data changes.
 
-This approach works with **any Salesforce edition** that includes API access -- no Salesforce admin privileges required beyond a connected app.
+This approach works with **any Salesforce edition** that includes API access. No Salesforce admin privileges required beyond a connected app.
 
 ## Authentication Setup
 
@@ -85,7 +85,7 @@ Watch for modifications to contact records:
 
 ### Lead Routing Automation
 
-Monitor new leads and route them to the right sales rep based on territory, industry, or lead score. RocketHooks detects the new lead and sends a webhook to your routing logic -- no Salesforce workflow rules needed.
+Monitor new leads and route them to the right sales rep based on territory, industry, or lead score. RocketHooks detects the new lead and sends a webhook to your routing logic. No Salesforce workflow rules needed.
 
 ### Pipeline Visibility
 
@@ -99,7 +99,7 @@ Keep external systems in sync with Salesforce by monitoring specific objects. Wh
 
 Configure webhook delivery for your Salesforce monitors:
 
-- **Webhooks** -- POST HMAC-signed change payloads to any HTTP endpoint with exponential backoff retries
+- **Webhooks**: POST HMAC-signed change payloads to any HTTP endpoint with exponential backoff retries
 
 _Additional delivery channels (Slack, email, SMS) coming soon._
 

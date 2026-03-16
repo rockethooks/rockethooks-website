@@ -9,7 +9,7 @@ featured: true
 
 ## The problem: ERP systems are data silos with no push mechanism
 
-Enterprise Resource Planning systems hold the most critical business data -- financials, inventory, procurement, HR records -- but they were designed for batch processing, not real-time events. SAP, Oracle, Microsoft Dynamics, and NetSuite expose data through REST or OData endpoints, yet offer limited (or no) native webhook capabilities.
+Enterprise Resource Planning systems hold the most critical business data (financials, inventory, procurement, HR records) but they were designed for batch processing, not real-time events. SAP, Oracle, Microsoft Dynamics, and NetSuite expose data through REST or OData endpoints, yet offer limited (or no) native webhook capabilities.
 
 Teams building integrations against ERP APIs face recurring obstacles:
 
@@ -26,10 +26,10 @@ RocketHooks acts as a lightweight, non-invasive integration layer between your E
 
 **Why RocketHooks works for ERP:**
 
-1. **Zero ERP modifications** -- Connects through standard REST or OData endpoints. No custom modules, no middleware installations, no ERP admin changes
-2. **Field-level change detection** -- JSONPath expressions track specific fields in deeply nested ERP payloads without processing entire records
-3. **Rate-limit-aware polling** -- Adaptive scheduling respects ERP API throttling while maximizing data freshness
-4. **Payload transformation** -- Reshape ERP data formats into clean webhook payloads that downstream systems expect
+1. **Zero ERP modifications**: Connects through standard REST or OData endpoints. No custom modules, no middleware installations, no ERP admin changes
+2. **Field-level change detection**: JSONPath expressions track specific fields in deeply nested ERP payloads without processing entire records
+3. **Rate-limit-aware polling**: Adaptive scheduling respects ERP API throttling while maximizing data freshness
+4. **Payload transformation**: Reshape ERP data formats into clean webhook payloads that downstream systems expect
 
 ## Setup in under five minutes
 
@@ -110,11 +110,11 @@ A manufacturing company integrating SAP with their custom production planning sy
 
 RocketHooks integrates with any ERP system that exposes REST or OData endpoints:
 
-- **SAP S/4HANA** -- OData services, Business APIs, custom CDS views
-- **Oracle ERP Cloud** -- APIs for financials, procurement, supply chain
-- **Microsoft Dynamics 365** -- OData/REST for finance, operations, commerce
-- **NetSuite** -- SuiteTalk REST, RESTlets, custom record endpoints
-- **Infor CloudSuite** -- ION API Gateway, Infor OS REST services
-- **Sage Intacct** -- API for financial management
+- **SAP S/4HANA**: OData services, Business APIs, custom CDS views
+- **Oracle ERP Cloud**: APIs for financials, procurement, supply chain
+- **Microsoft Dynamics 365**: OData/REST for finance, operations, commerce
+- **NetSuite**: SuiteTalk REST, RESTlets, custom record endpoints
+- **Infor CloudSuite**: ION API Gateway, Infor OS REST services
+- **Sage Intacct**: API for financial management
 
 No ERP-specific connectors or marketplace apps required. Standard REST authentication (Basic, OAuth, API keys) handles connectivity.

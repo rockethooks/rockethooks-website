@@ -34,11 +34,11 @@ Zapier and RocketHooks both connect applications, but they solve fundamentally d
 
 RocketHooks is the right choice when:
 
-- **You need to monitor arbitrary API endpoints** -- not just apps with pre-built Zapier integrations
-- **Sub-minute detection matters** -- Zapier's fastest polling is 1 minute on premium plans; RocketHooks starts at 30 seconds
-- **You want field-level precision** -- monitor specific JSON fields instead of entire record changes
-- **Cost predictability is important** -- per-endpoint pricing vs per-execution pricing avoids surprise bills
-- **Your team prefers code-first** -- configure via API calls and infrastructure-as-code, not drag-and-drop
+- **You need to monitor arbitrary API endpoints**, not just apps with pre-built Zapier integrations
+- **Sub-minute detection matters**: Zapier's fastest polling is 1 minute on premium plans; RocketHooks starts at 30 seconds
+- **You want field-level precision**: monitor specific JSON fields instead of entire record changes
+- **Cost predictability is important**: per-endpoint pricing vs per-execution pricing avoids surprise bills
+- **Your team prefers code-first**: configure via API calls and infrastructure-as-code, not drag-and-drop
 
 ### Example: Monitoring a Custom CRM API
 
@@ -61,16 +61,16 @@ curl -X POST https://api.rockethooks.com/v1/hooks \
   }'
 ```
 
-With Zapier, monitoring a custom CRM API that is not in their integration catalog requires building a custom Zapier app -- a significant development investment.
+With Zapier, monitoring a custom CRM API that is not in their integration catalog requires building a custom Zapier app, a significant development investment.
 
 ## When to Choose Zapier
 
 Zapier is the better choice when:
 
-- **All your apps are in the Zapier catalog** -- pre-built triggers require zero configuration
-- **Non-technical users build workflows** -- the visual builder requires no coding
-- **You need complex multi-step workflows** -- Zapier's workflow engine handles branching, filters, and multi-step logic natively
-- **Speed of setup outweighs precision** -- getting something working in minutes matters more than field-level control
+- **All your apps are in the Zapier catalog**: pre-built triggers require zero configuration
+- **Non-technical users build workflows**: the visual builder requires no coding
+- **You need complex multi-step workflows**: Zapier's workflow engine handles branching, filters, and multi-step logic natively
+- **Speed of setup outweighs precision**: getting something working in minutes matters more than field-level control
 
 ## Pricing Comparison
 

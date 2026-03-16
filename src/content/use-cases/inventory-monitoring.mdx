@@ -9,7 +9,7 @@ featured: false
 
 ## The problem: stockouts happen faster than batch syncs can detect
 
-Inventory data lives in dozens of systems -- supplier portals, warehouse management APIs, marketplace backends, and ERP databases. Most expose stock levels through API endpoints that update continuously, but downstream systems only sync on batch schedules (hourly, daily, or worse).
+Inventory data lives in dozens of systems: supplier portals, warehouse management APIs, marketplace backends, and ERP databases. Most expose stock levels through API endpoints that update continuously, but downstream systems only sync on batch schedules (hourly, daily, or worse).
 
 The gap between real-time inventory changes and batch-processed updates creates predictable failures:
 
@@ -26,10 +26,10 @@ RocketHooks monitors stock level endpoints across your entire supply chain and d
 
 **Core inventory monitoring capabilities:**
 
-1. **Threshold-based alerts** -- Trigger when stock drops below safety levels, hits zero, or changes by a significant quantity
-2. **Multi-supplier monitoring** -- Track inventory across dozens of supplier APIs with a single configuration approach
-3. **Warehouse-level granularity** -- Monitor stock by location, bin, or fulfillment center using JSONPath field selection
-4. **Reorder automation** -- Chain RocketHooks notifications into your procurement or ERP system to automate purchase orders
+1. **Threshold-based alerts**: Trigger when stock drops below safety levels, hits zero, or changes by a significant quantity
+2. **Multi-supplier monitoring**: Track inventory across dozens of supplier APIs with a single configuration approach
+3. **Warehouse-level granularity**: Monitor stock by location, bin, or fulfillment center using JSONPath field selection
+4. **Reorder automation**: Chain RocketHooks notifications into your procurement or ERP system to automate purchase orders
 
 ## Setup in under five minutes
 
@@ -119,9 +119,9 @@ A consumer electronics distributor monitoring 8,200 SKUs across 3 warehouse APIs
 
 RocketHooks connects to any inventory system with an API:
 
-- **Warehouse management** -- ShipBob, ShipHero, Fulfil.io, custom WMS platforms
-- **E-commerce backends** -- Shopify Inventory API, WooCommerce Stock, BigCommerce
-- **Supplier portals** -- EDI-to-REST adapters, supplier catalog APIs
-- **ERP inventory modules** -- SAP, Oracle, NetSuite inventory endpoints
-- **3PL providers** -- Deliverr, Flexport, any 3PL with API access
-- **Marketplace inventory** -- Amazon FBA, Walmart Marketplace inventory feeds
+- **Warehouse management**: ShipBob, ShipHero, Fulfil.io, custom WMS platforms
+- **E-commerce backends**: Shopify Inventory API, WooCommerce Stock, BigCommerce
+- **Supplier portals**: EDI-to-REST adapters, supplier catalog APIs
+- **ERP inventory modules**: SAP, Oracle, NetSuite inventory endpoints
+- **3PL providers**: Deliverr, Flexport, any 3PL with API access
+- **Marketplace inventory**: Amazon FBA, Walmart Marketplace inventory feeds

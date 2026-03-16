@@ -9,7 +9,7 @@ featured: true
 
 ## The problem: blind spots between your monitoring tools
 
-DevOps teams rely on a patchwork of monitoring tools -- Datadog for metrics, PagerDuty for alerting, GitHub Actions for CI/CD. But critical status changes in deployment APIs, third-party service health endpoints, and infrastructure management tools often fall through the cracks.
+DevOps teams rely on a patchwork of monitoring tools (Datadog for metrics, PagerDuty for alerting, GitHub Actions for CI/CD). But critical status changes in deployment APIs, third-party service health endpoints, and infrastructure management tools often fall through the cracks.
 
 Common blind spots include:
 
@@ -26,10 +26,10 @@ RocketHooks converts any health, status, or deployment API endpoint into a real-
 
 **What RocketHooks adds to your DevOps stack:**
 
-1. **Universal API health checks** -- Monitor any API endpoint's response body, status code, and response time in a single configuration
-2. **Pipeline status tracking** -- Detect GitHub Actions, GitLab CI, or Jenkins build status changes the moment they happen
-3. **Service dependency monitoring** -- Watch third-party status page APIs (Stripe, AWS, Twilio) for degradation signals
-4. **Webhook-based incident routing** -- Send critical failures to PagerDuty via webhooks, route warnings to your logging pipeline, and trigger on-call workflows
+1. **Universal API health checks**: Monitor any API endpoint's response body, status code, and response time in a single configuration
+2. **Pipeline status tracking**: Detect GitHub Actions, GitLab CI, or Jenkins build status changes the moment they happen
+3. **Service dependency monitoring**: Watch third-party status page APIs (Stripe, AWS, Twilio) for degradation signals
+4. **Webhook-based incident routing**: Send critical failures to PagerDuty via webhooks, route warnings to your logging pipeline, and trigger on-call workflows
 
 ## Setup in under five minutes
 
@@ -121,9 +121,9 @@ A platform engineering team monitoring 14 microservice deployment pipelines and 
 
 RocketHooks monitors any tool that exposes an API:
 
-- **CI/CD** -- GitHub Actions, GitLab CI, Jenkins, CircleCI, Buildkite
-- **Cloud providers** -- AWS Health API, Azure Service Health, GCP Status
-- **Infrastructure** -- Terraform Cloud, Pulumi, CloudFormation stack events
-- **Status pages** -- Atlassian Statuspage, Instatus, any JSON health endpoint
-- **Container orchestration** -- Kubernetes API server, ECS task status, Nomad jobs
-- **Monitoring tools** -- Datadog, Grafana, Prometheus (via API adapters)
+- **CI/CD**: GitHub Actions, GitLab CI, Jenkins, CircleCI, Buildkite
+- **Cloud providers**: AWS Health API, Azure Service Health, GCP Status
+- **Infrastructure**: Terraform Cloud, Pulumi, CloudFormation stack events
+- **Status pages**: Atlassian Statuspage, Instatus, any JSON health endpoint
+- **Container orchestration**: Kubernetes API server, ECS task status, Nomad jobs
+- **Monitoring tools**: Datadog, Grafana, Prometheus (via API adapters)

@@ -9,7 +9,7 @@ featured: false
 
 ## The problem: order status updates arrive too late
 
-Order fulfillment involves a chain of systems -- payment processors, warehouse management, shipping carriers, and customer-facing platforms. Each system updates its status independently, and most only expose current state through APIs with no push notification capability.
+Order fulfillment involves a chain of systems: payment processors, warehouse management, shipping carriers, and customer-facing platforms. Each system updates its status independently, and most only expose current state through APIs with no push notification capability.
 
 The consequences of delayed status visibility are measurable:
 
@@ -22,14 +22,14 @@ Most e-commerce teams bridge this gap with polling scripts, third-party iPaaS to
 
 ## How RocketHooks solves order fulfillment tracking
 
-RocketHooks monitors order and shipment endpoints across your fulfillment stack, detecting status transitions the moment they occur. Route changes to the teams and systems that need them -- customer notifications, internal dashboards, accounting software, and support tools.
+RocketHooks monitors order and shipment endpoints across your fulfillment stack, detecting status transitions the moment they occur. Route changes to the teams and systems that need them: customer notifications, internal dashboards, accounting software, and support tools.
 
 **Core fulfillment tracking capabilities:**
 
-1. **Multi-provider monitoring** -- Track orders across Stripe, PayPal, ShipStation, EasyPost, and custom fulfillment APIs from a single interface
-2. **Status transition detection** -- Detect specific transitions (pending to shipped, shipped to delivered, any status to exception) with conditional routing
-3. **Customer notification triggers** -- Pipe order status changes via webhooks into your notification provider to send real-time updates without building custom infrastructure
-4. **Exception escalation** -- Route fulfillment failures and delivery exceptions to operations teams within seconds
+1. **Multi-provider monitoring**: Track orders across Stripe, PayPal, ShipStation, EasyPost, and custom fulfillment APIs from a single interface
+2. **Status transition detection**: Detect specific transitions (pending to shipped, shipped to delivered, any status to exception) with conditional routing
+3. **Customer notification triggers**: Pipe order status changes via webhooks into your notification provider to send real-time updates without building custom infrastructure
+4. **Exception escalation**: Route fulfillment failures and delivery exceptions to operations teams within seconds
 
 ## Setup in under five minutes
 
@@ -119,9 +119,9 @@ A direct-to-consumer brand processing 3,000 orders per day connected ShipStation
 
 RocketHooks connects to any fulfillment system with an API:
 
-- **Shipping platforms** -- ShipStation, EasyPost, Shippo, Pirate Ship
-- **Payment processors** -- Stripe, PayPal, Square (order status endpoints)
-- **3PL providers** -- ShipBob, Deliverr, Flexport fulfillment APIs
-- **Carrier APIs** -- FedEx, UPS, USPS, DHL tracking endpoints
-- **E-commerce backends** -- Shopify Orders, WooCommerce Orders, BigCommerce
-- **Custom fulfillment** -- Any API that exposes order or shipment status
+- **Shipping platforms**: ShipStation, EasyPost, Shippo, Pirate Ship
+- **Payment processors**: Stripe, PayPal, Square (order status endpoints)
+- **3PL providers**: ShipBob, Deliverr, Flexport fulfillment APIs
+- **Carrier APIs**: FedEx, UPS, USPS, DHL tracking endpoints
+- **E-commerce backends**: Shopify Orders, WooCommerce Orders, BigCommerce
+- **Custom fulfillment**: Any API that exposes order or shipment status

@@ -42,16 +42,16 @@ async function poll(url, interval = 30000) {
 }
 ```
 
-This approach works but has significant limitations at scale -- rate limiting, wasted requests, and no field-level granularity.
+This approach works but has significant limitations at scale: rate limiting, wasted requests, and no field-level granularity.
 
 ## When Polling Is the Right Choice
 
 Polling is the correct strategy when:
 
-- **The API has no webhook support** -- most legacy and enterprise APIs fall into this category
-- **You need guaranteed delivery** -- polling never misses events since you control the schedule
-- **You want simplicity** -- no public endpoints, no SSL certificates, no webhook signature verification
-- **Rate limits are generous** -- APIs with high rate limits make polling cost-effective
+- **The API has no webhook support**: most legacy and enterprise APIs fall into this category
+- **You need guaranteed delivery**: polling never misses events since you control the schedule
+- **You want simplicity**: no public endpoints, no SSL certificates, no webhook signature verification
+- **Rate limits are generous**: APIs with high rate limits make polling cost-effective
 
 ## Intelligent Polling with RocketHooks
 

@@ -10,7 +10,7 @@ geoTargetQuery: "custom API polling problems"
 seoKeywords: ["custom polling infrastructure", "API polling maintenance", "build vs buy polling", "polling complexity"]
 ---
 
-Every engineering team that integrates with external APIs eventually writes polling code. It starts simple -- a cron job, a setInterval, maybe a background worker. Then reality sets in.
+Every engineering team that integrates with external APIs eventually writes polling code. It starts simple: a cron job, a setInterval, maybe a background worker. Then reality sets in.
 
 ## The Hidden Cost of Custom Polling
 
@@ -88,10 +88,10 @@ The engineering hours spent maintaining polling infrastructure are hours not spe
 
 RocketHooks handles polling infrastructure as a managed service:
 
-- **Automatic rate limit compliance** -- reads limit headers and distributes requests optimally
-- **JSONPath change detection** -- monitor specific fields, ignore noise like timestamps
-- **Built-in retry and recovery** -- exponential backoff, dead letter queues, state persistence
-- **Reliable webhook delivery** -- HMAC-SHA256 signatures, exponential backoff retries, and dead letter queues
+- **Automatic rate limit compliance**: reads limit headers and distributes requests optimally
+- **JSONPath change detection**: monitor specific fields, ignore noise like timestamps
+- **Built-in retry and recovery**: exponential backoff, dead letter queues, state persistence
+- **Reliable webhook delivery**: HMAC-SHA256 signatures, exponential backoff retries, and dead letter queues
 
 Stop maintaining infrastructure that is not your competitive advantage. Focus your engineering effort where it creates unique value for your users.
 
