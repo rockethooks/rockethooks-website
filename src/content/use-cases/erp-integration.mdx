@@ -1,6 +1,6 @@
 ---
 title: "ERP Integration"
-description: "Transform legacy ERP REST endpoints into real-time data feeds. Sync SAP, Oracle, and NetSuite data without modifying existing infrastructure."
+description: "Transform legacy ERP API endpoints into real-time data feeds. Sync SAP, Oracle, and NetSuite data without modifying existing infrastructure."
 industry: "erp"
 icon: "lucide:server"
 order: 5
@@ -22,7 +22,7 @@ The result is a familiar pattern: stale data propagating through business system
 
 ## How RocketHooks solves ERP integration
 
-RocketHooks acts as a lightweight, non-invasive integration layer between your ERP REST endpoints and downstream systems. It handles the complexity of polling, change detection, and event routing so your team can focus on business logic.
+RocketHooks acts as a lightweight, non-invasive integration layer between your ERP API endpoints and downstream systems. It handles the complexity of polling, change detection, and event routing so your team can focus on business logic.
 
 **Why RocketHooks works for ERP:**
 
@@ -111,10 +111,10 @@ A manufacturing company integrating SAP with their custom production planning sy
 RocketHooks integrates with any ERP system that exposes REST or OData endpoints:
 
 - **SAP S/4HANA** -- OData services, Business APIs, custom CDS views
-- **Oracle ERP Cloud** -- REST APIs for financials, procurement, supply chain
+- **Oracle ERP Cloud** -- APIs for financials, procurement, supply chain
 - **Microsoft Dynamics 365** -- OData/REST for finance, operations, commerce
 - **NetSuite** -- SuiteTalk REST, RESTlets, custom record endpoints
 - **Infor CloudSuite** -- ION API Gateway, Infor OS REST services
-- **Sage Intacct** -- REST API for financial management
+- **Sage Intacct** -- API for financial management
 
 No ERP-specific connectors or marketplace apps required. Standard REST authentication (Basic, OAuth, API keys) handles connectivity.

@@ -16,13 +16,13 @@ Zapier and RocketHooks both connect applications, but they solve fundamentally d
 
 **Zapier** is a workflow automation platform. It connects apps through pre-built triggers and actions in a visual builder. It excels at no-code workflows between supported applications.
 
-**RocketHooks** is an API transformation platform. It turns any REST API endpoint into a real-time event stream through intelligent polling and change detection. It is built for developers who need programmatic control.
+**RocketHooks** is an API transformation platform. It turns any API endpoint into a real-time event stream through intelligent polling and change detection. It is built for developers who need programmatic control.
 
 ## Feature Comparison
 
 | Capability | RocketHooks | Zapier |
 |-----------|-------------|--------|
-| Any REST API support | Yes (any endpoint) | Limited to 6,000+ integrations |
+| Any API support | Yes (any endpoint) | Limited to 6,000+ integrations |
 | Custom API endpoints | Full URL + auth config | Requires custom app development |
 | Change detection | JSONPath field-level | Trigger-dependent |
 | Polling interval control | Configurable (30s minimum) | 1-15 minutes (plan-dependent) |
@@ -43,7 +43,7 @@ RocketHooks is the right choice when:
 ### Example: Monitoring a Custom CRM API
 
 ```bash
-# RocketHooks: monitor any REST endpoint directly
+# RocketHooks: monitor any API endpoint directly
 curl -X POST https://api.rockethooks.com/v1/hooks \
   -H "Authorization: Bearer $API_KEY" \
   -d '{
@@ -90,11 +90,11 @@ Yes. A common pattern is using RocketHooks for API monitoring and change detecti
 
 ### Can Zapier monitor any API endpoint?
 
-Zapier can trigger from webhooks (incoming) and has a limited "Webhooks by Zapier" feature, but it cannot poll arbitrary REST endpoints with field-level change detection the way RocketHooks does.
+Zapier can trigger from webhooks (incoming) and has a limited "Webhooks by Zapier" feature, but it cannot poll arbitrary API endpoints with field-level change detection the way RocketHooks does.
 
 ### Is RocketHooks harder to set up than Zapier?
 
-For developers, RocketHooks setup is typically faster because it uses familiar REST API concepts. For non-technical users, Zapier's visual builder has a lower learning curve.
+For developers, RocketHooks setup is typically faster because it uses familiar API concepts. For non-technical users, Zapier's visual builder has a lower learning curve.
 
 ### Which has better uptime and reliability?
 

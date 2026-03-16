@@ -18,15 +18,15 @@ Common blind spots include:
 - Infrastructure provisioning status changes (Terraform, CloudFormation) with no push notification
 - Deployment rollback triggers that depend on manual health check reviews
 
-Most infrastructure APIs expose status through REST endpoints but offer no webhook or push mechanism. Teams end up writing fragile cron jobs or relying on vendor-specific integrations that cover only part of the picture.
+Most infrastructure APIs expose status through API endpoints but offer no webhook or push mechanism. Teams end up writing fragile cron jobs or relying on vendor-specific integrations that cover only part of the picture.
 
 ## How RocketHooks solves DevOps monitoring
 
-RocketHooks converts any REST health, status, or deployment endpoint into a real-time event stream. Define monitors for your CI/CD APIs, cloud provider endpoints, and third-party service status pages, then route changes via webhooks to the systems your team already uses.
+RocketHooks converts any health, status, or deployment API endpoint into a real-time event stream. Define monitors for your CI/CD APIs, cloud provider endpoints, and third-party service status pages, then route changes via webhooks to the systems your team already uses.
 
 **What RocketHooks adds to your DevOps stack:**
 
-1. **Universal API health checks** -- Monitor any REST endpoint's response body, status code, and response time in a single configuration
+1. **Universal API health checks** -- Monitor any API endpoint's response body, status code, and response time in a single configuration
 2. **Pipeline status tracking** -- Detect GitHub Actions, GitLab CI, or Jenkins build status changes the moment they happen
 3. **Service dependency monitoring** -- Watch third-party status page APIs (Stripe, AWS, Twilio) for degradation signals
 4. **Webhook-based incident routing** -- Send critical failures to PagerDuty via webhooks, route warnings to your logging pipeline, and trigger on-call workflows
@@ -119,11 +119,11 @@ A platform engineering team monitoring 14 microservice deployment pipelines and 
 
 ## Supported DevOps tools and APIs
 
-RocketHooks monitors any tool that exposes a REST API:
+RocketHooks monitors any tool that exposes an API:
 
 - **CI/CD** -- GitHub Actions, GitLab CI, Jenkins, CircleCI, Buildkite
 - **Cloud providers** -- AWS Health API, Azure Service Health, GCP Status
 - **Infrastructure** -- Terraform Cloud, Pulumi, CloudFormation stack events
 - **Status pages** -- Atlassian Statuspage, Instatus, any JSON health endpoint
 - **Container orchestration** -- Kubernetes API server, ECS task status, Nomad jobs
-- **Monitoring tools** -- Datadog, Grafana, Prometheus (via REST API adapters)
+- **Monitoring tools** -- Datadog, Grafana, Prometheus (via API adapters)

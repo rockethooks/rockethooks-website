@@ -9,7 +9,7 @@ featured: false
 
 ## The problem: order status updates arrive too late
 
-Order fulfillment involves a chain of systems -- payment processors, warehouse management, shipping carriers, and customer-facing platforms. Each system updates its status independently, and most only expose current state through REST APIs with no push notification capability.
+Order fulfillment involves a chain of systems -- payment processors, warehouse management, shipping carriers, and customer-facing platforms. Each system updates its status independently, and most only expose current state through APIs with no push notification capability.
 
 The consequences of delayed status visibility are measurable:
 
@@ -117,11 +117,11 @@ A direct-to-consumer brand processing 3,000 orders per day connected ShipStation
 
 ## Supported fulfillment platforms
 
-RocketHooks connects to any fulfillment system with a REST API:
+RocketHooks connects to any fulfillment system with an API:
 
 - **Shipping platforms** -- ShipStation, EasyPost, Shippo, Pirate Ship
 - **Payment processors** -- Stripe, PayPal, Square (order status endpoints)
 - **3PL providers** -- ShipBob, Deliverr, Flexport fulfillment APIs
 - **Carrier APIs** -- FedEx, UPS, USPS, DHL tracking endpoints
 - **E-commerce backends** -- Shopify Orders, WooCommerce Orders, BigCommerce
-- **Custom fulfillment** -- Any REST API that exposes order or shipment status
+- **Custom fulfillment** -- Any API that exposes order or shipment status

@@ -1,6 +1,6 @@
 ---
 title: "SaaS Platform Integration"
-description: "Connect SaaS tools that lack native webhooks into your automation stack. Monitor any REST API and trigger workflows across your entire software ecosystem."
+description: "Connect SaaS tools that lack native webhooks into your automation stack. Monitor any API and trigger workflows across your entire software ecosystem."
 industry: "general"
 icon: "lucide:plug"
 order: 7
@@ -9,7 +9,7 @@ featured: false
 
 ## The problem: most SaaS APIs are pull-only
 
-Modern businesses run on dozens of SaaS platforms -- project management, HR, finance, analytics, customer support. While a few market leaders offer webhook integrations, the vast majority expose data only through REST APIs that require explicit polling.
+Modern businesses run on dozens of SaaS platforms -- project management, HR, finance, analytics, customer support. While a few market leaders offer webhook integrations, the vast majority expose data only through APIs that require explicit polling.
 
 This creates a fundamental integration bottleneck:
 
@@ -22,11 +22,11 @@ The typical enterprise runs 100+ SaaS applications. Even if 20% lack webhook sup
 
 ## How RocketHooks solves SaaS integration
 
-RocketHooks provides a universal "webhook adapter" layer for any SaaS REST API. Instead of building custom polling and change detection for each tool, configure RocketHooks monitors that transform pull-based APIs into push-based event streams.
+RocketHooks provides a universal "webhook adapter" layer for any SaaS API. Instead of building custom polling and change detection for each tool, configure RocketHooks monitors that transform pull-based APIs into push-based event streams.
 
 **Why teams choose RocketHooks for SaaS integration:**
 
-1. **Universal API support** -- Any SaaS tool with a REST API works. No connectors to install, no marketplace apps to approve, no vendor-specific SDKs
+1. **Universal API support** -- Any SaaS tool with an API works. No connectors to install, no marketplace apps to approve, no vendor-specific SDKs
 2. **Authentication flexibility** -- OAuth 2.0, API keys, Bearer tokens, Basic auth, custom headers -- configure once per monitor
 3. **Change-based triggering** -- Only fire events when data actually changes, eliminating redundant webhook calls and downstream processing
 4. **Cost-predictable scaling** -- Monitor hundreds of endpoints on a flat monthly price versus per-execution iPaaS fees
@@ -108,13 +108,13 @@ A 200-person SaaS company replaced 14 Zapier zaps and 6 custom polling scripts w
 
 ## Supported SaaS platforms
 
-RocketHooks works with any platform that has a REST API. Common integrations:
+RocketHooks works with any platform that has an API. Common integrations:
 
 - **Project management** -- Notion, Asana, Monday.com, Linear, ClickUp
-- **HR and people** -- BambooHR, Gusto, Rippling, Workday REST APIs
+- **HR and people** -- BambooHR, Gusto, Rippling, Workday APIs
 - **Finance** -- QuickBooks, Xero, Brex, Ramp transaction APIs
 - **Customer support** -- Zendesk, Intercom, Freshdesk ticket endpoints
 - **Analytics** -- Mixpanel, Amplitude, PostHog data export APIs
-- **Developer tools** -- GitHub, GitLab, Jira, Confluence REST APIs
+- **Developer tools** -- GitHub, GitLab, Jira, Confluence APIs
 
-If the platform has a REST API and returns JSON, RocketHooks can monitor it.
+If the platform has an API, RocketHooks can monitor it.
