@@ -28,7 +28,7 @@ RocketHooks is an **API transformation platform** (not just webhooks). It transf
 | UI Primitives | shadcn/ui (base-nova) | Uses `@base-ui/react`, installed via `npx shadcn@latest add` |
 | Styling | Tailwind CSS 4 | Via `@tailwindcss/vite`, design tokens in `src/styles/global.css` |
 | Icons | lucide-react | Tree-shakeable, replaces astro-icon for all React components |
-| Animation | motion (vanilla JS) | Scroll-triggered animations via `<script>` in layouts |
+| Animation | motion (vanilla JS) | Scroll-triggered animations via `<script>` in layouts, `prefers-reduced-motion` respected |
 | Forms | React Hook Form + Zod | ContactForm with validation, Sonner toasts for feedback |
 | Carousel | Embla Carousel | Testimonials component with autoplay |
 | Cross-island state | Nano Stores | `nanostores` + `@nanostores/react` (Astro-recommended) |
@@ -49,6 +49,8 @@ All UI components are React `.tsx` files. Without a `client:*` directive, Astro 
 | TableOfContents | `client:idle` | ~2KB | Scroll spy |
 | ContactForm | `client:load` | ~15KB | Form validation (primary page purpose) |
 | Toaster (Sonner) | `client:load` | ~5KB | Toast notifications |
+| HeroCodeDemo | **none** | 0KB | Static HTML with CSS animations |
+| LogoBar | **none** | 0KB | Static trust signal |
 | Everything else | **none** | 0KB | Static HTML only |
 
 **Hydration discipline:** Adding `client:*` to any component requires explicit justification.
@@ -66,7 +68,7 @@ src/
   components/
     ui/             # shadcn/ui components (button, input, textarea, select, card, badge, sonner)
     shared/         # Header, Footer, Logo, Breadcrumbs, SectionHeading, CTAButton, FinalCTA
-    landing/        # Hero, SocialProof, HowItWorks, Features, UseCases, Pricing, FAQ, Testimonials
+    landing/        # Hero, HeroCodeDemo, LogoBar, SocialProof, HowItWorks, Features, UseCases, Pricing, FAQ, Testimonials
     blog/           # ArticleCard, ArticleList, AuthorBio, TableOfContents, CategoryFilter, etc.
     integrations/   # IntegrationCard
     forms/          # ContactForm, NewsletterForm, FormField
@@ -151,7 +153,7 @@ Type interfaces for serialized props live in `src/types/content.ts`.
 
 ### FAQ Uses Native HTML
 
-FAQ component uses native `<details>/<summary>` elements, NOT shadcn Accordion. This ensures zero JS, full accessibility, and GEO-safe content (visible without hydration).
+FAQ component uses native `<details>/<summary>` elements, NOT shadcn Accordion. This ensures zero JS, full accessibility, and GEO-safe content (visible without hydration). Smooth open/close animation uses CSS `interpolate-size: allow-keywords` (progressive enhancement, Chromium-only -- other browsers get instant toggle).
 
 ### View Transitions Compatibility
 
@@ -171,6 +173,19 @@ const breadcrumbItems = getBreadcrumbs(Astro.url.pathname);
 ### `@types/*` Path Alias Cannot Be Used in `.tsx`
 
 TypeScript interprets `@types/*` as `node_modules/@types/`. Use relative imports for `src/types/content.ts` from `.tsx` files.
+
+### Custom Utilities Use `@utility` Directive
+
+New CSS utilities must use Tailwind 4's `@utility` directive (not raw CSS classes) to enable `cn()` merging and responsive variants:
+
+```css
+@utility hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  &:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+}
+```
+
+Existing custom utilities: `hover-lift`, `bg-hero-mesh`, `bg-dot-grid`.
 
 ## GEO/SEO Architecture
 
