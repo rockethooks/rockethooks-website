@@ -20,7 +20,7 @@ const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://www.rocket
     operatingSystem: 'Web',
     url: siteUrl,
     description:
-      'Transform API endpoints into real-time event streams with intelligent polling, change detection, and reliable webhook delivery.',
+      'Transform API endpoints into real-time event streams with intelligent polling, field-level change detection, and reliable event delivery.',
     offers: {
       '@type': 'AggregateOffer' as const,
       lowPrice: '49',
@@ -29,8 +29,8 @@ const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://www.rocket
       offerCount: 4,
     },
     featureList: [
-      'API to real-time webhook transformation',
-      'JSONPath field-level change detection',
+      'API-to-event transformation',
+      'Field-level change detection (JSONPath, XPath, regex)',
       'HMAC-SHA256 signed webhook delivery',
       'Universal API authentication support (5 auth types)',
       'Two-tier circuit breaker protection',

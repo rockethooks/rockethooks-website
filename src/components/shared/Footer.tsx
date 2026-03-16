@@ -100,7 +100,7 @@ export default function Footer() {
             </a>
             <p className="mt-3 max-w-sm text-sm leading-relaxed text-neutral-600">
               Transform any API into real-time event streams. Intelligent polling, change
-              detection, and reliable webhook delivery -- zero infrastructure changes required.
+              detection, and reliable event delivery -- even for APIs with no native webhooks.
             </p>
 
             {/* Newsletter Signup */}

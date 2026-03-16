@@ -17,7 +17,7 @@ function HowItWorks({ className }: HowItWorksProps) {
         <SectionHeading
           overline="How It Works"
           title="From API to real-time events in 5 steps"
-          subtitle="No infrastructure changes. No code modifications to your existing systems. Just connect and go."
+          subtitle="Works with any API, even those with no native webhook support. No provider cooperation required -- just connect and go."
         />
 
         <div className="mx-auto max-w-2xl">

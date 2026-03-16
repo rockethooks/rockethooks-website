@@ -20,8 +20,8 @@ function Hero({ className }: HeroProps) {
             <span className="text-brand-600"> Real-Time Events</span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-neutral-600 sm:text-xl">
-            Intelligent polling, change detection, and reliable webhook delivery --
-            without touching your existing infrastructure. Deploy in 5 minutes.
+            Intelligent polling, change detection, and real-time notifications --
+            even when the APIs you depend on have no webhooks. Set up in 5 minutes.
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <CTAButton href={getAppUrl()} variant="primary" size="lg">
