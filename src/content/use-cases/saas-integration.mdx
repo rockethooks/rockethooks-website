@@ -87,20 +87,17 @@ curl -X POST https://api.rockethooks.com/v1/monitors \
         "newValue": "$.changes[0].currentValue",
         "previousValue": "$.changes[0].previousValue"
       }
-    },
-    {
-      "channel": "slack",
-      "webhookUrl": "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK",
-      "events": ["field.changed"],
-      "filter": "$.changes[?(@.field == 'Status')]"
     }
   ]
 }
 ```
 
+_Slack, SMS, and email delivery channels are coming soon. Today, you can route webhook payloads to your preferred notification service._
+```
+
 ## Real-world impact
 
-A 200-person SaaS company replaced 14 Zapier zaps and 6 custom polling scripts with RocketHooks monitors. Their monthly integration cost dropped from $890/month (Zapier Business tier + compute for custom scripts) to $79/month on RocketHooks Pro. More importantly, event detection latency dropped from 15 minutes (Zapier polling interval) to under 5 minutes.
+A 200-person SaaS company replaced 14 Zapier zaps and 6 custom polling scripts with RocketHooks monitors. Their monthly integration cost dropped from $890/month (Zapier Business tier + compute for custom scripts) to $149/month on RocketHooks Startup plan. More importantly, event detection latency dropped from 15 minutes (Zapier polling interval) to under 5 minutes.
 
 **Typical results:**
 

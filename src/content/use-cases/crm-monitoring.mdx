@@ -25,7 +25,7 @@ RocketHooks transforms any CRM REST endpoint into a real-time event stream. Poin
 **What changes in your workflow:**
 
 1. **Field-level precision** -- Monitor specific nested fields like `deal.stage`, `contact.lead_score`, or `company.annual_revenue` instead of polling entire records
-2. **Multi-channel alerts** -- Route deal stage changes to Slack, lead score shifts to webhooks, and contact updates to email -- all from a single monitor
+2. **Real-time webhook alerts** -- Route deal stage changes, lead score shifts, and contact updates to your systems via HMAC-signed webhooks
 3. **Zero CRM modifications** -- Works with your existing CRM REST API. No custom apps, no marketplace installations, no admin permissions beyond API access
 4. **Rate limit intelligence** -- Adaptive polling respects your CRM's rate limits while maximizing freshness
 
@@ -64,7 +64,7 @@ curl -X POST https://api.rockethooks.com/v1/monitors \
 }
 ```
 
-### Step 3: Configure notification channels
+### Step 3: Configure webhook delivery
 
 ```json
 {
@@ -73,15 +73,12 @@ curl -X POST https://api.rockethooks.com/v1/monitors \
       "channel": "webhook",
       "url": "https://your-app.com/api/crm-events",
       "events": ["field.changed"]
-    },
-    {
-      "channel": "slack",
-      "webhookUrl": "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK",
-      "events": ["field.changed"],
-      "filter": "$.changes[?(@.field == 'dealstage')]"
     }
   ]
 }
+```
+
+_Slack, SMS, and email delivery channels are coming soon. Today, you can route webhook payloads to your preferred notification service._
 ```
 
 ## Real-world impact

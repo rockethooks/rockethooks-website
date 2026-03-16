@@ -96,21 +96,12 @@ curl -X POST https://api.rockethooks.com/v1/monitors \
         "reorderQuantity": 500,
         "priority": "standard"
       }
-    },
-    {
-      "channel": "slack",
-      "webhookUrl": "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK",
-      "events": ["condition.met"],
-      "filter": "$.label == 'out-of-stock'"
-    },
-    {
-      "channel": "email",
-      "to": ["procurement@yourcompany.com"],
-      "events": ["condition.met"],
-      "filter": "$.severity == 'critical'"
     }
   ]
 }
+```
+
+_Slack, SMS, and email delivery channels are coming soon. Today, you can route webhook payloads to your preferred notification service._
 ```
 
 ## Real-world impact

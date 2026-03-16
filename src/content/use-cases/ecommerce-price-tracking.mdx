@@ -85,15 +85,12 @@ curl -X POST https://api.rockethooks.com/v1/monitors \
         "oldPrice": "$.changes[0].previousValue",
         "newPrice": "$.changes[0].currentValue"
       }
-    },
-    {
-      "channel": "slack",
-      "webhookUrl": "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK",
-      "events": ["field.changed"],
-      "filter": "$.changes[?(@.percentChange > 5)]"
     }
   ]
 }
+```
+
+_Slack, SMS, and email delivery channels are coming soon. Today, you can route webhook payloads to your preferred notification service._
 ```
 
 ## Real-world impact

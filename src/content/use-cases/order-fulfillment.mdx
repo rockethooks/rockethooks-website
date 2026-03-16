@@ -28,7 +28,7 @@ RocketHooks monitors order and shipment endpoints across your fulfillment stack,
 
 1. **Multi-provider monitoring** -- Track orders across Stripe, PayPal, ShipStation, EasyPost, and custom fulfillment APIs from a single interface
 2. **Status transition detection** -- Detect specific transitions (pending to shipped, shipped to delivered, any status to exception) with conditional routing
-3. **Customer notification triggers** -- Pipe order status changes into your email/SMS provider to send real-time updates without building custom infrastructure
+3. **Customer notification triggers** -- Pipe order status changes via webhooks into your notification provider to send real-time updates without building custom infrastructure
 4. **Exception escalation** -- Route fulfillment failures and delivery exceptions to operations teams within seconds
 
 ## Setup in under five minutes
@@ -96,21 +96,12 @@ curl -X POST https://api.rockethooks.com/v1/monitors \
         "previousStatus": "$.previousValue",
         "trackingNumber": "$.context.trackingNumber"
       }
-    },
-    {
-      "channel": "email",
-      "to": ["fulfillment-ops@yourcompany.com"],
-      "events": ["condition.met"],
-      "filter": "$.label == 'delivery-exception'"
-    },
-    {
-      "channel": "slack",
-      "webhookUrl": "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK",
-      "events": ["condition.met"],
-      "filter": "$.label == 'order-shipped'"
     }
   ]
 }
+```
+
+_Slack, SMS, and email delivery channels are coming soon. Today, you can route webhook payloads to your preferred notification service._
 ```
 
 ## Real-world impact

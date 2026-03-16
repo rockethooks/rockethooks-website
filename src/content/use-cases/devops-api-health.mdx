@@ -22,14 +22,14 @@ Most infrastructure APIs expose status through REST endpoints but offer no webho
 
 ## How RocketHooks solves DevOps monitoring
 
-RocketHooks converts any REST health, status, or deployment endpoint into a real-time event stream. Define monitors for your CI/CD APIs, cloud provider endpoints, and third-party service status pages, then route changes to the channels your team already uses.
+RocketHooks converts any REST health, status, or deployment endpoint into a real-time event stream. Define monitors for your CI/CD APIs, cloud provider endpoints, and third-party service status pages, then route changes via webhooks to the systems your team already uses.
 
 **What RocketHooks adds to your DevOps stack:**
 
 1. **Universal API health checks** -- Monitor any REST endpoint's response body, status code, and response time in a single configuration
 2. **Pipeline status tracking** -- Detect GitHub Actions, GitLab CI, or Jenkins build status changes the moment they happen
 3. **Service dependency monitoring** -- Watch third-party status page APIs (Stripe, AWS, Twilio) for degradation signals
-4. **Incident channel routing** -- Send critical failures to PagerDuty, warnings to Slack, and all events to your logging pipeline
+4. **Webhook-based incident routing** -- Send critical failures to PagerDuty via webhooks, route warnings to your logging pipeline, and trigger on-call workflows
 
 ## Setup in under five minutes
 
@@ -98,14 +98,12 @@ curl -X POST https://api.rockethooks.com/v1/monitors \
           "source": "rockethooks"
         }
       }
-    },
-    {
-      "channel": "slack",
-      "webhookUrl": "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK",
-      "events": ["field.changed"]
     }
   ]
 }
+```
+
+_Slack, SMS, and email delivery channels are coming soon. Today, you can route webhook payloads to your preferred notification service._
 ```
 
 ## Real-world impact
