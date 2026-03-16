@@ -20,7 +20,7 @@ export const pricingTiers: PricingTier[] = [
       '14-day free trial, no credit card',
     ],
     cta: {
-      label: 'Start Free Trial',
+      label: 'Start for Free',
       href: getAppUrl('/', { plan: 'developer' }),
     },
   },
@@ -44,7 +44,7 @@ export const pricingTiers: PricingTier[] = [
       '14-day free trial, no credit card',
     ],
     cta: {
-      label: 'Start Free Trial',
+      label: 'Start for Free',
       href: getAppUrl('/', { plan: 'startup' }),
     },
     highlighted: true,
@@ -73,7 +73,7 @@ export const pricingTiers: PricingTier[] = [
       '14-day free trial, no credit card',
     ],
     cta: {
-      label: 'Start Free Trial',
+      label: 'Start for Free',
       href: getAppUrl('/', { plan: 'growth' }),
     },
   },

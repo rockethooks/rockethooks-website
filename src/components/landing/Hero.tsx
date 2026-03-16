@@ -26,7 +26,7 @@ function Hero({ className }: HeroProps) {
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <CTAButton href={getAppUrl()} variant="primary" size="lg">
-              Start Free Trial
+              Start for Free
             </CTAButton>
             <CTAButton href="#how-it-works" variant="secondary" size="lg">
               See How It Works

@@ -103,7 +103,7 @@ export default function Header({ pathname: initialPathname }: HeaderProps) {
             rel="noopener"
             className="rounded-md bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-xs transition-colors hover:bg-brand-700"
           >
-            Start Free Trial
+            Start for Free
           </a>
         </div>
 
@@ -174,7 +174,7 @@ export default function Header({ pathname: initialPathname }: HeaderProps) {
               tabIndex={mobileMenuOpen ? 0 : -1}
               className="rounded-md bg-brand-600 px-4 py-2.5 text-center text-base font-semibold text-white shadow-xs transition-colors hover:bg-brand-700"
             >
-              Start Free Trial
+              Start for Free
             </a>
           </div>
         </div>
