@@ -22,7 +22,6 @@ const columns: FooterColumn[] = [
       { label: 'Pricing', href: '/pricing' },
       { label: 'Use Cases', href: '/use-cases' },
       { label: 'Integrations', href: '/integrations' },
-      { label: 'Changelog', href: '/changelog' },
     ],
   },
   {
@@ -101,7 +100,7 @@ export default function Footer() {
             </a>
             <p className="mt-3 max-w-sm text-sm leading-relaxed text-neutral-600">
               Transform any REST API into real-time event streams. Intelligent polling, change
-              detection, and multi-channel notifications -- zero infrastructure changes required.
+              detection, and reliable webhook delivery -- zero infrastructure changes required.
             </p>
 
             {/* Newsletter Signup */}

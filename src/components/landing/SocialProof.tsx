@@ -14,10 +14,10 @@ interface StatItem {
 }
 
 const stats: StatItem[] = [
-  { value: '10,000+', label: 'API monitors active', countTarget: 10000, countSuffix: '+' },
+  { value: '< 5 min', label: 'setup time', countTarget: 5, countPrefix: '< ', countSuffix: ' min' },
   { value: '99.9%', label: 'uptime SLA', countTarget: 99.9, countSuffix: '%', countDecimals: 1 },
-  { value: '<2s', label: 'avg. webhook delivery', countTarget: 2, countPrefix: '<', countSuffix: 's' },
-  { value: '60-80%', label: 'cost reduction' },
+  { value: '< 2s', label: 'avg. webhook delivery', countTarget: 2, countPrefix: '< ', countSuffix: 's' },
+  { value: '5', label: 'auth types supported', countTarget: 5 },
 ];
 
 function SocialProof({ className }: SocialProofProps) {

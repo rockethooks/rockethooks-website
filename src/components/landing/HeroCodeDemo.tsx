@@ -57,8 +57,6 @@ function HeroCodeDemo({ className }: HeroCodeDemoProps) {
               <span className="text-neutral-300">: </span>
               <span className="text-neutral-300">[</span>
               <span className="text-emerald-400">&quot;webhook&quot;</span>
-              <span className="text-neutral-300">, </span>
-              <span className="text-emerald-400">&quot;slack&quot;</span>
               <span className="text-neutral-300">]</span>
               {'\n'}
               <span className="text-emerald-400">{'  }'}&apos;</span>

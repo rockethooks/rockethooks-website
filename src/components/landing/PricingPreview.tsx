@@ -9,10 +9,10 @@ function PricingPreview() {
         <SectionHeading
           overline="Pricing"
           title="Simple, transparent pricing"
-          subtitle="Start free. Scale as your integration needs grow. No hidden fees."
+          subtitle="14-day free trial on all plans. Scale as your integration needs grow. No hidden fees."
         />
 
-        <div className="mx-auto grid max-w-5xl gap-6 lg:grid-cols-3">
+        <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-4">
           {pricingTiers.map((tier) => (
             <PricingTier key={tier.name} tier={tier} />
           ))}
