@@ -40,11 +40,11 @@ const iconMap: Record<string, string> = {
     <BreadcrumbSchema items={breadcrumbItems.slice(1).map((item) => ({ name: item.label, href: item.href }))} />
     <CollectionPageSchema
       name="RocketHooks Use Cases"
-      description="Industry-specific use cases showing how RocketHooks transforms REST API endpoints into real-time event streams with intelligent polling and multi-channel notifications."
+      description="Industry-specific use cases showing how RocketHooks transforms REST API endpoints into real-time event streams with intelligent polling and webhook delivery."
     />
     <ItemListSchema
       name="RocketHooks Use Cases"
-      description="Industry-specific use cases showing how RocketHooks transforms REST API endpoints into real-time event streams with intelligent polling and multi-channel notifications."
+      description="Industry-specific use cases showing how RocketHooks transforms REST API endpoints into real-time event streams with intelligent polling and webhook delivery."
       items={sorted.map((uc) => ({
         name: uc.data.title,
         description: uc.data.description,
@@ -66,7 +66,7 @@ const iconMap: Record<string, string> = {
           Built for the integrations that matter
         </h1>
         <p class="mt-6 text-lg leading-relaxed text-neutral-600">
-          Most REST APIs are pull-only -- they expose data through endpoints but offer no push mechanism when that data changes. RocketHooks bridges this gap by transforming any API endpoint into a real-time event stream with intelligent polling, JSONPath change detection, and multi-channel delivery. From CRM contact updates to ERP purchase order transitions, teams across industries use RocketHooks to eliminate batch sync delays, replace fragile polling scripts, and react to data changes in seconds instead of hours.
+          Most REST APIs are pull-only -- they expose data through endpoints but offer no push mechanism when that data changes. RocketHooks bridges this gap by transforming any API endpoint into a real-time event stream with intelligent polling, JSONPath change detection, and reliable webhook delivery. From CRM contact updates to ERP purchase order transitions, teams across industries use RocketHooks to eliminate batch sync delays, replace fragile polling scripts, and react to data changes in seconds instead of hours.
         </p>
       </div>
     </div>
@@ -95,7 +95,7 @@ const iconMap: Record<string, string> = {
         Any REST API. Real-time events. Zero infrastructure changes.
       </h2>
       <p class="mt-4 text-lg leading-relaxed text-neutral-600">
-        RocketHooks works with any service that exposes a REST API and returns JSON. If you can call it with cURL, RocketHooks can monitor it, detect changes, and notify your team through webhooks, Slack, email, or SMS.
+        RocketHooks works with any service that exposes a REST API and returns JSON. If you can call it with cURL, RocketHooks can monitor it, detect changes, and deliver real-time webhook notifications to your systems.
       </p>
       <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
         {Object.entries(industryLabels).map(([_key, label]) => (
@@ -109,6 +109,6 @@ const iconMap: Record<string, string> = {
 
   <FinalCTA
     headline="Ready to transform your APIs?"
-    subtitle="Start monitoring any REST API and receiving real-time events in minutes. Free plan includes 5 monitors and 1,000 deliveries per month."
+    subtitle="Start monitoring any REST API and receiving real-time events in minutes. 14-day free trial on all plans, no credit card required."
   />
 </LandingLayout>

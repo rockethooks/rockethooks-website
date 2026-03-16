@@ -13,7 +13,7 @@ const breadcrumbItems = getBreadcrumbs(Astro.url.pathname);
 
 <LandingLayout
   title="How It Works - RocketHooks"
-  description="Learn how RocketHooks transforms REST APIs into real-time event streams in 5 steps: sign up, connect your API, define JSONPath watchers, configure notifications, and go live."
+  description="Learn how RocketHooks transforms REST APIs into real-time event streams in 5 steps: sign up, connect your API, define JSONPath watchers, configure webhooks, and go live."
 >
   <Fragment slot="head">
     <BreadcrumbSchema items={breadcrumbItems.slice(1).map((item) => ({ name: item.label, href: item.href }))} />
@@ -32,7 +32,7 @@ const breadcrumbItems = getBreadcrumbs(Astro.url.pathname);
           From REST API to real-time events in 5 steps
         </h1>
         <p class="mt-6 text-lg leading-relaxed text-neutral-600">
-          RocketHooks connects to any REST API as a consumer, polls for changes on your schedule, and delivers real-time notifications through webhooks, Slack, SMS, or email. No code changes to your existing systems -- set up takes under 5 minutes.
+          RocketHooks connects to any REST API as a consumer, polls for changes on your schedule, and delivers real-time notifications through webhooks. No code changes to your existing systems -- set up takes under 5 minutes.
         </p>
       </div>
     </div>
@@ -62,7 +62,7 @@ const breadcrumbItems = getBreadcrumbs(Astro.url.pathname);
             </div>
             <h3 class="text-xl font-semibold text-neutral-900">{processSteps[0].title}</h3>
             <p class="mt-3 leading-relaxed text-neutral-600">
-              Create your RocketHooks account with one-click OAuth using GitHub or Google. No credit card is required, and your account is ready instantly. The Free plan includes 5 API monitors and 1,000 webhook deliveries per month, giving you everything you need to evaluate the platform with real workloads. Your dashboard loads immediately after authentication, with a guided setup wizard that walks you through connecting your first API endpoint. Organization-level isolation ensures your data stays separate from other tenants from the very first login.
+              Create your RocketHooks account with one-click OAuth using GitHub or Google. No credit card is required, and your account is ready instantly. Every plan includes a 14-day free trial, giving you everything you need to evaluate the platform with real workloads. Your dashboard loads immediately after authentication, with a guided setup wizard that walks you through connecting your first API endpoint. Organization-level isolation ensures your data stays separate from other tenants from the very first login.
             </p>
           </div>
         </div>
@@ -83,7 +83,7 @@ const breadcrumbItems = getBreadcrumbs(Astro.url.pathname);
             </div>
             <h3 class="text-xl font-semibold text-neutral-900">{processSteps[1].title}</h3>
             <p class="mt-3 leading-relaxed text-neutral-600">
-              Add any REST API endpoint by providing its URL and authentication credentials. RocketHooks supports API keys, Bearer tokens, OAuth 2.0 with automatic token refresh, Basic authentication, and custom headers -- covering virtually every API authentication method in use today. You configure the polling interval (from 30 seconds on Pro to 10 seconds on Enterprise) and RocketHooks handles the rest. The platform validates your connection immediately, confirming it can reach your endpoint and parse the JSON response before you proceed to the next step.
+              Add any REST API endpoint by providing its URL and authentication credentials. RocketHooks supports API keys, Bearer tokens, OAuth 2.0 with automatic token refresh, Basic authentication, and custom headers -- covering virtually every API authentication method in use today. You configure the polling interval (from 30 seconds to 24 hours depending on your plan) and RocketHooks handles the rest. The platform validates your connection immediately, confirming it can reach your endpoint and parse the JSON response before you proceed to the next step.
             </p>
             <div class="mt-6 overflow-hidden rounded-md border border-neutral-200">
               <div class="flex items-center gap-2 border-b border-neutral-200 bg-neutral-50 px-4 py-2 text-xs font-medium text-neutral-500">
@@ -171,7 +171,7 @@ const breadcrumbItems = getBreadcrumbs(Astro.url.pathname);
             </div>
             <h3 class="text-xl font-semibold text-neutral-900">{processSteps[3].title}</h3>
             <p class="mt-3 leading-relaxed text-neutral-600">
-              Route detected changes to one or more notification channels simultaneously. Configure webhooks for system-to-system integration, Slack for team awareness, SMS for urgent alerts, and email for stakeholder summaries. Multi-channel fanout means a single API change can trigger all configured channels at once, ensuring the right people receive alerts through their preferred medium. Each channel supports rich formatting -- Slack messages include structured blocks, emails contain HTML templates, and webhook payloads carry the full change diff with before-and-after values for every modified field.
+              Set up your webhook destinations and RocketHooks delivers HMAC-SHA256 signed payloads following the Standard Webhooks spec. Each webhook payload carries the full change diff with before-and-after values for every modified field, making it easy to take action in your downstream systems. Use the built-in test connection feature to validate connectivity, authentication, and payload delivery before going live. Exponential backoff retries and dead letter queues ensure no event is lost, even when your receiving endpoint is temporarily unavailable. Slack, email, and SMS delivery channels are coming soon.
             </p>
           </div>
         </div>
@@ -262,7 +262,7 @@ const breadcrumbItems = getBreadcrumbs(Astro.url.pathname);
               <Icon name="lucide:send" size={22} />
             </div>
             <p class="text-sm font-semibold text-green-900">Delivery</p>
-            <p class="mt-1 text-xs text-green-600">Webhooks, Slack, SMS, Email</p>
+            <p class="mt-1 text-xs text-green-600">Webhooks</p>
           </div>
         </div>
 

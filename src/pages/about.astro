@@ -98,7 +98,7 @@ const breadcrumbItems = getBreadcrumbs(Astro.url.pathname);
       <SectionHeading
         overline="Our Approach"
         title="Zero-Code API Transformation"
-        subtitle="RocketHooks sits between your APIs and your systems. Point it at any REST endpoint and it handles the rest -- polling, change detection, and notification delivery."
+        subtitle="RocketHooks sits between your APIs and your systems. Point it at any REST endpoint and it handles the rest -- polling, change detection, and webhook delivery."
         centered={false}
       />
       <div class="space-y-8">
@@ -129,9 +129,9 @@ const breadcrumbItems = getBreadcrumbs(Astro.url.pathname);
             <Icon name="lucide:send" size={20} />
           </div>
           <div>
-            <h3 class="font-semibold text-neutral-900">Multi-Channel Delivery</h3>
+            <h3 class="font-semibold text-neutral-900">Reliable Webhook Delivery</h3>
             <p class="mt-1 text-sm leading-relaxed text-neutral-600">
-              Webhooks are just one output. Get notified via Slack, email, SMS, or custom integrations. Route different changes to different channels based on your rules.
+              Every webhook includes an HMAC-SHA256 signature for payload verification. Exponential backoff retries, dead letter queues, and built-in connection testing ensure reliable delivery. Slack, email, and SMS delivery channels are coming soon.
             </p>
           </div>
         </div>
@@ -165,7 +165,7 @@ const breadcrumbItems = getBreadcrumbs(Astro.url.pathname);
         </p>
         <p class="text-lg leading-relaxed text-neutral-600">
           RocketHooks is an API transformation platform built by developers, for developers.
-          We handle the undifferentiated heavy lifting of polling, change detection, and event delivery
+          We handle the undifferentiated heavy lifting of polling, change detection, and webhook delivery
           so you can focus on what makes your product unique.
         </p>
       </div>
@@ -174,7 +174,7 @@ const breadcrumbItems = getBreadcrumbs(Astro.url.pathname);
 
   <FinalCTA
     headline="Ready to stop writing polling loops?"
-    subtitle="Transform any REST API into real-time events in minutes. Free to start, no credit card required."
+    subtitle="Transform any REST API into real-time events in minutes. 14-day free trial on all plans, no credit card required."
     ctaHref={getAppUrl()}
   />
 </LandingLayout>

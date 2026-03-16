@@ -25,13 +25,13 @@ const groupedFeatures = categories.map((category) => ({
 
 <LandingLayout
   title="Features - RocketHooks"
-  description="Explore all RocketHooks features: REST-to-real-time API transformation, JSONPath change detection, multi-channel notifications, enterprise security, and reliable webhook delivery."
+  description="Explore all RocketHooks features: REST-to-real-time API transformation, JSONPath change detection, reliable webhook delivery, enterprise security, and intelligent polling."
 >
   <Fragment slot="head">
     <BreadcrumbSchema items={breadcrumbItems.slice(1).map((item) => ({ name: item.label, href: item.href }))} />
     <ItemListSchema
       name="RocketHooks Features"
-      description="Complete list of RocketHooks API transformation platform features including change detection, multi-channel notifications, and enterprise security."
+      description="Complete list of RocketHooks API transformation platform features including change detection, reliable webhook delivery, and enterprise security."
       items={features.map((f) => ({
         name: f.title,
         description: f.description,
@@ -53,7 +53,7 @@ const groupedFeatures = categories.map((category) => ({
           Everything you need to transform APIs into event streams
         </h1>
         <p class="mt-6 text-lg leading-relaxed text-neutral-600">
-          RocketHooks transforms any REST API endpoint into real-time event streams with intelligent polling, JSONPath change detection, and multi-channel delivery. No infrastructure changes required -- connect any API and start receiving events in minutes.
+          RocketHooks transforms any REST API endpoint into real-time event streams with intelligent polling, JSONPath change detection, and reliable webhook delivery. No infrastructure changes required -- connect any API and start receiving events in minutes.
         </p>
       </div>
     </div>
@@ -74,16 +74,16 @@ const groupedFeatures = categories.map((category) => ({
               : group.key === 'monitoring'
                 ? 'Detect exactly the changes that matter'
                 : group.key === 'notifications'
-                  ? 'Deliver alerts through every channel'
+                  ? 'Reliable webhook delivery you can count on'
                   : 'Enterprise-grade protection at every layer'
           }
           subtitle={
             group.key === 'transformation'
-              ? 'Intelligent polling and multi-channel fanout turn static endpoints into live data streams without modifying your existing systems.'
+              ? 'Intelligent polling and reliable webhook delivery turn static endpoints into live data streams without modifying your existing systems.'
               : group.key === 'monitoring'
                 ? 'JSONPath expressions let you monitor specific nested fields. Trigger notifications only when the data you care about actually changes.'
                 : group.key === 'notifications'
-                  ? 'Route change events to webhooks, Slack, SMS, or email. Multi-channel fanout ensures the right people get the right alerts instantly.'
+                  ? 'HMAC-SHA256 signed webhooks with exponential backoff retries, dead letter queues, and built-in connection validation ensure every event reaches its destination.'
                   : 'KMS encryption, JWT webhook signatures, universal auth support, and two-tier circuit breakers protect your data and prevent cascade failures.'
           }
         />
@@ -130,6 +130,6 @@ const groupedFeatures = categories.map((category) => ({
 
   <FinalCTA
     headline="Ready to put these features to work?"
-    subtitle="Start transforming your REST APIs into real-time event streams. Free plan includes 5 monitors and 1,000 deliveries per month."
+    subtitle="Start transforming your REST APIs into real-time event streams. 14-day free trial on all plans, no credit card required."
   />
 </LandingLayout>
