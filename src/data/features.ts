@@ -17,11 +17,11 @@ export const features: Feature[] = [
     category: 'transformation',
   },
   {
-    icon: 'lucide:workflow',
-    title: 'Multi-Channel Fanout',
+    icon: 'lucide:shield',
+    title: 'Webhook Delivery with HMAC Signing',
     description:
-      'A single API change triggers webhooks, Slack messages, SMS alerts, and emails simultaneously.',
-    category: 'transformation',
+      'Every webhook includes an HMAC-SHA256 signature following the Standard Webhooks spec. Verify payload authenticity with zero custom crypto code.',
+    category: 'notifications',
   },
 
   // Monitoring
@@ -56,17 +56,17 @@ export const features: Feature[] = [
     category: 'notifications',
   },
   {
-    icon: 'lucide:message-square',
-    title: 'Slack & SMS Alerts',
+    icon: 'lucide:flask-conical',
+    title: 'Test Connection & Validation',
     description:
-      'Route critical changes to Slack channels or SMS for immediate team awareness with rich formatting.',
+      'Validate API connectivity, authentication, change detection, and webhook delivery before enabling monitoring. Catch configuration issues before they become production problems.',
     category: 'notifications',
   },
   {
-    icon: 'lucide:mail',
-    title: 'Email Notifications',
+    icon: 'lucide:copy',
+    title: 'Clone & Template Endpoints',
     description:
-      'Detailed email reports and summaries for stakeholders who need change visibility without technical dashboards.',
+      'Duplicate endpoint configurations for rapid setup across similar APIs. Clone monitoring rules, delivery configs, and authentication in one click.',
     category: 'notifications',
   },
 
@@ -97,6 +97,6 @@ export const features: Feature[] = [
 export const featureCategories: Record<Feature['category'], string> = {
   transformation: 'API Transformation',
   monitoring: 'Change Detection & Monitoring',
-  notifications: 'Notifications & Delivery',
+  notifications: 'Delivery & Reliability',
   security: 'Security & Reliability',
 };

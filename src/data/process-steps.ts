@@ -24,10 +24,10 @@ export const processSteps: ProcessStep[] = [
   },
   {
     number: 4,
-    icon: 'lucide:bell-ring',
-    title: 'Configure Notifications',
+    icon: 'lucide:webhook',
+    title: 'Configure Webhooks',
     description:
-      'Route changes to webhooks, Slack, SMS, or email. Set up multi-channel fanout so the right people get the right alerts.',
+      'Set up webhook destinations with HMAC-SHA256 signed payloads for secure delivery. Additional channels like Slack, email, and n8n are coming soon.',
   },
   {
     number: 5,

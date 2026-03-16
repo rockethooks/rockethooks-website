@@ -18,16 +18,6 @@ const pricingFaqs = faqs.filter((faq) => faq.category === 'pricing');
 
 const additionalPricingFaqs = [
   {
-    question: 'Do you offer annual billing?',
-    answer:
-      'Yes. Annual billing is available for Pro plans at a 20% discount -- effectively $23.20/month billed annually. Contact sales for Enterprise annual pricing.',
-  },
-  {
-    question: 'Is there a free trial for the Pro plan?',
-    answer:
-      'Yes. Every new account starts with a 14-day Pro trial with full access to all Pro features. No credit card required. At the end of the trial, you can upgrade to Pro or continue on the Free plan.',
-  },
-  {
     question: 'What payment methods do you accept?',
     answer:
       'We accept all major credit cards (Visa, Mastercard, American Express) and process payments securely through Stripe. Enterprise customers can pay by invoice with NET-30 terms.',
@@ -38,19 +28,14 @@ const additionalPricingFaqs = [
       'We offer a 30-day money-back guarantee on all paid plans. If you are not satisfied, contact support within 30 days of your purchase for a full refund -- no questions asked.',
   },
   {
-    question: 'Do you offer discounts for startups or non-profits?',
-    answer:
-      'Yes. We offer 50% off Pro plans for verified startups (under 2 years, under $5M funding) and registered non-profit organizations. Contact us with proof of eligibility to apply.',
-  },
-  {
     question: 'What counts as a webhook delivery?',
     answer:
-      'A webhook delivery is counted each time RocketHooks sends a notification to one of your configured channels (webhook URL, Slack, SMS, or email). A single API change triggering 3 channels counts as 3 deliveries.',
+      'A webhook delivery is counted each time RocketHooks sends a payload to one of your configured webhook destination URLs. Each destination counts as one delivery per event.',
   },
   {
     question: 'What happens to my data if I downgrade?',
     answer:
-      'Your monitors and configurations are preserved when you downgrade. Monitors exceeding the lower plan limit are paused (not deleted) and can be reactivated when you upgrade again. Historical data is retained for 90 days.',
+      'Your endpoints and configurations are preserved when you downgrade. Endpoints exceeding the lower plan limit are paused (not deleted) and can be reactivated when you upgrade again. Historical data is retained according to your plan log retention period.',
   },
 ];
 
@@ -64,49 +49,68 @@ const allPricingFaqs = [
 
 interface ComparisonFeature {
   name: string;
-  free: string | boolean;
-  pro: string | boolean;
+  developer: string | boolean;
+  startup: string | boolean;
+  growth: string | boolean;
   enterprise: string | boolean;
+  comingSoon?: boolean;
 }
 
 const comparisonFeatures: ComparisonFeature[] = [
-  { name: 'API monitors', free: '5', pro: '50', enterprise: 'Unlimited' },
-  { name: 'Webhook deliveries/month', free: '1,000', pro: '50,000', enterprise: 'Custom' },
-  { name: 'Minimum polling interval', free: '5 minutes', pro: '30 seconds', enterprise: '10 seconds' },
-  { name: 'JSONPath expressions per API', free: '3', pro: '10', enterprise: 'Unlimited' },
-  { name: 'Notification channels per change', free: '1', pro: '5', enterprise: 'Unlimited' },
-  { name: 'Multi-channel fanout', free: false, pro: true, enterprise: true },
-  { name: 'Visual response diff viewer', free: false, pro: true, enterprise: true },
-  { name: 'Custom webhook headers', free: true, pro: true, enterprise: true },
-  { name: 'Retry with exponential backoff', free: true, pro: true, enterprise: true },
-  { name: 'Dead letter queue', free: true, pro: true, enterprise: true },
-  { name: 'Two-tier circuit breaker', free: false, pro: false, enterprise: true },
-  { name: 'SLA guarantee (99.9% uptime)', free: false, pro: false, enterprise: true },
-  { name: 'On-premises deployment', free: false, pro: false, enterprise: true },
-  { name: 'Support', free: 'Community', pro: 'Email', enterprise: 'Dedicated' },
+  { name: 'API endpoints', developer: '6', startup: '15', growth: '50', enterprise: 'Unlimited' },
+  { name: 'Webhook destinations', developer: '1', startup: '5', growth: '20', enterprise: 'Unlimited' },
+  { name: 'Email notifications', developer: true, startup: true, growth: true, enterprise: true, comingSoon: true },
+  { name: 'Slack integration', developer: '1 workspace', startup: '3 workspaces', growth: 'Unlimited', enterprise: 'Full enterprise', comingSoon: true },
+  { name: 'n8n workflows', developer: '1', startup: 'Unlimited', growth: 'Unlimited', enterprise: 'Unlimited', comingSoon: true },
+  { name: 'Zapier Zaps', developer: false, startup: '5', growth: 'Unlimited', enterprise: 'Unlimited', comingSoon: true },
+  { name: 'Make.com scenarios', developer: false, startup: '5', growth: 'Unlimited', enterprise: 'Unlimited', comingSoon: true },
+  { name: 'Polling interval', developer: '30s - 24h', startup: '30s - 24h', growth: '30s - 24h', enterprise: '30s - 24h' },
+  { name: 'JSONPath field monitoring', developer: true, startup: true, growth: true, enterprise: true },
+  { name: 'Deep-diff change detection', developer: true, startup: true, growth: true, enterprise: true },
+  { name: 'HMAC-SHA256 signed webhooks', developer: true, startup: true, growth: true, enterprise: true },
+  { name: 'Visual response diff viewer', developer: true, startup: true, growth: true, enterprise: true },
+  { name: 'Test connection & validation', developer: true, startup: true, growth: true, enterprise: true },
+  { name: 'Clone endpoints', developer: true, startup: true, growth: true, enterprise: true },
+  { name: 'Retry with exponential backoff', developer: true, startup: true, growth: true, enterprise: true },
+  { name: 'Dead letter queue', developer: true, startup: true, growth: true, enterprise: true },
+  { name: 'Log retention', developer: '7 days', startup: '30 days', growth: '90 days', enterprise: 'Custom' },
+  { name: 'Team members', developer: 'Solo', startup: '3', growth: '10', enterprise: 'Unlimited' },
+  { name: 'RBAC', developer: false, startup: false, growth: true, enterprise: true, comingSoon: true },
+  { name: 'Pattern matching', developer: false, startup: false, growth: true, enterprise: true, comingSoon: true },
+  { name: 'Threshold detection', developer: false, startup: false, growth: true, enterprise: true, comingSoon: true },
+  { name: 'Audit logs', developer: false, startup: false, growth: true, enterprise: true, comingSoon: true },
+  { name: 'SSO/SAML', developer: false, startup: false, growth: false, enterprise: true, comingSoon: true },
+  { name: 'Two-tier circuit breaker', developer: true, startup: true, growth: true, enterprise: true },
+  { name: 'Uptime SLA', developer: '99.9%', startup: '99.9%', growth: '99.95%', enterprise: '99.99%' },
+  { name: 'Support', developer: 'Email (<48h)', startup: 'Slack (<24h)', growth: 'Phone', enterprise: '24/7 (<1h)' },
 ];
 ---
 
 <LandingLayout
   title="Pricing"
-  description="Simple, transparent pricing for RocketHooks. Start free with 5 API monitors. Scale to Pro for production workloads or Enterprise for unlimited capacity."
+  description="Simple, transparent pricing for RocketHooks. Start with a 14-day free trial on any plan. Developer $49/month, Startup $149/month, Growth $499/month, or Enterprise custom pricing."
   canonical="/pricing"
 >
   <Fragment slot="head">
     <WebApplicationSchema />
     <OfferSchema
-      name="RocketHooks Free"
-      description="5 API monitors, 1,000 deliveries/month, 5-minute polling. Free forever."
-      price="0"
+      name="RocketHooks Developer"
+      description="6 API endpoints, 1 webhook destination, 7-day logs, email support. $49/month."
+      price="49"
     />
     <OfferSchema
-      name="RocketHooks Pro"
-      description="50 API monitors, 50,000 deliveries/month, 30-second polling, multi-channel fanout."
-      price="29"
+      name="RocketHooks Startup"
+      description="15 API endpoints, 5 webhook destinations, 30-day logs, Slack support. $149/month."
+      price="149"
+    />
+    <OfferSchema
+      name="RocketHooks Growth"
+      description="50 API endpoints, 20 webhook destinations, 90-day logs, phone support. $499/month."
+      price="499"
     />
     <OfferSchema
       name="RocketHooks Enterprise"
-      description="Unlimited monitors, custom delivery limits, 10-second polling, SLA, on-premises option."
+      description="Unlimited endpoints, unlimited destinations, custom log retention, 24/7 dedicated support."
       price="0"
       url="/contact?subject=enterprise"
     />
@@ -122,24 +126,24 @@ const comparisonFeatures: ComparisonFeature[] = [
       <SectionHeading
         overline="Pricing"
         title="Simple, transparent pricing"
-        subtitle="Start free. Scale as your integration needs grow. No hidden fees, no surprise charges."
+        subtitle="Start with a 14-day free trial on any plan. No credit card required. Scale as your integration needs grow."
       />
 
-      <div class="mx-auto grid max-w-5xl gap-6 lg:grid-cols-3">
+      <div class="mx-auto grid max-w-6xl gap-6 lg:grid-cols-4">
         {pricingTiers.map((tier) => (
           <PricingTier tier={tier} />
         ))}
       </div>
 
       <p class="mx-auto mt-8 max-w-2xl text-center text-sm text-neutral-500">
-        All plans include HTTPS encryption, JWT-signed payloads, exponential backoff retries, and dead letter queue. No credit card required for Free plan.
+        All plans include HMAC-SHA256 signed webhooks, exponential backoff retries, dead letter queue, and KMS-encrypted credentials. 14-day free trial on all plans.
       </p>
     </div>
   </section>
 
   <!-- Feature comparison matrix -->
   <section class="bg-neutral-50 py-16 sm:py-24">
-    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
       <SectionHeading
         overline="Compare plans"
         title="Feature comparison"
@@ -152,38 +156,55 @@ const comparisonFeatures: ComparisonFeature[] = [
           <thead>
             <tr class="border-b border-neutral-200 bg-neutral-50">
               <th class="px-6 py-4 font-semibold text-neutral-900" scope="col">Feature</th>
-              <th class="px-6 py-4 text-center font-semibold text-neutral-900" scope="col">Free</th>
-              <th class="px-6 py-4 text-center font-semibold text-brand-600" scope="col">Pro</th>
-              <th class="px-6 py-4 text-center font-semibold text-neutral-900" scope="col">Enterprise</th>
+              <th class="px-4 py-4 text-center font-semibold text-neutral-900" scope="col">Developer</th>
+              <th class="px-4 py-4 text-center font-semibold text-brand-600" scope="col">Startup</th>
+              <th class="px-4 py-4 text-center font-semibold text-neutral-900" scope="col">Growth</th>
+              <th class="px-4 py-4 text-center font-semibold text-neutral-900" scope="col">Enterprise</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-neutral-100">
             {comparisonFeatures.map((feature) => (
               <tr>
-                <td class="px-6 py-3.5 text-neutral-700">{feature.name}</td>
-                <td class="px-6 py-3.5 text-center text-neutral-600">
-                  {typeof feature.free === 'boolean' ? (
-                    feature.free ? (
+                <td class="px-6 py-3.5 text-neutral-700">
+                  {feature.name}
+                  {feature.comingSoon && (
+                    <span class="ml-1.5 inline-block rounded bg-amber-100 px-1.5 py-0.5 text-xs font-medium text-amber-700">Coming Soon</span>
+                  )}
+                </td>
+                <td class="px-4 py-3.5 text-center text-neutral-600">
+                  {typeof feature.developer === 'boolean' ? (
+                    feature.developer ? (
                       <Icon name="lucide:check" size={18} class="inline-block text-brand-600" aria-label="Included" />
                     ) : (
                       <Icon name="lucide:minus" size={18} class="inline-block text-neutral-300" aria-label="Not included" />
                     )
                   ) : (
-                    feature.free
+                    feature.developer
                   )}
                 </td>
-                <td class="px-6 py-3.5 text-center text-neutral-600 bg-brand-50/30">
-                  {typeof feature.pro === 'boolean' ? (
-                    feature.pro ? (
+                <td class="px-4 py-3.5 text-center text-neutral-600 bg-brand-50/30">
+                  {typeof feature.startup === 'boolean' ? (
+                    feature.startup ? (
                       <Icon name="lucide:check" size={18} class="inline-block text-brand-600" aria-label="Included" />
                     ) : (
                       <Icon name="lucide:minus" size={18} class="inline-block text-neutral-300" aria-label="Not included" />
                     )
                   ) : (
-                    feature.pro
+                    feature.startup
                   )}
                 </td>
-                <td class="px-6 py-3.5 text-center text-neutral-600">
+                <td class="px-4 py-3.5 text-center text-neutral-600">
+                  {typeof feature.growth === 'boolean' ? (
+                    feature.growth ? (
+                      <Icon name="lucide:check" size={18} class="inline-block text-brand-600" aria-label="Included" />
+                    ) : (
+                      <Icon name="lucide:minus" size={18} class="inline-block text-neutral-300" aria-label="Not included" />
+                    )
+                  ) : (
+                    feature.growth
+                  )}
+                </td>
+                <td class="px-4 py-3.5 text-center text-neutral-600">
                   {typeof feature.enterprise === 'boolean' ? (
                     feature.enterprise ? (
                       <Icon name="lucide:check" size={18} class="inline-block text-brand-600" aria-label="Included" />
@@ -214,11 +235,16 @@ const comparisonFeatures: ComparisonFeature[] = [
             </div>
             <dl class="mt-4 space-y-2.5">
               {comparisonFeatures.map((feature) => {
-                const tierKey = tier.name.toLowerCase() as 'free' | 'pro' | 'enterprise';
+                const tierKey = tier.name.toLowerCase() as 'developer' | 'startup' | 'growth' | 'enterprise';
                 const value = feature[tierKey];
                 return (
                   <div class="flex items-center justify-between text-sm">
-                    <dt class="text-neutral-600">{feature.name}</dt>
+                    <dt class="text-neutral-600">
+                      {feature.name}
+                      {feature.comingSoon && (
+                        <span class="ml-1 inline-block rounded bg-amber-100 px-1 py-0.5 text-xs font-medium text-amber-700">Soon</span>
+                      )}
+                    </dt>
                     <dd class="font-medium text-neutral-900">
                       {typeof value === 'boolean' ? (
                         value ? (
@@ -269,6 +295,6 @@ const comparisonFeatures: ComparisonFeature[] = [
 
   <FinalCTA
     headline="Start monitoring APIs in minutes"
-    subtitle="Join developers who trust RocketHooks to turn any REST API into real-time events. Free plan available -- no credit card required."
+    subtitle="Try RocketHooks free for 14 days. No credit card required. Developer plan starts at $49/month."
   />
 </LandingLayout>
