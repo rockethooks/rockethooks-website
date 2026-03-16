@@ -2,7 +2,6 @@ import { cn } from '@lib/utils';
 import {
   ShieldCheck,
   Lock,
-  Server,
   Gauge,
   KeyRound,
   RefreshCcw,
@@ -31,11 +30,6 @@ const trustSignals: TrustSignal[] = [
     sublabel: 'AES-256 at rest',
   },
   {
-    icon: Server,
-    label: 'AWS Serverless',
-    sublabel: 'Lambda + DynamoDB',
-  },
-  {
     icon: Gauge,
     label: '99.9% Uptime SLA',
     sublabel: 'Enterprise-grade reliability',
@@ -61,7 +55,7 @@ function TrustBar({ className }: TrustBarProps) {
         <p className="mb-8 text-center text-xs font-semibold uppercase tracking-widest text-neutral-400">
           Enterprise-Ready Infrastructure
         </p>
-        <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
+        <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-5">
           {trustSignals.map((signal) => {
             const Icon = signal.icon;
             return (
