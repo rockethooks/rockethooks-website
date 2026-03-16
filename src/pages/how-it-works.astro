@@ -13,7 +13,7 @@ const breadcrumbItems = getBreadcrumbs(Astro.url.pathname);
 
 <LandingLayout
   title="How It Works - RocketHooks"
-  description="Learn how RocketHooks transforms REST APIs into real-time event streams in 5 steps: sign up, connect your API, define JSONPath watchers, configure webhooks, and go live."
+  description="Learn how RocketHooks transforms APIs into real-time event streams in 5 steps: sign up, connect any API, define JSONPath watchers, configure webhooks, and go live."
 >
   <Fragment slot="head">
     <BreadcrumbSchema items={breadcrumbItems.slice(1).map((item) => ({ name: item.label, href: item.href }))} />
@@ -29,10 +29,10 @@ const breadcrumbItems = getBreadcrumbs(Astro.url.pathname);
           How It Works
         </p>
         <h1 class="text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl">
-          From REST API to real-time events in 5 steps
+          From API to real-time events in 5 steps
         </h1>
         <p class="mt-6 text-lg leading-relaxed text-neutral-600">
-          RocketHooks connects to any REST API as a consumer, polls for changes on your schedule, and delivers real-time notifications through webhooks. No code changes to your existing systems -- set up takes under 5 minutes.
+          RocketHooks connects to any API as a consumer, polls for changes on your schedule, and delivers real-time notifications through webhooks. No code changes to your existing systems -- set up takes under 5 minutes.
         </p>
       </div>
     </div>
@@ -83,7 +83,7 @@ const breadcrumbItems = getBreadcrumbs(Astro.url.pathname);
             </div>
             <h3 class="text-xl font-semibold text-neutral-900">{processSteps[1].title}</h3>
             <p class="mt-3 leading-relaxed text-neutral-600">
-              Add any REST API endpoint by providing its URL and authentication credentials. RocketHooks supports API keys, Bearer tokens, OAuth 2.0 with automatic token refresh, Basic authentication, and custom headers -- covering virtually every API authentication method in use today. You configure the polling interval (from 30 seconds to 24 hours depending on your plan) and RocketHooks handles the rest. The platform validates your connection immediately, confirming it can reach your endpoint and parse the JSON response before you proceed to the next step.
+              Add any API endpoint by providing its URL and authentication credentials. RocketHooks supports API keys, Bearer tokens, OAuth 2.0 with automatic token refresh, Basic authentication, and custom headers -- covering virtually every API authentication method in use today. You configure the polling interval (from 30 seconds to 24 hours depending on your plan) and RocketHooks handles the rest. The platform validates your connection immediately, confirming it can reach your endpoint and parse the response before you proceed to the next step.
             </p>
             <div class="mt-6 overflow-hidden rounded-md border border-neutral-200">
               <div class="flex items-center gap-2 border-b border-neutral-200 bg-neutral-50 px-4 py-2 text-xs font-medium text-neutral-500">
@@ -216,8 +216,8 @@ const breadcrumbItems = getBreadcrumbs(Astro.url.pathname);
             <div class="mb-2 inline-flex items-center justify-center rounded-md bg-blue-100 p-2 text-blue-600">
               <Icon name="lucide:globe" size={22} />
             </div>
-            <p class="text-sm font-semibold text-blue-900">Your APIs</p>
-            <p class="mt-1 text-xs text-blue-600">REST endpoints</p>
+            <p class="text-sm font-semibold text-blue-900">Third-Party APIs</p>
+            <p class="mt-1 text-xs text-blue-600">API endpoints</p>
           </div>
 
           <!-- Arrow -->
@@ -291,6 +291,6 @@ const breadcrumbItems = getBreadcrumbs(Astro.url.pathname);
 
   <FinalCTA
     headline="Start transforming your APIs today"
-    subtitle="From REST endpoint to real-time events in under 5 minutes. No credit card required to get started."
+    subtitle="From API endpoint to real-time events in under 5 minutes. No credit card required to get started."
   />
 </LandingLayout>
