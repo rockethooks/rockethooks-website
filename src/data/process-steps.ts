@@ -11,9 +11,9 @@ export const processSteps: ProcessStep[] = [
   {
     number: 2,
     icon: 'lucide:link',
-    title: 'Connect Your API',
+    title: 'Connect Any API',
     description:
-      'Add any REST API endpoint with its authentication. RocketHooks supports API keys, Bearer tokens, OAuth 2.0, and Basic auth.',
+      'Add any API endpoint with its authentication. RocketHooks supports API keys, Bearer tokens, OAuth 2.0, and Basic auth.',
   },
   {
     number: 3,

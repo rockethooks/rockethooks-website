@@ -29,9 +29,9 @@ export const faqs: FAQItem[] = [
 
   // Features
   {
-    question: 'Does RocketHooks work with any REST API?',
+    question: 'Does RocketHooks work with any API?',
     answer:
-      'Yes. RocketHooks works with any REST API that returns JSON responses. It supports API keys, Bearer tokens, OAuth 2.0 with auto-refresh, Basic auth, and custom headers for authentication.',
+      'Yes. RocketHooks works with any HTTP API that returns JSON or XML responses. It supports API keys, Bearer tokens, OAuth 2.0 with auto-refresh, Basic auth, and custom headers for authentication.',
     category: 'features',
   },
   {

@@ -33,7 +33,7 @@ export const useCasePreviews: UseCasePreview[] = [
     icon: 'lucide:server',
     title: 'ERP Integration',
     description:
-      'Transform legacy ERP REST endpoints into real-time data feeds without touching existing infrastructure.',
+      'Transform legacy ERP endpoints into real-time data feeds without touching existing infrastructure.',
     href: '/use-cases/erp-integration',
   },
   {

@@ -6,7 +6,7 @@ export const features: Feature[] = [
     icon: 'lucide:repeat',
     title: 'REST to Real-Time Conversion',
     description:
-      'Transform any REST API endpoint into a webhook source. No code changes to your existing systems required.',
+      'Transform any API endpoint into a webhook source. No code changes to your existing systems required.',
     category: 'transformation',
   },
   {
