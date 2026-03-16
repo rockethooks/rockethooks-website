@@ -20,7 +20,7 @@ export const processSteps: ProcessStep[] = [
     icon: 'lucide:scan-search',
     title: 'Define What to Watch',
     description:
-      'Use JSONPath, XPath, or regex to monitor specific fields -- or watch entire responses. The visual builder helps you target the right data.',
+      'Use JSONPath, XPath, or regex to monitor specific fields, or watch entire responses. The visual builder helps you target the right data.',
   },
   {
     number: 4,

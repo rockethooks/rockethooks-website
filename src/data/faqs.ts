@@ -5,7 +5,7 @@ export const faqs: FAQItem[] = [
   {
     question: 'Is there a free trial?',
     answer:
-      'We offer a 14-day free trial on all plans with no credit card required. The Developer plan starts at $49/month -- affordable enough to test with real workloads before committing.',
+      'We offer a 14-day free trial on all plans with no credit card required. The Developer plan starts at $49/month. Affordable enough to test with real workloads before committing.',
     category: 'pricing',
   },
   {
@@ -37,7 +37,7 @@ export const faqs: FAQItem[] = [
   {
     question: 'How does field-level change detection work?',
     answer:
-      'RocketHooks uses expression-based monitoring to track specific fields within API responses. For JSON APIs, use JSONPath. For XML, use XPath. For plain text, use regex. AUTO mode detects the format automatically. You only get notified when the exact data you care about changes -- not on every response.',
+      'RocketHooks uses expression-based monitoring to track specific fields within API responses. For JSON APIs, use JSONPath. For XML, use XPath. For plain text, use regex. AUTO mode detects the format automatically. You only get notified when the exact data you care about changes, not on every response.',
     category: 'features',
   },
   {
@@ -63,7 +63,7 @@ export const faqs: FAQItem[] = [
   {
     question: 'Do the APIs I monitor need any changes?',
     answer:
-      'No. RocketHooks connects to APIs as a read-only consumer using standard HTTP requests. The services you monitor require no changes on their end -- no webhooks to configure, no SDKs to install, no provider cooperation.',
+      'No. RocketHooks connects to APIs as a read-only consumer using standard HTTP requests. The services you monitor require no changes on their end: no webhooks to configure, no SDKs to install, no provider cooperation.',
     category: 'general',
   },
   {

@@ -6,7 +6,7 @@ export const features: Feature[] = [
     icon: 'lucide:repeat',
     title: 'API-to-Event Transformation',
     description:
-      'Transform any API endpoint into a real-time event source -- even services that offer no native webhooks or push notifications.',
+      'Transform any API endpoint into a real-time event source, even for services that offer no native webhooks or push notifications.',
     category: 'transformation',
   },
   {
@@ -29,7 +29,7 @@ export const features: Feature[] = [
     icon: 'lucide:scan-search',
     title: 'Field-Level Change Detection',
     description:
-      'Monitor specific fields using JSONPath, XPath, or regex expressions. Trigger only when the data you care about changes -- across JSON, XML, and text responses.',
+      'Monitor specific fields using JSONPath, XPath, or regex expressions. Trigger only when the data you care about changes across JSON, XML, and text responses.',
     category: 'monitoring',
   },
   {
