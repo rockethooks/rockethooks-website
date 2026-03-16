@@ -24,9 +24,6 @@ function Hero({ className }: HeroProps) {
             Trigger an action if something changed. We built RocketHooks so you never have to write
             that loop again.
           </p>
-          <p className="mx-auto mt-4 text-sm font-medium text-brand-600">
-            Set up in 5 minutes. 14-day free trial, no credit card required.
-          </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <CTAButton href={getAppUrl()} variant="primary" size="lg">
               Start Free Trial
@@ -35,6 +32,9 @@ function Hero({ className }: HeroProps) {
               See How It Works
             </CTAButton>
           </div>
+          <p className="mt-4 text-sm text-neutral-500">
+            Set up in 5 minutes. 14-day free trial, no credit card required.
+          </p>
         </div>
 
         <HeroCodeDemo className="mt-12 lg:mt-16" />

@@ -11,7 +11,8 @@ interface ProblemCard {
   icon: LucideIcon;
   title: string;
   description: string;
-  color: string;
+  iconBg: string;
+  borderAccent: string;
 }
 
 const problems: ProblemCard[] = [
@@ -20,35 +21,39 @@ const problems: ProblemCard[] = [
     title: 'Wasted Engineering Time',
     description:
       'Teams build the same retry logic, rate limiting, and error handling for every API integration. It is undifferentiated work that slows down product delivery.',
-    color: 'bg-red-50 text-red-600',
+    iconBg: 'bg-error-light text-error',
+    borderAccent: 'border-t-red-300',
   },
   {
     icon: AlertTriangle,
     title: 'Fragile Infrastructure',
     description:
       'Custom polling scripts break silently. Rate limits get hit. Auth tokens expire. Changes go undetected for hours, or even days, before anyone notices.',
-    color: 'bg-amber-50 text-amber-600',
+    iconBg: 'bg-warning-light text-warning',
+    borderAccent: 'border-t-amber-300',
   },
   {
     icon: Layers,
     title: 'Integration Sprawl',
     description:
       'Each API gets its own polling setup, its own monitoring, its own alerting. The operational burden grows linearly with every new integration.',
-    color: 'bg-amber-50 text-amber-600',
+    iconBg: 'bg-warning-light text-warning',
+    borderAccent: 'border-t-amber-300',
   },
   {
     icon: DollarSign,
     title: 'Hidden Costs',
     description:
       'Unnecessary compute, excessive API calls, on-call rotations for polling failures. The true cost of DIY polling is far higher than it appears.',
-    color: 'bg-red-50 text-red-600',
+    iconBg: 'bg-error-light text-error',
+    borderAccent: 'border-t-red-300',
   },
 ];
 
 function TheProblem({ className }: TheProblemProps) {
   return (
     <section
-      className={cn('animate-section bg-white py-16 sm:py-24', className)}
+      className={cn('animate-section bg-neutral-50 py-16 sm:py-24', className)}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
@@ -63,20 +68,23 @@ function TheProblem({ className }: TheProblemProps) {
             return (
               <div
                 key={problem.title}
-                className="rounded-lg border border-neutral-200 bg-white p-6"
+                className={cn(
+                  'animate-card rounded-lg border border-neutral-200 border-t-2 bg-white p-6 shadow-xs hover-lift',
+                  problem.borderAccent
+                )}
               >
                 <div
                   className={cn(
-                    'mb-4 inline-flex h-10 w-10 items-center justify-center rounded-full',
-                    problem.color
+                    'mb-4 inline-flex items-center justify-center rounded-md p-2.5',
+                    problem.iconBg
                   )}
                 >
-                  <Icon className="h-5 w-5" />
+                  <Icon size={22} />
                 </div>
-                <h3 className="mb-2 text-lg font-semibold text-neutral-900">
+                <h3 className="text-lg font-semibold text-neutral-900">
                   {problem.title}
                 </h3>
-                <p className="leading-relaxed text-neutral-600">
+                <p className="mt-2 text-sm leading-relaxed text-neutral-600">
                   {problem.description}
                 </p>
               </div>

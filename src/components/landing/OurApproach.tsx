@@ -43,7 +43,7 @@ const capabilities: Capability[] = [
 function OurApproach({ className }: OurApproachProps) {
   return (
     <section
-      className={cn('animate-section bg-neutral-50 py-16 sm:py-24', className)}
+      className={cn('animate-section bg-white py-16 sm:py-24', className)}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
@@ -52,21 +52,24 @@ function OurApproach({ className }: OurApproachProps) {
           subtitle="RocketHooks sits between the APIs you depend on and your systems. Point it at any API endpoint and it handles the rest: polling, change detection, and event delivery."
         />
 
-        <div className="mx-auto max-w-3xl space-y-8">
+        <div className="grid gap-6 sm:grid-cols-2">
           {capabilities.map((capability) => {
             const Icon = capability.icon;
             return (
-              <div key={capability.title} className="flex gap-5">
+              <div
+                key={capability.title}
+                className="animate-card flex gap-4 rounded-lg border border-neutral-200 border-t-2 border-t-brand-200 bg-white p-6 shadow-xs hover-lift"
+              >
                 <div className="flex-shrink-0">
-                  <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-brand-100 text-brand-600">
-                    <Icon className="h-5 w-5" />
+                  <div className="inline-flex items-center justify-center rounded-md bg-brand-50 p-2.5 text-brand-600">
+                    <Icon size={22} />
                   </div>
                 </div>
                 <div>
-                  <h3 className="mb-1 text-lg font-semibold text-neutral-900">
+                  <h3 className="text-lg font-semibold text-neutral-900">
                     {capability.title}
                   </h3>
-                  <p className="leading-relaxed text-neutral-600">
+                  <p className="mt-2 text-sm leading-relaxed text-neutral-600">
                     {capability.description}
                   </p>
                 </div>
