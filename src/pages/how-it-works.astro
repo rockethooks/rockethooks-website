@@ -13,7 +13,7 @@ const breadcrumbItems = getBreadcrumbs(Astro.url.pathname);
 
 <LandingLayout
   title="How It Works - RocketHooks"
-  description="Learn how RocketHooks transforms APIs into real-time event streams in 5 steps: sign up, connect any API, define JSONPath watchers, configure webhooks, and go live."
+  description="Learn how RocketHooks transforms APIs into real-time event streams in 5 steps: sign up, connect any API, define change detection rules, configure delivery, and go live."
 >
   <Fragment slot="head">
     <BreadcrumbSchema items={breadcrumbItems.slice(1).map((item) => ({ name: item.label, href: item.href }))} />
@@ -32,7 +32,7 @@ const breadcrumbItems = getBreadcrumbs(Astro.url.pathname);
           From API to real-time events in 5 steps
         </h1>
         <p class="mt-6 text-lg leading-relaxed text-neutral-600">
-          RocketHooks connects to any API as a consumer, polls for changes on your schedule, and delivers real-time notifications through webhooks. No code changes to your existing systems -- set up takes under 5 minutes.
+          RocketHooks connects to any API as a read-only consumer, polls for changes on your schedule, and delivers real-time notifications when something changes. No provider cooperation needed -- set up takes under 5 minutes.
         </p>
       </div>
     </div>
@@ -125,12 +125,12 @@ const breadcrumbItems = getBreadcrumbs(Astro.url.pathname);
             </div>
             <h3 class="text-xl font-semibold text-neutral-900">{processSteps[2].title}</h3>
             <p class="mt-3 leading-relaxed text-neutral-600">
-              Use JSONPath expressions to monitor specific fields within API responses, so you only receive notifications when the exact data you care about changes. For example, monitor <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-sm font-medium text-neutral-800">$.orders[*].status</code> to track order status transitions, or <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-sm font-medium text-neutral-800">$.inventory.quantity</code> to detect stock level drops. The visual JSONPath builder helps you target the right fields without memorizing the syntax. You can also watch entire responses if you need full change detection rather than field-level monitoring.
+              Define what to watch using JSONPath (for JSON), XPath (for XML), or regex (for text) -- or let AUTO mode detect the format for you. For example, monitor <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-sm font-medium text-neutral-800">$.orders[*].status</code> to track order status transitions, or <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-sm font-medium text-neutral-800">$.inventory.quantity</code> to detect stock level drops. The visual field builder helps you construct expressions without memorizing the syntax. You can also watch entire responses if you need full change detection rather than field-level monitoring.
             </p>
             <div class="mt-6 overflow-hidden rounded-md border border-neutral-200">
               <div class="flex items-center gap-2 border-b border-neutral-200 bg-neutral-50 px-4 py-2 text-xs font-medium text-neutral-500">
                 <Icon name="lucide:code-2" size={14} />
-                JSONPath Watch Expressions
+                Watch Expressions (JSONPath Example)
               </div>
               <pre class="overflow-x-auto bg-neutral-900 p-4 text-sm leading-relaxed text-neutral-100"><code>{`{
   "watches": [
@@ -191,7 +191,7 @@ const breadcrumbItems = getBreadcrumbs(Astro.url.pathname);
             </div>
             <h3 class="text-xl font-semibold text-neutral-900">{processSteps[4].title}</h3>
             <p class="mt-3 leading-relaxed text-neutral-600">
-              Enable monitoring and RocketHooks takes over. The platform handles intelligent polling with automatic rate limit detection, change comparison using your JSONPath expressions, exponential backoff retries for failed deliveries, and dead letter queues for events that cannot be delivered after multiple attempts. The real-time health dashboard shows polling status, delivery rates, and system health across all your API integrations. Two-tier circuit breakers at both the API and endpoint level prevent cascade failures and reduce unnecessary compute costs by 60 to 80 percent when upstream services experience issues.
+              Enable monitoring and RocketHooks takes over. The platform handles intelligent polling with automatic rate limit detection, change comparison using your watch expressions, exponential backoff retries for failed deliveries, and dead letter queues for events that cannot be delivered after multiple attempts. The real-time health dashboard shows polling status, delivery rates, and system health across all your API integrations. Two-tier circuit breakers at both the API and endpoint level prevent cascade failures and reduce unnecessary compute costs by 60 to 80 percent when upstream services experience issues.
             </p>
           </div>
         </div>
@@ -247,7 +247,7 @@ const breadcrumbItems = getBreadcrumbs(Astro.url.pathname);
               <Icon name="lucide:scan-search" size={22} />
             </div>
             <p class="text-sm font-semibold text-amber-900">Change Detection</p>
-            <p class="mt-1 text-xs text-amber-600">JSONPath diff</p>
+            <p class="mt-1 text-xs text-amber-600">Field-level diff</p>
           </div>
 
           <!-- Arrow -->
