@@ -35,9 +35,9 @@ export const faqs: FAQItem[] = [
     category: 'features',
   },
   {
-    question: 'What is JSONPath change detection?',
+    question: 'How does field-level change detection work?',
     answer:
-      'JSONPath is a query language for JSON data, similar to XPath for XML. RocketHooks uses JSONPath expressions to monitor specific fields within API responses, so you only get notified when the exact data you care about changes -- not on every response.',
+      'RocketHooks uses expression-based monitoring to track specific fields within API responses. For JSON APIs, use JSONPath. For XML, use XPath. For plain text, use regex. AUTO mode detects the format automatically. You only get notified when the exact data you care about changes -- not on every response.',
     category: 'features',
   },
   {
@@ -61,9 +61,9 @@ export const faqs: FAQItem[] = [
 
   // General
   {
-    question: 'Do I need to modify my existing APIs?',
+    question: 'Do the APIs I monitor need any changes?',
     answer:
-      'No. RocketHooks connects to your APIs as a consumer -- it reads from them using standard HTTP requests. Your existing systems require zero code changes or infrastructure modifications.',
+      'No. RocketHooks connects to APIs as a read-only consumer using standard HTTP requests. The services you monitor require no changes on their end -- no webhooks to configure, no SDKs to install, no provider cooperation.',
     category: 'general',
   },
   {
@@ -81,7 +81,7 @@ export const faqs: FAQItem[] = [
   {
     question: 'How do I get started?',
     answer:
-      'Sign up with GitHub or Google OAuth to start your 14-day free trial. Connect your first API endpoint, define what to watch with JSONPath, and configure your webhook destination. Most users receive their first webhook within 5 minutes.',
+      'Sign up with GitHub or Google OAuth to start your 14-day free trial. Connect your first API endpoint, define what to watch using the visual field builder, and configure your notification destination. Most users receive their first event notification within 5 minutes.',
     category: 'general',
   },
 ];
