@@ -1,5 +1,6 @@
 import { cn } from '@lib/utils';
 import { CTAButton } from '@components/shared/CTAButton';
+import { HeroCodeDemo } from '@components/landing/HeroCodeDemo';
 import { getAppUrl } from '@utils/urls';
 
 interface HeroProps {
@@ -34,6 +35,8 @@ function Hero({ className }: HeroProps) {
             No credit card required. Free plan available forever.
           </p>
         </div>
+
+        <HeroCodeDemo className="mt-12 lg:mt-16" />
       </div>
     </section>
   );

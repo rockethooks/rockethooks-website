@@ -85,6 +85,7 @@ function Testimonials({ items, className }: TestimonialsProps) {
                     name={testimonial.name}
                     role={testimonial.role}
                     company={testimonial.company}
+                    rating={testimonial.rating}
                   />
                 </div>
               ))}

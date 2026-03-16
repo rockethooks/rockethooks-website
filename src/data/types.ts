@@ -24,6 +24,7 @@ export interface Testimonial {
   name: string;
   role: string;
   company: string;
+  rating?: number;
 }
 
 export interface ProcessStep {

@@ -29,7 +29,7 @@ const ctaSizeClasses: Record<CTASize, string> = {
 
 const ctaVariantClasses: Record<CTAVariant, string> = {
   primary:
-    'bg-brand-600 text-white shadow-xs hover:bg-brand-700 focus-visible:ring-brand-500',
+    'bg-gradient-to-r from-brand-600 to-brand-700 text-white shadow-xs hover:from-brand-700 hover:to-brand-600 focus-visible:ring-brand-500',
   secondary:
     'border border-neutral-300 bg-white text-neutral-700 shadow-xs hover:bg-neutral-50 focus-visible:ring-neutral-400',
 };

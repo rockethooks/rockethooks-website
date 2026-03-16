@@ -16,11 +16,16 @@ function SectionHeading({
   className,
 }: SectionHeadingProps) {
   return (
-    <div className={cn('mb-12 max-w-3xl', centered && 'mx-auto text-center', className)}>
+    <div className={cn('animate-heading mb-12 max-w-3xl', centered && 'mx-auto text-center', className)}>
       {overline && (
-        <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-brand-600">
-          {overline}
-        </p>
+        <>
+          <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-brand-600">
+            {overline}
+          </p>
+          {centered && (
+            <span className="mx-auto mt-2 mb-1 block h-0.5 w-10 rounded-full bg-brand-600" />
+          )}
+        </>
       )}
       <h2 className="text-3xl font-semibold tracking-tight text-neutral-900 sm:text-4xl">
         {title}

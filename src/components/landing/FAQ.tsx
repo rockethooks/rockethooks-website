@@ -28,20 +28,22 @@ function FAQ({ items, maxItems = 8, className }: FAQProps) {
           {displayedFaqs.map((faq, index) => (
             <details
               key={index}
-              className="group rounded-lg border border-neutral-200 bg-white"
+              className="faq-item group rounded-lg border border-neutral-200 bg-white"
             >
               <summary className="flex cursor-pointer items-center justify-between px-5 py-4 text-left text-sm font-semibold text-neutral-900 [&::-webkit-details-marker]:hidden">
                 {faq.question}
                 <span
                   aria-hidden="true"
-                  className="ml-4 shrink-0 text-neutral-400 transition-transform duration-200 group-open:rotate-45"
+                  className="ml-4 shrink-0 text-neutral-400 transition-transform duration-300 group-open:rotate-45"
                 >
                   +
                 </span>
               </summary>
-              <dd className="border-t border-neutral-100 px-5 py-4 text-sm leading-relaxed text-neutral-600">
-                {faq.answer}
-              </dd>
+              <div>
+                <dd className="border-t border-neutral-100 px-5 py-4 text-sm leading-relaxed text-neutral-600">
+                  {faq.answer}
+                </dd>
+              </div>
             </details>
           ))}
         </dl>
