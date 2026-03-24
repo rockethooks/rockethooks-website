@@ -223,7 +223,7 @@ Existing custom utilities: `hover-lift`, `bg-hero-mesh`, `bg-dot-grid`.
 
 | Environment | URL                                      | Branch           |
 | ----------- | ---------------------------------------- | ---------------- |
-| Production  | https://www.rockethooks.com              | `main`           |
+| Production  | https://rockethooks.com                  | `main`           |
 | Staging     | https://staging.www.rockethooks.com      | `staging`        |
 | Sandbox     | https://sandbox.www.rockethooks.com      | `sandbox`        |
 | PR Previews | `[branch].rockethooks-website.pages.dev` | feature branches |
