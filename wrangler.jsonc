@@ -19,7 +19,7 @@
     "PUBLIC_CLOUDFLARE_BEACON_TOKEN": "faf1ebdd5549410fa46464a5cea7fa67",
     "PUBLIC_ENV": "production",
     "PUBLIC_GA4_MEASUREMENT_ID": "G-RL523H0X2D",
-    "PUBLIC_SITE_URL": "https://www.rockethooks.com",
+    "PUBLIC_SITE_URL": "https://rockethooks.com",
     "YARN_VERSION": "1.22.22"
   },
   "env": {

@@ -10,7 +10,7 @@ interface Props {
 }
 
 const { name, description, price, priceCurrency = 'USD', url } = Astro.props;
-const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://www.rockethooks.com';
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://rockethooks.com';
 ---
 
 <Schema

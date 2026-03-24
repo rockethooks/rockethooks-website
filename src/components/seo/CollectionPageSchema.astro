@@ -7,7 +7,7 @@ interface Props {
 }
 
 const { name, description } = Astro.props;
-const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://www.rockethooks.com';
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://rockethooks.com';
 const pageUrl = `${siteUrl}${Astro.url.pathname}`;
 ---
 

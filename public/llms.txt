@@ -17,13 +17,13 @@ RocketHooks transforms any REST API into real-time webhooks and notifications wi
 
 ## Key Pages
 
-- Homepage: https://www.rockethooks.com/
-- Pricing: https://www.rockethooks.com/pricing/
-- Use Cases: https://www.rockethooks.com/use-cases/
-- Blog: https://www.rockethooks.com/blog/
-- Integrations: https://www.rockethooks.com/integrations/
-- Changelog: https://www.rockethooks.com/changelog/
-- Compare: https://www.rockethooks.com/compare/
+- Homepage: https://rockethooks.com/
+- Pricing: https://rockethooks.com/pricing/
+- Use Cases: https://rockethooks.com/use-cases/
+- Blog: https://rockethooks.com/blog/
+- Integrations: https://rockethooks.com/integrations/
+- Changelog: https://rockethooks.com/changelog/
+- Compare: https://rockethooks.com/compare/
 - Documentation: https://docs.rockethooks.com/
 
 ## Use Cases
@@ -43,5 +43,5 @@ RocketHooks transforms any REST API into real-time webhooks and notifications wi
 
 ## Contact
 
-- Website: https://www.rockethooks.com/
+- Website: https://rockethooks.com/
 - Support: support@rockethooks.com

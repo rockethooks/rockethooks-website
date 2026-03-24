@@ -31,7 +31,7 @@ const {
 } = Astro.props;
 
 const formattedTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
-const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://www.rockethooks.com';
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://rockethooks.com';
 const pageUrl = canonical
   ? (canonical.startsWith('http') ? canonical : `${siteUrl}${canonical}`)
   : `${siteUrl}${Astro.url.pathname}`;

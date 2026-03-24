@@ -18,7 +18,7 @@ import partytown from '@astrojs/partytown';
 import rehypeCallouts from 'rehype-callouts';
 
 export default defineConfig({
-  site: 'https://www.rockethooks.com',
+  site: 'https://rockethooks.com',
   output: 'static',
 
   experimental: {

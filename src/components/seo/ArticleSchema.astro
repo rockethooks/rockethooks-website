@@ -16,7 +16,7 @@ interface Props {
 const { title, description, publishDate, updatedDate, authorName, authorUrl, image, keywords, url } =
   Astro.props;
 
-const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://www.rockethooks.com';
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://rockethooks.com';
 const fullUrl = url.startsWith('http') ? url : `${siteUrl}${url}`;
 const imageUrl = image?.startsWith('http') ? image : image ? `${siteUrl}${image}` : undefined;
 ---
