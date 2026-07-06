@@ -14,7 +14,10 @@ RocketHooks is an **API transformation platform** (not just webhooks). It transf
 | -------------- | --------------------------------- |
 | `yarn dev`     | Start dev server (localhost:4321) |
 | `yarn build`   | Type-check + build to `dist/`     |
-| `yarn preview` | Preview production build locally  |
+| `yarn preview` | Build, then serve via `wrangler dev` |
+| `yarn deploy`  | Build, then `wrangler deploy`     |
+| `yarn check`   | `astro check` (type-check only)   |
+| `yarn lint`    | ESLint                            |
 | `yarn astro`   | Access Astro CLI directly         |
 
 **Note:** Use `yarn`, not `npm`.
@@ -38,9 +41,9 @@ RocketHooks is an **API transformation platform** (not just webhooks). It transf
 
 ## Architecture
 
-### SSR React with Opt-In Hydration
+### Static Rendering with Opt-In Hydration
 
-All UI components are React `.tsx` files. Without a `client:*` directive, Astro renders them to **static HTML at build time** -- zero JS shipped. Interactive components selectively hydrate:
+Astro `output: 'static'` -- all pages are prerendered to HTML at build time. All UI components are React `.tsx` files. Without a `client:*` directive, Astro renders them to **static HTML at build time** -- zero JS shipped. Interactive components selectively hydrate:
 
 | Component | Directive | JS Cost | Reason |
 |-----------|-----------|---------|--------|
@@ -97,9 +100,9 @@ src/
 | `use-cases`    | content | `industry` enum, `order`, `featured`                                              |
 | `integrations` | content | `platform`, `logo`, `category`                                                    |
 | `authors`      | data    | `name`, `bio`, `linkedin`, `github` (E-E-A-T signals)                             |
-| `changelog`    | content | Release notes                                                                     |
 
-All schemas validated with Zod via Astro's Content Collections API.
+Defined in `src/content.config.ts`. All schemas validated with Zod via Astro's
+Content Collections API.
 
 ### Hub-and-Spoke Content Model
 
